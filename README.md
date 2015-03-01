@@ -3,9 +3,9 @@ Android chat application
 
 To run application, run next several commands:
 
-npm update__
-bower update__
-gulp compile__
-ionic platform add android__
-ionic build android__
-ionic run/emulate android__
+npm update  
+bower update  
+gulp compile  
+ionic platform add android  
+ionic build android  
+ionic run/emulate android  
