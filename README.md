@@ -1,7 +1,7 @@
 # fastmit
 Android chat application
 
-To run application, run next several commands:__
+To run application, run next several commands:
 
 npm update__
 bower update__
