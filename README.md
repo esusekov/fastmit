@@ -1,4 +1,4 @@
-# fastmit
+# Fastmit
 Android chat application
 
 To run application, run next several commands:
