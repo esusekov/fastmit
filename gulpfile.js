@@ -14,7 +14,7 @@ var babel = require("gulp-babel");
 
 var paths = {
     sass: ['./scss/**/*.scss'],
-    js: [ './js/app/**/*.js' ],
+    js: [ './www/js/app/**/*.js' ],
     root: './www'
 };
 
