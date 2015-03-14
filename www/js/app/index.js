@@ -1,11 +1,44 @@
 "use strict";
 
-angular.module('sidebar', ['ionic'])
+angular.module('common', [])
+    .factory('urls_api', require('./common/urls_api'))
+    .factory('authorization', require('./common/services/authorization'));
+
+
+angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
 
-angular.module('app', ['ionic', 'ngCordova', 'pascalprecht.translate', 'sidebar'])
-    .config(require('./shared/translate'))
-    .config(require('./shared/router'))
+
+angular.module('login', [])
+    .controller('LoginController', require('./components/login/login-controller'));
+
+angular.module('forgot', [])
+    .controller('ForgotController', require('./components/forgot/forgot-controller'));
+
+
+angular.module('registration', [])
+    .controller('RegistrationController', require('./components/registration/registration-controller'));
+
+angular.module('settings', [])
+    .controller('SettingsController', require('./components/settings/settings-controller'));
+
+angular.module('app', [
+        'ionic',
+        'ngCordova',
+        'LocalForageModule',
+        'pascalprecht.translate',
+        'sidebar',
+        'login',
+        'registration',
+        'forgot',
+        'settings',
+        'common'
+    ])
+
+    .config(require('./common/translate'))
+
+    .config(require('./common/router'))
+
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -18,6 +51,7 @@ angular.module('app', ['ionic', 'ngCordova', 'pascalprecht.translate', 'sidebar'
             }
         });
     })
+
     .run(function($ionicPlatform, $cordovaGlobalization, $translate) {
         $ionicPlatform.ready(function() {
             $cordovaGlobalization.getPreferredLanguage()
@@ -25,4 +59,15 @@ angular.module('app', ['ionic', 'ngCordova', 'pascalprecht.translate', 'sidebar'
                     $translate.use((language.value).split("-")[0]);
                 });
         });
+    })
+
+    .run(function(authorization, $location) {
+
+        authorization.checkAuth(function() {
+            $location.path('/app/main');
+        }, function() {
+            $location.path('/login');
+        });
+
     });
+
