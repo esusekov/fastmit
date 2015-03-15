@@ -11,7 +11,9 @@ module.exports = /*@ngInject*/ function() {
 
         registration: main_url + '/registration',
 
-        forgot: main_url + '/forgot-password'
+        forgot: main_url + '/forgot-password',
+
+        friendsList: main_url + '/friends'
     };
 
 };

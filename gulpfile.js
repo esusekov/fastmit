@@ -20,7 +20,7 @@ var paths = {
 
 gulp.task('lint', function() {
   return gulp.src(paths.js)
-      .pipe(jshint({ eqnull: true, node: true, browser: true, predef: [ 'angular' ] }))
+      .pipe(jshint({ eqnull: true, esnext: true, node: true, browser: true, predef: [ 'angular' ] }))
       .pipe(jshint.reporter('default'))
       .pipe(jshint.reporter('fail'));
 });

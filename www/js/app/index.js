@@ -1,9 +1,12 @@
 "use strict";
 
-angular.module('common', [])
+angular.module('users', [])
+    .factory('User', require('./common/users/user-model'))
+    .factory('usersFactory', require('./common/users/users-factory'));
+
+angular.module('common', ['users'])
     .factory('urls_api', require('./common/urls_api'))
     .factory('authorization', require('./common/services/authorization'));
-
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
@@ -21,6 +24,10 @@ angular.module('registration', [])
 angular.module('settings', [])
     .controller('SettingsController', require('./components/settings/settings-controller'));
 
+angular.module('friends', [])
+    .factory('friendsService', require('./components/friends/friends-service'))
+    .controller('FriendsController', require('./components/friends/friends-controller'));
+
 angular.module('app', [
         'ionic',
         'ngCordova',
@@ -31,6 +38,7 @@ angular.module('app', [
         'registration',
         'forgot',
         'settings',
+        'friends',
         'common'
     ])
 

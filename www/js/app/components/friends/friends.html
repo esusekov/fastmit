@@ -1,5 +1,15 @@
 <ion-view view-title="{{ 'FRIENDS' | translate }}">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
     <ion-content>
-        <h1>{{ 'FRIENDS' | translate }}</h1>
+        <ion-list>
+            <ion-item ng-repeat="friend in friends">
+                {{::friend.username}}
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

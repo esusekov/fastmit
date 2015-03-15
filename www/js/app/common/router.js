@@ -41,7 +41,8 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
             url: '/friends',
             views: {
                 'menuContent': {
-                    templateUrl: 'js/app/components/friends/friends.html'
+                    templateUrl: 'js/app/components/friends/friends.html',
+                    controller: 'FriendsController'
                 }
             }
         })
