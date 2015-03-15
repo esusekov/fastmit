@@ -1,0 +1,33 @@
+<ion-view view-title="{{ 'LOGIN' | translate }}">
+    <ion-nav-bar class="bar-positive" align-title="center">
+    </ion-nav-bar>
+    <ion-content>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">Username</span>
+                <input type="text" ng-model="username">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Password</span>
+                <input type="password" ng-model="password">
+            </label>
+        </div>
+        <div class="padding">
+            <button class="button button-block button-positive" ng-click="login(username, password)">
+                {{ 'LOGIN' | translate }}
+            </button>
+        </div>
+        <div class="row">
+            <div class="col col-50 text-left">
+                <button class="button button-clear button-stable" ng-click="goForgotPassword()">
+                    {{ 'FORGOT' | translate }} ?
+                </button>
+            </div>
+            <div class="col col-50 text-right">
+                <button class="button button-clear button-stable" ng-click="goRegistration()">
+                    {{ 'REGISTRATION' | translate }}
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
