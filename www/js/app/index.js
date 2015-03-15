@@ -3,7 +3,7 @@
 angular.module('sidebar', ['ionic'])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
 
-angular.module('app', ['ionic', 'ngCordova', 'pascalprecht.translate', 'sidebar'])
+angular.module('app', ['ionic', 'ngCordova', 'LocalForageModule', 'pascalprecht.translate', 'sidebar' ])
     .config(require('./shared/translate'))
     .config(require('./shared/router'))
     .run(function($ionicPlatform) {
