@@ -6,9 +6,16 @@
         </ion-nav-buttons>
     </ion-nav-bar>
     <ion-content>
+        <ion-refresher
+                pulling-text="Pull to refresh..."
+                icon="android">
+        </ion-refresher>
         <ion-list>
-            <ion-item ng-repeat="friend in friends">
-                {{::friend.username}}
+            <ion-item ng-repeat="friend in friends" class="friend">
+                    <img ng-src="{{::friend.photoUrl}}" class="photo">
+                    <div class="username-container">
+                        <span class="username">{{::friend.username}}</span>
+                    </div>
             </ion-item>
         </ion-list>
     </ion-content>

@@ -46,7 +46,12 @@ angular.module('app', [
 
     .config(require('./common/router'))
 
-    .run(function($ionicPlatform) {
+    .constant('$ionicLoadingConfig', {
+        template: '<i class="icon ion-loading-c"></i>',
+        noBackdrop: true
+    })
+
+    .run(function($ionicPlatform, $ionicSideMenuDelegate) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -56,6 +61,13 @@ angular.module('app', [
             if(window.StatusBar) {
                 window.StatusBar.styleDefault();
             }
+
+            document.addEventListener('touchstart', function (event) {
+                // workaround for Android
+                if ($ionicSideMenuDelegate.isOpenLeft()) {
+                    event.preventDefault();
+                }
+            });
         });
     })
 

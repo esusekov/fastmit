@@ -13,7 +13,7 @@ var jshint = require('gulp-jshint');
 var babel = require("gulp-babel");
 
 var paths = {
-    sass: ['./scss/**/*.scss'],
+    sass: ['./www/scss/**/*.scss'],
     js: [ './www/js/app/**/*.js' ],
     root: './www'
 };
