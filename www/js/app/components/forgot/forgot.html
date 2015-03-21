@@ -4,17 +4,19 @@
         </ion-nav-back-button>
     </ion-nav-bar>
     <ion-content>
-        <div class="list">
-            <label class="item item-input">
-                <span class="input-label">Email</span>
-                <input type="email" ng-model="email">
-            </label>
-        </div>
-        <div class="padding">
-            <button class="button button-block button-positive" ng-click="forgotPassword(email)">
-                {{ 'CONFIRM' | translate }}
-            </button>
-        </div>
-
+        <form name="forgotForm">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Email</span>
+                    <input type="email" ng-model="email" name="email" required ng-pattern="emailPattern">
+                </label>
+            </div>
+            <div class="padding">
+                <button class="button button-block button-positive" ng-click="forgotPassword(email)"
+                        ng-disabled="forgotForm.$invalid">
+                    {{ 'CONFIRM' | translate }}
+                </button>
+            </div>
+        </form>
     </ion-content>
 </ion-view>

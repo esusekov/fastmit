@@ -1,19 +1,16 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $location, authorization) {
+module.exports = /*@ngInject*/ function($scope, $location, Registration, popup) {
 
-    $scope.username = $scope.email = $scope.password = '';
+    $scope.emailPattern = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
-    $scope.register = function(username, email, password) {
-        console.log($scope.username);
-        authorization.register({
-            username: username,
-            email: email,
-            password: password
-        }, function() {
+    $scope.model = new Registration();
+
+    $scope.register = function() {
+        $scope.model.register(function() {
             $location.path('/app/main');
         }, function() {
-            console.log('Error registration');
+            popup.alert('Something wrong!');
         });
     };
 

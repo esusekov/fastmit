@@ -1,8 +1,11 @@
 "use strict";
 
 angular.module('common', [])
-    .factory('urls_api', require('./common/urls_api'))
-    .factory('authorization', require('./common/services/authorization'));
+    .service('urls_api', require('./common/urls_api'))
+    .service('popup', require('./common/services/popup'))
+    .service('authorization', require('./common/services/authorization'))
+    .factory('Login', require('./common/services/Login'))
+    .factory('Registration', require('./common/services/Registration'));
 
 
 angular.module('sidebar', [])
@@ -62,12 +65,10 @@ angular.module('app', [
     })
 
     .run(function(authorization, $location) {
-
         authorization.checkAuth(function() {
             $location.path('/app/main');
         }, function() {
             $location.path('/login');
         });
-
     });
 

@@ -55,7 +55,6 @@ module.exports = /*@ngInject*/ function($localForage, $http, urls_api) {
         logout: function(successCallback) {
             $localForage.removeItem(AUTH_TOKEN_KEY).then(function() {
                 token = null;
-
                 if (successCallback != null) {
                     successCallback();
                 }
