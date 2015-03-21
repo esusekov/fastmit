@@ -13,10 +13,12 @@ module.exports = /*@ngInject*/ function($scope, $location, LoginModel, popupServ
     };
 
     $scope.goRegistration = function() {
+        $scope.model.clear();
         $location.path('/registration');
     };
 
     $scope.goForgotPassword = function() {
+        $scope.model.clear();
         $location.path('/forgot');
     };
 

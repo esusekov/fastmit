@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(authorization) {
+module.exports = /*@ngInject*/ function(authorizationService) {
 
     var Registration = function() {
         this.__username =
@@ -54,7 +54,7 @@ module.exports = /*@ngInject*/ function(authorization) {
 
         register: function(successCallback, errorCallback) {
             var self = this;
-            authorization.register(
+            authorizationService.register(
                 self.getData(),
                 function() {
                     self.clear();

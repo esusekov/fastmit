@@ -86,8 +86,8 @@ angular.module('app', [
         });
     })
 
-    .run(function(authorization, $location) {
-        authorization.checkAuth(function() {
+    .run(function(authorizationService, $location) {
+        authorizationService.checkAuth(function() {
             $location.path('/app/main');
         }, function() {
             $location.path('/login');
