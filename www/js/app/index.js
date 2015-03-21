@@ -1,10 +1,15 @@
 "use strict";
 
-angular.module('users', [])
-    .factory('User', require('./common/users/user-model'))
-    .factory('usersFactory', require('./common/users/users-factory'));
+var polyfills = require('./polyfills');
+polyfills.array();
 
-angular.module('common', ['users'])
+angular.module('friends', [])
+    .factory('FriendModel', require('./common/friends/friend-model'))
+    .factory('friendsFactory', require('./common/friends/friends-factory'))
+    .factory('friendsService', require('./common/friends/friends-service'))
+    .directive('friendItem', require('./common/friends/friend-item'));
+
+angular.module('common', ['friends'])
     .factory('urls_api', require('./common/urls_api'))
     .factory('authorization', require('./common/services/authorization'));
 
@@ -24,9 +29,11 @@ angular.module('registration', [])
 angular.module('settings', [])
     .controller('SettingsController', require('./components/settings/settings-controller'));
 
-angular.module('friends', [])
-    .factory('friendsService', require('./components/friends/friends-service'))
-    .controller('FriendsController', require('./components/friends/friends-controller'));
+angular.module('main-page', [])
+    .controller('MainController', require('./components/main-page/main-controller'));
+
+angular.module('friends-page', [])
+    .controller('FriendsController', require('./components/friends-page/friends-controller'));
 
 angular.module('app', [
         'ionic',
@@ -38,7 +45,8 @@ angular.module('app', [
         'registration',
         'forgot',
         'settings',
-        'friends',
+        'main-page',
+        'friends-page',
         'common'
     ])
 

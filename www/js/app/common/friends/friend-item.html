@@ -1,0 +1,10 @@
+<div class="friend">
+    <img ng-src="{{::friend.photoUrl}}" class="photo">
+    <div class="username-container">
+        <span class="username">{{::friend.username}}</span>
+    </div>
+    <div class="indicators-container">
+        <i class="icon ion-android-mail" ng-if="friend.hasUnread"></i>
+        <i class="icon ion-record" ng-if="friend.isOnline"></i>
+    </div>
+</div>

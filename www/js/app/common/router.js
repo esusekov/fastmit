@@ -32,7 +32,8 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
             url: '/main',
             views: {
                 'menuContent': {
-                    templateUrl: 'js/app/components/main/main.html'
+                    templateUrl: 'js/app/components/main-page/main.html',
+                    controller: 'MainController'
                 }
             }
         })
@@ -41,8 +42,26 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
             url: '/friends',
             views: {
                 'menuContent': {
-                    templateUrl: 'js/app/components/friends/friends.html',
+                    templateUrl: 'js/app/components/friends-page/friends.html',
                     controller: 'FriendsController'
+                }
+            }
+        })
+
+        .state('app.friends.all', {
+            url: '/all',
+            views: {
+                'friendsAll': {
+                    templateUrl: 'js/app/components/friends-page/all-friends.html'
+                }
+            }
+        })
+
+        .state('app.friends.online', {
+            url: '/online',
+            views: {
+                'friendsOnline': {
+                    templateUrl: 'js/app/components/friends-page/online-friends.html'
                 }
             }
         })
