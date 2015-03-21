@@ -1,0 +1,27 @@
+.friend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .photo {
+    height: 10vw;
+    width: 10vw;
+    border-radius: 10%;
+
+    flex-shrink: 0;
+  }
+
+  .username-container {
+    display: flex;
+    width: 90vw;
+    height: 100%;
+
+    .username {
+      align-self: center;
+      margin-left: 10%;
+      font-size: 20px;
+    }
+  }
+}

@@ -1,5 +1,22 @@
 <ion-view view-title="{{ 'FRIENDS' | translate }}">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
     <ion-content>
-        <h1>{{ 'FRIENDS' | translate }}</h1>
+        <ion-refresher
+                pulling-text="Pull to refresh..."
+                icon="android">
+        </ion-refresher>
+        <ion-list>
+            <ion-item ng-repeat="friend in friends" class="friend">
+                    <img ng-src="{{::friend.photoUrl}}" class="photo">
+                    <div class="username-container">
+                        <span class="username">{{::friend.username}}</span>
+                    </div>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

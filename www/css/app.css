@@ -7015,6 +7015,26 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.friend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%; }
+  .friend .photo {
+    height: 10vw;
+    width: 10vw;
+    border-radius: 10%;
+    flex-shrink: 0; }
+  .friend .username-container {
+    display: flex;
+    width: 90vw;
+    height: 100%; }
+    .friend .username-container .username {
+      align-self: center;
+      margin-left: 10%;
+      font-size: 20px; }
+
 .text-left {
   text-align: left; }
 

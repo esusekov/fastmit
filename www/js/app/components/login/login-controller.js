@@ -1,14 +1,14 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $location, Login, popup) {
+module.exports = /*@ngInject*/ function($scope, $location, LoginModel, popupService) {
 
-    $scope.model = new Login();
+    $scope.model = new LoginModel();
 
     $scope.signIn = function() {
         $scope.model.signIn(function() {
             $location.path('/app/main');
         }, function() {
-            popup.alert('Something wrong!');
+            popupService.alert('Something wrong!');
         });
     };
 

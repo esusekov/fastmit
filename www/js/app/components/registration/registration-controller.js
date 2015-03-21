@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $location, Registration, popup) {
+module.exports = /*@ngInject*/ function($scope, $location, RegistrationModel, popupService) {
 
     $scope.emailPattern = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
