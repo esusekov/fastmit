@@ -4,6 +4,7 @@ var polyfills = require('./polyfills');
 polyfills.array();
 
 angular.module('friends', [])
+    .filter('friendChatUrl', require('./common/friends/friend-chat-url'))
     .factory('FriendModel', require('./common/friends/friend-model'))
     .factory('friendsFactory', require('./common/friends/friends-factory'))
     .factory('friendsService', require('./common/friends/friends-service'))
@@ -39,6 +40,12 @@ angular.module('main-page', [])
 angular.module('friends-page', [])
     .controller('FriendsController', require('./components/friends-page/friends-controller'));
 
+angular.module('search-page', [])
+    .controller('SearchController', require('./components/search-page/search-controller'));
+
+angular.module('chat-page', [])
+    .controller('ChatController', require('./components/chat-page/chat-controller'));
+
 angular.module('app', [
         'ionic',
         'ngCordova',
@@ -51,6 +58,8 @@ angular.module('app', [
         'settings',
         'main-page',
         'friends-page',
+        'search-page',
+        'chat-page',
         'common'
     ])
 

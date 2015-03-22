@@ -4,7 +4,12 @@
             <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
             </button>
         </ion-nav-buttons>
+
+        <ion-nav-buttons side="right">
+            <a class="button button-icon button-clear ion-search" href="#/app/search"></a>
+        </ion-nav-buttons>
     </ion-nav-bar>
+
     <ion-tabs class="tabs-stable tabs-striped tabs-top friends">
 
         <ion-tab title="{{friendsCount + ' ' + ( 'ALL_FRIENDS' | translate )}}" href="#/app/friends/all">

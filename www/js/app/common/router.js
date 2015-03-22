@@ -38,6 +38,16 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('app.search', {
+            url: '/search',
+            views: {
+                'menuContent': {
+                    templateUrl: 'js/app/components/search-page/search.html',
+                    controller: 'SearchController'
+                }
+            }
+        })
+
         .state('app.friends', {
             url: '/friends',
             views: {
@@ -77,10 +87,11 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
         })
 
         .state('app.chat', {
-            url: '/chat',
+            url: '/chat/:id',
             views: {
                 'menuContent': {
-                    templateUrl: 'js/app/components/chat/chat.html'
+                    templateUrl: 'js/app/components/chat-page/chat.html',
+                    controller: 'ChatController'
                 }
             }
         });

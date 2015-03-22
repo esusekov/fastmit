@@ -1,0 +1,24 @@
+<ion-view view-title="{{ 'SEARCH' | translate }}" class="search">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+
+    </ion-nav-bar>
+
+    <ion-header-bar class="bar-positive bar-subheader">
+        <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Search" ng-model="query.username">
+        </label>
+    </ion-header-bar>
+
+    <ion-content class="has-subheader friends">
+        <ion-list>
+            <ion-item ng-repeat="friend in friends | filter:query">
+                <friend-item friend="friend"></friend-item>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

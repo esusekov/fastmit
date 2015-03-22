@@ -50,7 +50,12 @@ module.exports = /*@ngInject*/ function() {
 
         setNoUnread: function() {
             this.__hasUnread = false;
+        },
+
+        checkId: function(id) {
+            return Number(this.__id) === Number(id);
         }
+
     };
 
     return Friend;

@@ -1,4 +1,4 @@
-<div class="friend">
+<a class="friend" ng-href="{{friend.id | friendChatUrl}}" ui-sref-active>
     <img ng-src="{{::friend.photoUrl}}" class="photo">
     <div class="username-container">
         <span class="username">{{::friend.username}}</span>
@@ -7,4 +7,4 @@
         <i class="icon ion-android-mail" ng-if="friend.hasUnread"></i>
         <i class="icon ion-record" ng-if="friend.isOnline"></i>
     </div>
-</div>
+</a>
