@@ -1,16 +1,11 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $translate, authorization, $location) {
+module.exports = /*@ngInject*/ function($scope, $translate, authorizationService, $location) {
 
     $scope.logout = function() {
-
-        authorization.logout(function() {
+        authorizationService.logout(function() {
             $location.path('/login');
-            console.log(authorization.getToken());
         });
-
-
-
     };
 
 };

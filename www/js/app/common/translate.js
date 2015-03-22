@@ -12,7 +12,8 @@ module.exports = /*@ngInject*/ function($translateProvider) {
         REGISTRATION: 'Registration',
         FORGOT: 'Forgot password',
         CONFIRM: 'Confirm',
-        SIGN_UP: 'Sign up'
+        SIGN_UP: 'Sign up',
+        SIGN_IN: 'Sign in'
     });
 
     $translateProvider.translations('ru', {
@@ -26,7 +27,8 @@ module.exports = /*@ngInject*/ function($translateProvider) {
         REGISTRATION: 'Регистрация',
         FORGOT: 'Забыли пароль',
         CONFIRM: 'Подтвердить',
-        SIGN_UP: 'Зарегистрироваться'
+        SIGN_UP: 'Зарегистрироваться',
+        SIGN_IN: 'Войти'
     });
 
     $translateProvider.preferredLanguage("ru");

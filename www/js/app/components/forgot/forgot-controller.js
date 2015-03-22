@@ -1,12 +1,14 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $location, authorization) {
+module.exports = /*@ngInject*/ function($scope, $location, authorizationService, popupService) {
+
+    $scope.emailPattern = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
     $scope.forgotPassword = function(email) {
-        authorization.forgotPassword({
+        authorizationService.forgotPassword({
             email: email
         }, function() {
-            console.log('Ok');
+            popupService.alert('New password sent to your specified mailbox');
         }, function() {
             console.log('Fail');
         });

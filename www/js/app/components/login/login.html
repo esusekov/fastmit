@@ -2,25 +2,28 @@
     <ion-nav-bar class="bar-positive" align-title="center">
     </ion-nav-bar>
     <ion-content>
-        <div class="list">
-            <label class="item item-input">
-                <span class="input-label">Username</span>
-                <input type="text" ng-model="username">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Password</span>
-                <input type="password" ng-model="password">
-            </label>
-        </div>
-        <div class="padding">
-            <button class="button button-block button-positive" ng-click="login(username, password)">
-                {{ 'LOGIN' | translate }}
-            </button>
-        </div>
+        <form name="loginForm">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Username</span>
+                    <input type="text" name="username" ng-model="model.username" required ng-minlength="5">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                    <input type="password" name="password" ng-model="model.password" required ng-minlength="8">
+                </label>
+            </div>
+            <div class="padding">
+                <button class="button button-block button-positive" ng-click="signIn()"
+                        ng-disabled="loginForm.$invalid">
+                    {{ 'SIGN_IN' | translate }}
+                </button>
+            </div>
+        </form>
         <div class="row">
             <div class="col col-50 text-left">
                 <button class="button button-clear button-stable" ng-click="goForgotPassword()">
-                    {{ 'FORGOT' | translate }} ?
+                    {{ 'FORGOT' | translate }}?
                 </button>
             </div>
             <div class="col col-50 text-right">

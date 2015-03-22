@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($localForage, $http, urls_api) {
+module.exports = /*@ngInject*/ function($localForage, $http, urlsApi) {
 
     var AUTH_TOKEN_KEY = 'AUTH_TOKEN_KEY';
     var token = null;
@@ -24,7 +24,7 @@ module.exports = /*@ngInject*/ function($localForage, $http, urls_api) {
         },
 
         register: function(data, successCallback, errorCallback) {
-            $http.post(urls_api.registration, data).then(function(result) {
+            $http.post(urlsApi.registration, data).then(function(result) {
                 console.log(result);
                 token = result.data.token;
                 if (successCallback != null) {
@@ -38,7 +38,7 @@ module.exports = /*@ngInject*/ function($localForage, $http, urls_api) {
         },
 
         login: function(data, successCallback, errorCallback) {
-            $http.post(urls_api.login, data).then(function(result) {
+            $http.post(urlsApi.login, data).then(function(result) {
                 token = result.data.token;
                 $localForage.setItem(AUTH_TOKEN_KEY, token).then(function() {
                     if (successCallback != null) {
@@ -55,7 +55,6 @@ module.exports = /*@ngInject*/ function($localForage, $http, urls_api) {
         logout: function(successCallback) {
             $localForage.removeItem(AUTH_TOKEN_KEY).then(function() {
                 token = null;
-
                 if (successCallback != null) {
                     successCallback();
                 }
@@ -63,7 +62,7 @@ module.exports = /*@ngInject*/ function($localForage, $http, urls_api) {
         },
 
         forgotPassword: function(data, successCallback, errorCallback) {
-            $http.get(urls_api.forgot, data).then(function() {
+            $http.get(urlsApi.forgot, data).then(function() {
                 if (successCallback != null) {
                     successCallback();
                 }

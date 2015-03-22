@@ -1,26 +1,24 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $location, authorization) {
+module.exports = /*@ngInject*/ function($scope, $location, LoginModel, popupService) {
 
-    $scope.login = function(username, password) {
-        console.log($scope.username, $scope.password);
-        if (username != null && password != null) {
-            authorization.login({
-                username: username,
-                password: password
-            }, function() {
-                $location.path('/app/main');
-            }, function() {
-                console.log('Error: login fail');
-            });
-        }
+    $scope.model = new LoginModel();
+
+    $scope.signIn = function() {
+        $scope.model.signIn(function() {
+            $location.path('/app/main');
+        }, function() {
+            popupService.alert('Something wrong!');
+        });
     };
 
     $scope.goRegistration = function() {
+        $scope.model.clear();
         $location.path('/registration');
     };
 
     $scope.goForgotPassword = function() {
+        $scope.model.clear();
         $location.path('/forgot');
     };
 

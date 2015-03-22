@@ -10,21 +10,25 @@ angular.module('friends', [])
     .directive('friendItem', require('./common/friends/friend-item'));
 
 angular.module('common', ['friends'])
-    .factory('urls_api', require('./common/urls_api'))
-    .factory('authorization', require('./common/services/authorization'));
+    .service('urlsApi', require('./common/urls-api-service'))
+    .service('popupService', require('./common/popup-service'))
+    .service('authorizationService', require('./common/authorization-service'));
+
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
 
 angular.module('login', [])
-    .controller('LoginController', require('./components/login/login-controller'));
+    .controller('LoginController', require('./components/login/login-controller'))
+    .factory('LoginModel', require('./components/login/login-model'));
 
 angular.module('forgot', [])
     .controller('ForgotController', require('./components/forgot/forgot-controller'));
 
 
 angular.module('registration', [])
-    .controller('RegistrationController', require('./components/registration/registration-controller'));
+    .controller('RegistrationController', require('./components/registration/registration-controller'))
+    .factory('RegistrationModel', require('./components/registration/registration-model'));
 
 angular.module('settings', [])
     .controller('SettingsController', require('./components/settings/settings-controller'));
@@ -88,13 +92,11 @@ angular.module('app', [
         });
     })
 
-    .run(function(authorization, $location) {
-
-        authorization.checkAuth(function() {
+    .run(function(authorizationService, $location) {
+        authorizationService.checkAuth(function() {
             $location.path('/app/main');
         }, function() {
             $location.path('/login');
         });
-
     });
 
