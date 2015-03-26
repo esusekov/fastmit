@@ -27,6 +27,6 @@ module.exports = /*@ngInject*/ function($translateProvider) {
         SIGN_IN: 'Войти'
     });
 
-    $translateProvider.preferredLanguage("ru");
-    $translateProvider.fallbackLanguage("ru");
+    $translateProvider.preferredLanguage('ru');
+    $translateProvider.fallbackLanguage('ru');
 };

@@ -1,5 +1,43 @@
 <ion-view view-title="{{ 'SETTINGS' | translate }}">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
     <ion-content>
-        <h1>{{ 'SETTINGS' | translate }}</h1>
+        <div class="list">
+
+            <div class="item item-divider">
+            </div>
+            <a class="item" href="#/app/change_password">
+                Изменить пароль
+            </a>
+
+            <div class="item item-divider">
+            </div>
+            <label class="item item-radio" ng-click="changeLanguage('ru')">
+                <input type="radio" name="group" ng-checked="isRus()">
+                <div class="item-content">
+                    Русский
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio" ng-click="changeLanguage('en')">
+                <input type="radio" name="group" ng-checked="isEng()">
+                <div class="item-content">
+                    English
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+
+            <div class="item item-divider">
+            </div>
+            <li class="item item-checkbox" ng-click="changeNotification()">
+                Нотификации
+                <label class="checkbox">
+                    <input type="checkbox" ng-checked="settings.notification">
+                </label>
+            </li>
+        </div>
+
     </ion-content>
 </ion-view>
