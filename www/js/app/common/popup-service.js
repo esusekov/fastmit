@@ -8,7 +8,7 @@ module.exports = /*@ngInject*/ function($ionicPopup) {
             var alert = $ionicPopup.alert({
                 title: text
             });
-            alert.then(function(res) {
+            alert.then(res => {
                 console.log(res);
             });
          }

@@ -53,14 +53,15 @@ module.exports = /*@ngInject*/ function(authorizationService) {
         },
 
         register: function(successCallback, errorCallback) {
-            var self = this;
             authorizationService.register(
-                self.getData(),
-                function() {
-                    self.clear();
+                this.getData(),
+                () => {
+                    this.clear();
                     successCallback();
                 },
-                errorCallback
+                () => {
+                    errorCallback();
+                }
             );
         }
 

@@ -8,7 +8,7 @@ module.exports = /*@ngInject*/ function($localForage, $http, urlsApi) {
     return {
 
         checkAuth: function(successCallback, errorCallback) {
-            $localForage.getItem(AUTH_TOKEN_KEY).then(function(data) {
+            $localForage.getItem(AUTH_TOKEN_KEY).then(data => {
                 console.log(data);
                 if (data != null) {
                     token = data;
@@ -24,13 +24,13 @@ module.exports = /*@ngInject*/ function($localForage, $http, urlsApi) {
         },
 
         register: function(data, successCallback, errorCallback) {
-            $http.post(urlsApi.registration, data).then(function(result) {
+            $http.post(urlsApi.registration, data).then(result => {
                 console.log(result);
                 token = result.data.token;
                 if (successCallback != null) {
                     successCallback();
                 }
-            }).catch(function(){
+            }).catch(() => {
                 if (errorCallback != null) {
                     errorCallback();
                 }
@@ -38,14 +38,14 @@ module.exports = /*@ngInject*/ function($localForage, $http, urlsApi) {
         },
 
         login: function(data, successCallback, errorCallback) {
-            $http.post(urlsApi.login, data).then(function(result) {
+            $http.post(urlsApi.login, data).then(result => {
                 token = result.data.token;
                 $localForage.setItem(AUTH_TOKEN_KEY, token).then(function() {
                     if (successCallback != null) {
                         successCallback();
                     }
                 });
-            }).catch(function(){
+            }).catch(() => {
                 if (errorCallback != null) {
                     errorCallback();
                 }
@@ -53,7 +53,7 @@ module.exports = /*@ngInject*/ function($localForage, $http, urlsApi) {
         },
 
         logout: function(successCallback) {
-            $localForage.removeItem(AUTH_TOKEN_KEY).then(function() {
+            $localForage.removeItem(AUTH_TOKEN_KEY).then(() => {
                 token = null;
                 if (successCallback != null) {
                     successCallback();
@@ -62,11 +62,11 @@ module.exports = /*@ngInject*/ function($localForage, $http, urlsApi) {
         },
 
         forgotPassword: function(data, successCallback, errorCallback) {
-            $http.get(urlsApi.forgot, data).then(function() {
+            $http.get(urlsApi.forgot, data).then(() => {
                 if (successCallback != null) {
                     successCallback();
                 }
-            }).catch(function() {
+            }).catch(() => {
                 if (errorCallback != null) {
                     errorCallback();
                 }

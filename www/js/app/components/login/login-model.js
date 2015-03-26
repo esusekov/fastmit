@@ -42,14 +42,15 @@ module.exports = /*@ngInject*/ function(authorizationService) {
         },
 
         signIn: function(successCallback, errorCallback) {
-            var self = this;
             authorizationService.login(
-                self.getData(),
-                function() {
-                    self.clear();
+                this.getData(),
+                () => {
+                    this.clear();
                     successCallback();
                 },
-                errorCallback
+                () => {
+                    errorCallback();
+                }
             );
         }
 
