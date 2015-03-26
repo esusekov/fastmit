@@ -1,0 +1,9 @@
+<ion-view view-title="{{ 'FRIENDS' | translate }}">
+    <ion-content overflow-scroll="true">
+        <ion-list>
+            <ion-item ng-repeat="friend in onlineFriends" >
+                <friend-item friend="friend"></friend-item>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

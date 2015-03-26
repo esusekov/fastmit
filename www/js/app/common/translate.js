@@ -4,6 +4,9 @@ module.exports = /*@ngInject*/ function($translateProvider) {
     $translateProvider.translations('en', {
         MAIN: 'Main',
         FRIENDS: 'Friends',
+        ALL_FRIENDS: 'Friends',
+        ONLINE_FRIENDS: 'Online',
+        SEARCH: 'Search',
         SETTINGS: 'Settings',
         LOGIN: 'Login',
         LOGOUT: 'Logout',
@@ -17,6 +20,9 @@ module.exports = /*@ngInject*/ function($translateProvider) {
     $translateProvider.translations('ru', {
         MAIN: 'Главная',
         FRIENDS: 'Друзья',
+        ALL_FRIENDS: 'Друзей',
+        ONLINE_FRIENDS: 'В сети',
+        SEARCH: 'Поиск',
         SETTINGS: 'Настройки',
         LOGIN: 'Вход',
         LOGOUT: 'Выxод',

@@ -21,6 +21,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "../lib/ionic/scss/ionic.scss";
 @import "friend.scss";
+@import "search.scss";
+@import "ionic-modifications.scss";
 
 
 .text-left {

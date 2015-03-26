@@ -1,13 +1,19 @@
 "use strict";
 
-angular.module('common', [])
+var polyfills = require('./polyfills');
+polyfills.array();
+
+angular.module('friends', [])
+    .filter('friendChatUrl', require('./common/friends/friend-chat-url'))
+    .factory('FriendModel', require('./common/friends/friend-model'))
+    .factory('friendsFactory', require('./common/friends/friends-factory'))
+    .factory('friendsService', require('./common/friends/friends-service'))
+    .directive('friendItem', require('./common/friends/friend-item'));
+
+angular.module('common', ['friends'])
     .service('urlsApi', require('./common/urls-api-service'))
     .service('popupService', require('./common/popup-service'))
     .service('authorizationService', require('./common/authorization-service'));
-
-angular.module('users', [])
-    .factory('User', require('./common/users/user-model'))
-    .factory('usersFactory', require('./common/users/users-factory'));
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
@@ -33,9 +39,17 @@ angular.module('change-password', [])
     .service('changePasswordModel', require('./components/change-password/change-password-model'));
 
 
-angular.module('friends', [])
-    .factory('friendsService', require('./components/friends/friends-service'))
-    .controller('FriendsController', require('./components/friends/friends-controller'));
+angular.module('main-page', [])
+    .controller('MainController', require('./components/main-page/main-controller'));
+
+angular.module('friends-page', [])
+    .controller('FriendsController', require('./components/friends-page/friends-controller'));
+
+angular.module('search-page', [])
+    .controller('SearchController', require('./components/search-page/search-controller'));
+
+angular.module('chat-page', [])
+    .controller('ChatController', require('./components/chat-page/chat-controller'));
 
 angular.module('app', [
         'ionic',
@@ -49,8 +63,13 @@ angular.module('app', [
         'settings',
         'friends',
         'common',
-        'users',
-        'change-password'
+        'change-password',
+        'main-page',
+        'friends-page',
+        'search-page',
+        'chat-page',
+        'common'
+
     ])
 
     .config(require('./common/translate'))

@@ -13,6 +13,10 @@
         </ion-nav-buttons>
     </ion-nav-bar>
     <ion-content>
-        <h1>{{ 'MAIN' | translate }}</h1>
+        <ion-list>
+            <ion-item ng-repeat="friend in topFriends">
+                <friend-item friend="friend"></friend-item>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>
