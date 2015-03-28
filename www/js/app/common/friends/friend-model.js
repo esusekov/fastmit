@@ -32,6 +32,10 @@ module.exports = /*@ngInject*/ function() {
             return this.__photoUrl;
         },
 
+        get chatUrl() {
+            return "#/app/chat/" + this.__id;
+        },
+
         get hasUnread() {
           return this.__hasUnread;
         },
