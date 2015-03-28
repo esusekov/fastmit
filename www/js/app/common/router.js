@@ -86,6 +86,16 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('app.change_password', {
+            url: '/change_password',
+            views: {
+                'menuContent': {
+                    templateUrl: 'js/app/components/change-password/change-password.html',
+                    controller: 'ChangePasswordController'
+                }
+            }
+        })
+
         .state('app.chat', {
             url: '/chat/:id',
             views: {

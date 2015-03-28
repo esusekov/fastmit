@@ -15,7 +15,6 @@ angular.module('common', ['friends'])
     .service('popupService', require('./common/popup-service'))
     .service('authorizationService', require('./common/authorization-service'));
 
-
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
 
@@ -26,13 +25,19 @@ angular.module('login', [])
 angular.module('forgot', [])
     .controller('ForgotController', require('./components/forgot/forgot-controller'));
 
-
 angular.module('registration', [])
     .controller('RegistrationController', require('./components/registration/registration-controller'))
     .factory('RegistrationModel', require('./components/registration/registration-model'));
 
 angular.module('settings', [])
-    .controller('SettingsController', require('./components/settings/settings-controller'));
+    .controller('SettingsController', require('./components/settings/settings-controller'))
+    .service('settingsDescription', require('./components/settings/settings-description'))
+    .service('settingsService', require('./components/settings/settings-service'));
+
+angular.module('change-password', [])
+    .controller('ChangePasswordController', require('./components/change-password/change-password-controller'))
+    .service('changePasswordModel', require('./components/change-password/change-password-model'));
+
 
 angular.module('main-page', [])
     .controller('MainController', require('./components/main-page/main-controller'));
@@ -56,11 +61,15 @@ angular.module('app', [
         'registration',
         'forgot',
         'settings',
+        'friends',
+        'common',
+        'change-password',
         'main-page',
         'friends-page',
         'search-page',
         'chat-page',
         'common'
+
     ])
 
     .config(require('./common/translate'))
@@ -92,12 +101,18 @@ angular.module('app', [
         });
     })
 
-    .run(function($ionicPlatform, $cordovaGlobalization, $translate) {
+    .run(function($ionicPlatform, settingsService, settingsDescription) {
         $ionicPlatform.ready(function() {
-            $cordovaGlobalization.getPreferredLanguage()
-                .then(function (language) {
-                    $translate.use((language.value).split("-")[0]);
-                });
+
+            //settingsDescription.then(description => {
+            //    settingsService.init(description, settings => {
+            //        console.log(settings.langua);
+            //        $translate.use(settings.language);
+            //    });
+            //});
+            console.log(settingsDescription);
+            settingsService.init(settingsDescription);
+
         });
     })
 

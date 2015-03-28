@@ -3,7 +3,7 @@
 module.exports = /*@ngInject*/ function(authorizationService) {
 
     var Login = function() {
-        this.__username =
+        this.__username = null;
         this.__password = null;
     };
 
@@ -26,7 +26,7 @@ module.exports = /*@ngInject*/ function(authorizationService) {
         },
 
         clear: function() {
-            this.__username =
+            this.__username = null;
             this.__password = null;
         },
 
@@ -42,14 +42,15 @@ module.exports = /*@ngInject*/ function(authorizationService) {
         },
 
         signIn: function(successCallback, errorCallback) {
-            var self = this;
             authorizationService.login(
-                self.getData(),
-                function() {
-                    self.clear();
+                this.getData(),
+                () => {
+                    this.clear();
                     successCallback();
                 },
-                errorCallback
+                () => {
+                    errorCallback();
+                }
             );
         }
 

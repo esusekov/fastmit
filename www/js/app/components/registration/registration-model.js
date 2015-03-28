@@ -3,8 +3,8 @@
 module.exports = /*@ngInject*/ function(authorizationService) {
 
     var Registration = function() {
-        this.__username =
-        this.__email    =
+        this.__username = null;
+        this.__email = null;
         this.__password = null;
     };
 
@@ -35,8 +35,8 @@ module.exports = /*@ngInject*/ function(authorizationService) {
         },
 
         clear: function() {
-            this.__username =
-            this.__email    =
+            this.__username = null;
+            this.__email = null;
             this.__password = null;
         },
 
@@ -45,7 +45,7 @@ module.exports = /*@ngInject*/ function(authorizationService) {
                 username: this.__username,
                 email: this.__email,
                 password: this.__password
-            };
+             };
         },
 
         isFilled: function() {
@@ -53,14 +53,15 @@ module.exports = /*@ngInject*/ function(authorizationService) {
         },
 
         register: function(successCallback, errorCallback) {
-            var self = this;
             authorizationService.register(
-                self.getData(),
-                function() {
-                    self.clear();
+                this.getData(),
+                () => {
+                    this.clear();
                     successCallback();
                 },
-                errorCallback
+                () => {
+                    errorCallback();
+                }
             );
         }
 
