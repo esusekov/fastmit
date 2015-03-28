@@ -1,18 +1,36 @@
-<ion-view view-title="{{ 'FRIENDS' | translate }}">
+<ion-view view-title="{{ 'FRIENDS' | translate }}" class="friends">
 
     <ion-nav-buttons side="secondary">
         <a class="button button-icon button-clear ion-search" href="#/app/search"></a>
     </ion-nav-buttons>
 
-    <ion-tabs class="tabs-stable tabs-striped tabs-top friends">
+    <ion-tabs class="tabs-stable tabs-striped tabs-top">
 
-        <ion-tab title="{{friendsCount + ' ' + ( 'ALL_FRIENDS' | translate )}}" href="#/app/friends/all">
-            <ion-nav-view name="friendsAll"></ion-nav-view>
+        <ion-tab title="{{friendsCount + ' ' + ( 'ALL_FRIENDS' | translate )}}">
+            <!--<ion-nav-view name="friendsAll"></ion-nav-view>-->
+            <ion-content class="friend-tab">
+                <ion-list>
+                    <ion-item ng-repeat="friend in friends">
+                        <friend-item friend="friend"></friend-item>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
         </ion-tab>
 
-        <ion-tab title="{{onlineFriendsCount + ' ' + ( 'ONLINE_FRIENDS' | translate )}}" href="#/app/friends/online">
-            <ion-nav-view name="friendsOnline"></ion-nav-view>
+        <ion-tab title="{{onlineFriendsCount + ' ' + ( 'ONLINE_FRIENDS' | translate )}}">
+            <!--<ion-nav-view name="friendsOnline"></ion-nav-view>-->
+            <ion-content class="friend-tab">
+                <ion-list>
+                    <ion-item ng-repeat="friend in onlineFriends" >
+                        <friend-item friend="friend"></friend-item>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
         </ion-tab>
 
     </ion-tabs>
+
+    <a class="action-button" href="#/app/main">
+        <button class="button icon ion-plus btn-normal button-assertive"></button>
+    </a>
 </ion-view>

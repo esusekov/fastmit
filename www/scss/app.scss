@@ -17,12 +17,16 @@ $dark:                            #444 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
+$positive:                        steelblue !default;
 
 // Include all of Ionic
-@import "../lib/ionic/scss/ionic.scss";
-@import "friend.scss";
-@import "search.scss";
-@import "ionic-modifications.scss";
+@import "../lib/ionic/scss/ionic";
+@import "friend";
+@import "search";
+@import "sidebar";
+@import "action-button";
+@import "fonts";
+@import "ionic-modifications";
 
 
 .text-left {

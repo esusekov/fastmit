@@ -46,7 +46,13 @@ module.exports = /*@ngInject*/ function($http, authorizationService, urlsApi, fr
         getFriendById: function(id) {
             var index = friends.findIndex(friend => friend.checkId(id) );
             return index !== -1 ? friends[index] : null;
-        }
+        },
+
+        //filterFriendsByUsername: function(username) {
+        //    return friends.filter(function(friend) {
+        //        return friend.username.indexOf(username) !== -1;
+        //    });
+        //}
 
     };
 };

@@ -1,0 +1,47 @@
+.sidebar {
+  background-color: $positive;
+  .bar-header {
+    height: 30%!important;
+    background: transparent!important;
+
+    .title {
+      font-size: 4em;
+      font-family: Lobster;
+      font-weight: 300;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+
+  .scroll-content {
+    top: 30%!important;
+    text-align: center;
+
+    .item {
+      background-color: transparent!important;
+      border-color: rgba(255, 255, 255, 0.1)!important;
+      color: white;
+
+      .item-content {
+        background-color: transparent!important;
+        padding-left: 0!important;
+        padding-right: 0!important;
+
+        &.activated {
+          color: rgba(255, 255, 255, 0.4);
+        }
+      }
+
+      &:first-child {
+        border-top: none!important;
+      }
+
+      &:last-child {
+        border-bottom: none!important;
+      }
+    }
+
+
+  }
+}

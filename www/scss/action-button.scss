@@ -1,0 +1,15 @@
+.action-button {
+  position: fixed;
+  z-index: 1000;
+  bottom: 40px;
+  right: 40px;
+
+  .button {
+    height: 60px!important;
+    width: 60px!important;
+    border: 0 !important;
+    border-radius: 50%;
+    padding: 0!important;
+    box-shadow: 2px 3px 6px #bbb;
+  }
+}
