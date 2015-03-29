@@ -16,12 +16,14 @@
 
   .scroll-content {
     top: 30%!important;
-    text-align: center;
+//    text-align: center;
 
     .item {
       background-color: transparent!important;
-      border-color: rgba(255, 255, 255, 0.1)!important;
+      border: 0;
+//      border-color: rgba(255, 255, 255, 0.1)!important;
       color: white;
+      padding-left: 20%!important;
 
       .item-content {
         background-color: transparent!important;
@@ -33,13 +35,20 @@
         }
       }
 
-      &:first-child {
-        border-top: none!important;
-      }
+//      &:first-child {
+//        border-top: none!important;
+//      }
+//
+//      &:last-child {
+//        border-bottom: none!important;
+//      }
+    }
 
-      &:last-child {
-        border-bottom: none!important;
-      }
+    .sidebar-divider {
+      background-color: rgba(255, 255, 255, 0.1);
+      height: 1px;
+      margin-left: 16%;
+      width: 66%;
     }
 
 

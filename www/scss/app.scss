@@ -17,7 +17,10 @@ $dark:                            #444 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
-$positive:                        steelblue !default;
+$positive:                        #0277BD !default;
+$assertive:                       #E53935 !default;
+$balanced:                        #4caf50 !default;
+$bar-height:                      56px !default;
 
 // Include all of Ionic
 @import "../lib/ionic/scss/ionic";

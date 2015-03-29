@@ -1,9 +1,23 @@
 .list {
   .item {
-
     &:first-child {
       border-top: none!important;
     }
 
+  }
+}
+
+.bar {
+  .title {
+    font-size: 20px;
+  }
+
+  span {
+    display: flex!important;
+    justify-content: center;
+
+    .button {
+      align-self: center;
+    }
   }
 }

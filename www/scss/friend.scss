@@ -1,10 +1,24 @@
 .friends {
+
+  .friend-tabs {
+    &.tabs-top.tabs-striped {
+      .tab-item.tab-item-active, .tab-item.activated {
+        border-width: 0 0 3px 0 !important;
+        border-color: $positive !important;
+      }
+    }
+
+    .tab-item {
+      margin-top: 1px !important;
+    }
+  }
+
   .tabs {
     justify-content: flex-start;
   }
 
   .friend-tab {
-    top: 93px!important;
+    top: 105px!important;
   }
 }
 
