@@ -13,7 +13,9 @@ module.exports = /*@ngInject*/ function() {
 
         forgot: main_url + '/forgot-password',
 
-        friendsList: main_url + '/friends'
+        friendsList: main_url + '/friends',
+
+        potentialFriendsList: main_url + '/potential-friends'
     };
 
 };

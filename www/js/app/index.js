@@ -5,7 +5,9 @@ polyfills.array();
 
 angular.module('friends', [])
     .filter('friendChatUrl', require('./common/friends/friend-chat-url'))
+    .factory('UserModel', require('./common/friends/user-model'))
     .factory('FriendModel', require('./common/friends/friend-model'))
+    .factory('PotentialFriendModel', require('./common/friends/potential-friend-model'))
     .factory('friendsFactory', require('./common/friends/friends-factory'))
     .factory('friendsService', require('./common/friends/friends-service'))
     .directive('friendItem', require('./common/friends/friend-item'));

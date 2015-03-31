@@ -30,7 +30,18 @@
 
         <ion-tab title="{{'REQUESTS' | translate }}">
             <ion-content class="friend-tab">
-
+                <div class="item item-divider">
+                    Вас добавили
+                </div>
+                <ion-item ng-repeat="friend in requestingFriends">
+                    <friend-item friend="friend"></friend-item>
+                </ion-item>
+                <div class="item item-divider">
+                    Вы добавили
+                </div>
+                <ion-item ng-repeat="friend in desirableFriends">
+                    <friend-item friend="friend"></friend-item>
+                </ion-item>
             </ion-content>
         </ion-tab>
 
