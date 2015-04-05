@@ -6,7 +6,6 @@ module.exports = /*@ngInject*/ function($scope, settingsService) {
 
     $scope.changeNotification = function() {
         $scope.settings.notification = !$scope.settings.notification;
-        console.log(settingsService.notification);
     };
 
     $scope.changeLanguage = function(lang) {
@@ -20,6 +19,5 @@ module.exports = /*@ngInject*/ function($scope, settingsService) {
     $scope.isEng = function() {
         return $scope.settings.language === 'en';
     };
-
 
 };

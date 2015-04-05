@@ -17,7 +17,7 @@ module.exports = /*@ngInject*/ function($localForage, $translate) {
 
         set language(value) {
             this.__language = value;
-            this.__saveInStorage();
+            this.saveInStorage();
             $translate.use(this.__language);
         },
 
@@ -27,7 +27,7 @@ module.exports = /*@ngInject*/ function($localForage, $translate) {
 
         set notification(value) {
             this.__notification = value;
-            this.__saveInStorage();
+            this.saveInStorage();
         },
 
         init: function(description) {
@@ -35,30 +35,30 @@ module.exports = /*@ngInject*/ function($localForage, $translate) {
                 console.log(data);
                 
                 if (data != null) {
-                    this.__setSettings(data);
+                    this.setSettings(data);
                 } else {
-                    this.__setSettings(description);
+                    this.setSettings(description);
                 }
 
                 $translate.use(this.__language);
             });
         },
 
-        __setSettings: function(data) {
+        setSettings: function(data) {
             this.__language = data.language;
             this.__notification = data.notification;
-            this.__saveInStorage();
+            this.saveInStorage();
         },
 
-        __compileSettingsForStorage: function() {
+        compileSettingsForStorage: function() {
             return {
                 language: this.__language,
                 notification: this.__notification
             };
         },
 
-        __saveInStorage: function() {
-            $localForage.setItem(SETTINGS_KEY, this.__compileSettingsForStorage());
+        saveInStorage: function() {
+            $localForage.setItem(SETTINGS_KEY, this.compileSettingsForStorage());
         }
 
     };
