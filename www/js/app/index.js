@@ -13,6 +13,7 @@ angular.module('friends', [])
 angular.module('common', ['friends'])
     .service('urlsApi', require('./common/urls-api-service'))
     .service('popupService', require('./common/popup-service'))
+    .factory('httpService', require('./common/httpService'))
     .service('authorizationService', require('./common/authorization-service'));
 
 angular.module('sidebar', [])
@@ -49,7 +50,12 @@ angular.module('search-page', [])
     .controller('SearchController', require('./components/search-page/search-controller'));
 
 angular.module('chat-page', [])
-    .controller('ChatController', require('./components/chat-page/chat-controller'));
+    .controller('ChatController', require('./components/chat-page/chat-controller'))
+    .factory('correspondenceModel', require('./components/chat-page/correspondence-model'))
+    .factory('messageModel', require('./components/chat-page/message-model'))
+    .directive('myMessage', require('./components/chat-page/directives/my-message'))
+    .directive('companionMessage', require('./components/chat-page/directives/companion-message'));
+
 
 angular.module('app', [
         'ionic',
@@ -117,9 +123,9 @@ angular.module('app', [
     })
 
     .run(function(authorizationService, $location) {
-        authorizationService.checkAuth(function() {
+        authorizationService.checkAuth().then(() => {
             $location.path('/app/main');
-        }, function() {
+        }).catch(() => {
             $location.path('/login');
         });
     });

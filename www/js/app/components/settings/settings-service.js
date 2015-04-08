@@ -11,6 +11,14 @@ module.exports = /*@ngInject*/ function($localForage, $translate) {
 
     Settings.prototype = {
 
+        changeNotification: function() {
+            this.notification = !this.notification;
+        },
+
+        changeLanguage: function(lang) {
+            this.language = lang;
+        },
+
         get language() {
             return this.__language;
         },

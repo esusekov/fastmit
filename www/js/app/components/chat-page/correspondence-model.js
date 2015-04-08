@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function() {
+module.exports = /*@ngInject*/ function(messageModel) {
 
     class Correspondence {
         constructor() {
@@ -11,12 +11,14 @@ module.exports = /*@ngInject*/ function() {
             return this.__list;
         }
 
-        setMessageCompanion(message) {
+        setMyMessage(opts) {
+            opts.isMy = true;
+            var message = new messageModel(opts);
             this.__list.push(message);
         }
 
-        setMessageMy(message) {
-            this.__list.push(message);
+        clear() {
+            this.__list = [];
         }
 
         size() {

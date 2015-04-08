@@ -53,16 +53,7 @@ module.exports = /*@ngInject*/ function(authorizationService) {
         },
 
         register: function(successCallback, errorCallback) {
-            authorizationService.register(
-                this.getData(),
-                () => {
-                    this.clear();
-                    successCallback();
-                },
-                () => {
-                    errorCallback();
-                }
-            );
+            return authorizationService.register(this.getData());
         }
 
     };

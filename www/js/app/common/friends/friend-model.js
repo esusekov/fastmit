@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function() {
+module.exports = /*@ngInject*/ function(correspondenceModel) {
 
     function Friend(source) {
         this.__id = source.id;
@@ -9,9 +9,15 @@ module.exports = /*@ngInject*/ function() {
         this.__isFriend = source.isFriend || true;
         this.__hasUnread = source.hasUnread || false;
         this.__photoUrl = source.photoUrl;
+        this.__correspondence = new correspondenceModel();
     }
 
     Friend.prototype = {
+
+        get correspondence() {
+            return this.__correspondence;
+        },
+
         get id() {
             return this.__id;
         },
