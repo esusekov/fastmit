@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(FriendModel, PotentialFriendModel) {
+module.exports = /*@ngInject*/ function(UserModel, FriendModel, PotentialFriendModel) {
     return {
         create: function(source, type) {
             var friend;
@@ -12,7 +12,7 @@ module.exports = /*@ngInject*/ function(FriendModel, PotentialFriendModel) {
                     friend = new PotentialFriendModel(source);
                     break;
                 default:
-                    friend = new FriendModel(source);
+                    friend = new UserModel(source);
             }
             return friend;
         }

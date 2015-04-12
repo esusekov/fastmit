@@ -10,6 +10,7 @@ angular.module('friends', [])
     .factory('PotentialFriendModel', require('./common/friends/potential-friend-model'))
     .factory('friendsFactory', require('./common/friends/friends-factory'))
     .factory('friendsService', require('./common/friends/friends-service'))
+    .factory('contactsService', require('./common/friends/contacts-service'))
     .directive('friendItem', require('./common/friends/friend-item'));
 
 angular.module('common', ['friends'])

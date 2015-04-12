@@ -1,8 +1,28 @@
 .search {
-  .bar-header {
+  .bar-subheader.input-bar {
+    //z-index: 100;
+    //margin: 0 auto;
+    //left: 0;
+    //right: 0;
+    //width: 80%;
+
     label {
       width: 100%!important;
       height: 100%!important;
+      background-color: transparent;
+      border-width: 0 0 2px 0;
+      border-color: white;
+
+      i {
+        color: white;
+      }
+
+      input {
+        color: white;
+        &::-webkit-input-placeholder { /* WebKit browsers */
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
     }
   }
 }

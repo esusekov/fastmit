@@ -1,9 +1,10 @@
 <ion-view view-title="{{ 'SEARCH' | translate }}" class="search">
+
     <!--<ion-nav-bar class="bar-positive" align-title="center">-->
         <!--<ion-nav-back-button class="button button-icon button-clear ion-chevron-left">-->
-        <!--</ion-nav-back-button>-->
     <!--</ion-nav-bar>-->
-    <ion-header-bar class="bar-positive bar-subheader">
+
+    <ion-header-bar class="bar bar-subheader bar-positive item-input-inset input-bar">
         <label class="item item-input">
             <i class="icon ion-search placeholder-icon"></i>
             <input type="text" placeholder="Search" ng-model="query.username">
@@ -12,9 +13,9 @@
 
     <ion-content class="has-subheader friends">
         <ion-list>
-            <ion-item ng-repeat="friend in friends | filter:query">
+            <div ng-repeat="friend in filteredFriends">
                 <friend-item friend="friend"></friend-item>
-            </ion-item>
+            </div>
         </ion-list>
     </ion-content>
 </ion-view>
