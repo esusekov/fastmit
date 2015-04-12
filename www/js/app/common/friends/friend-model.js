@@ -1,11 +1,12 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(UserModel) {
+module.exports = /*@ngInject*/ function(UserModel, correspondenceModel) {
 
     function Friend(source) {
         UserModel.call(this, source);
         this.__isOnline = source.isOnline || false;
         this.__hasUnread = source.hasUnread || false;
+        this.__correspondence = new correspondenceModel();
     }
 
     Friend.prototype = Object.create(UserModel.prototype, {
@@ -22,6 +23,12 @@ module.exports = /*@ngInject*/ function(UserModel) {
         chatUrl: {
             get: function() {
                 return "#/app/chat/" + this.__id;
+            }
+        },
+
+        correspondence: {
+            get: function() {
+                return this.__correspondence;
             }
         }
     });

@@ -7,9 +7,9 @@ module.exports = /*@ngInject*/ function($scope, $location, authorizationService,
     $scope.forgotPassword = function(email) {
         authorizationService.forgotPassword({
             email: email
-        }, function() {
+        }).then(() => {
             popupService.alert('New password sent to your specified mailbox');
-        }, function() {
+        }).catch(() => {
             console.log('Fail');
         });
     };

@@ -5,9 +5,9 @@ module.exports = /*@ngInject*/ function($scope, $location, LoginModel, popupServ
     $scope.model = new LoginModel();
 
     $scope.signIn = function() {
-        $scope.model.signIn(() => {
+        $scope.model.signIn().then(() => {
             $location.path('/app/main');
-        }, () => {
+        }).catch(() => {
             popupService.alert('Something wrong!');
         });
     };

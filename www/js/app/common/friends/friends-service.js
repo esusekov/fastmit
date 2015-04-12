@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($http, authorizationService, urlsApi, friendsFactory) {
+module.exports = /*@ngInject*/ function(httpService, friendsFactory) {
     function makeFriendsListFromSource(sourceArray, type) {
         return sourceArray.map(source => friendsFactory.create(source, type));
     }
@@ -32,11 +32,10 @@ module.exports = /*@ngInject*/ function($http, authorizationService, urlsApi, fr
 
         load: function(sort) {
             var data = {
-                token: authorizationService.getToken(),
                 sort: sort //id, top ...
             };
 
-            return $http.get(urlsApi.friendsList, data).then(response => {
+            return httpService.friendsList(data).then(response => {
                 if (response.status === 200 && response.data.friends !== undefined) {
                     topFriends = makeFriendsListFromSource(response.data.friends, 'friend');
                     friends = topFriends.slice().sort(idCompare);
@@ -46,10 +45,10 @@ module.exports = /*@ngInject*/ function($http, authorizationService, urlsApi, fr
 
         loadPotentialFriends: function() {
             var data = {
-                token: authorizationService.getToken()
+
             };
 
-            return $http.get(urlsApi.potentialFriendsList, data).then(response => {
+            return httpService.potentialFriendsList(data).then(response => {
                 if (response.status === 200 && response.data.users !== undefined) {
                     potentialFriends = makeFriendsListFromSource(response.data.users, 'potential');
                     console.log(potentialFriends);

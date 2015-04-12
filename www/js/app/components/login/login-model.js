@@ -41,17 +41,8 @@ module.exports = /*@ngInject*/ function(authorizationService) {
             return this.__username != null && this.__password != null;
         },
 
-        signIn: function(successCallback, errorCallback) {
-            authorizationService.login(
-                this.getData(),
-                () => {
-                    this.clear();
-                    successCallback();
-                },
-                () => {
-                    errorCallback();
-                }
-            );
+        signIn: function() {
+            return authorizationService.login(this.getData());
         }
 
     };
