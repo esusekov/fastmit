@@ -1,8 +1,8 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(httpService, friendsFactory) {
-    function makeFriendsListFromSource(sourceArray) {
-        return sourceArray.map(source => friendsFactory.create(source));
+    function makeFriendsListFromSource(sourceArray, type) {
+        return sourceArray.map(source => friendsFactory.create(source, type));
     }
 
     function idCompare(a, b) {
@@ -11,6 +11,7 @@ module.exports = /*@ngInject*/ function(httpService, friendsFactory) {
 
     var friends = [];
     var topFriends = [];
+    var potentialFriends = [];
 
     return {
         get friends() {
@@ -22,7 +23,11 @@ module.exports = /*@ngInject*/ function(httpService, friendsFactory) {
         },
 
         get onlineFriends() {
-            return friends.filter(item => item.isOnline === true);
+            return friends.filter(friend => friend.isOnline === true);
+        },
+
+        get potentialFriends() {
+            return topFriends;
         },
 
         load: function(sort) {
@@ -30,16 +35,39 @@ module.exports = /*@ngInject*/ function(httpService, friendsFactory) {
                 sort: sort //id, top ...
             };
 
-            return httpService.friendList(data).then(response => {
+            return httpService.friendsList(data).then(response => {
                 if (response.status === 200 && response.data.friends !== undefined) {
-                    topFriends = makeFriendsListFromSource(response.data.friends);
+                    topFriends = makeFriendsListFromSource(response.data.friends, 'friend');
                     friends = topFriends.slice().sort(idCompare);
+                }
+            });
+        },
+
+        loadPotentialFriends: function() {
+            var data = {
+
+            };
+
+            return httpService.potentialFriendsList(data).then(response => {
+                if (response.status === 200 && response.data.users !== undefined) {
+                    potentialFriends = makeFriendsListFromSource(response.data.users, 'potential');
+                    console.log(potentialFriends);
                 }
             });
         },
 
         getTopFriends: function(limit) {
             return topFriends.splice(0, limit);
+        },
+
+        getRequesters: function(limit) {
+            var requesters = potentialFriends.filter(user => user.in === true);
+            return limit ? requesters.splice(0, limit) : requesters;
+        },
+
+        getDesirables: function(limit) {
+            var desirables = potentialFriends.filter(user => user.out === true);
+            return limit ? desirables.splice(0, limit) : desirables;
         },
 
         getFriendById: function(id) {

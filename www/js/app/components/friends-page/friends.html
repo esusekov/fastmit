@@ -10,9 +10,9 @@
             <!--<ion-nav-view name="friendsAll"></ion-nav-view>-->
             <ion-content class="friend-tab">
                 <ion-list>
-                    <ion-item ng-repeat="friend in friends">
+                    <div ng-repeat="friend in friends">
                         <friend-item friend="friend"></friend-item>
-                    </ion-item>
+                    </div>
                 </ion-list>
             </ion-content>
         </ion-tab>
@@ -21,16 +21,27 @@
             <!--<ion-nav-view name="friendsOnline"></ion-nav-view>-->
             <ion-content class="friend-tab">
                 <ion-list>
-                    <ion-item ng-repeat="friend in onlineFriends" >
+                    <div ng-repeat="friend in onlineFriends">
                         <friend-item friend="friend"></friend-item>
-                    </ion-item>
+                    </div>
                 </ion-list>
             </ion-content>
         </ion-tab>
 
         <ion-tab title="{{'REQUESTS' | translate }}">
             <ion-content class="friend-tab">
-
+                <div class="item item-divider">
+                    Вас добавили
+                </div>
+                <div ng-repeat="friend in requestingFriends">
+                    <friend-item friend="friend"></friend-item>
+                </div>
+                <div class="item item-divider">
+                    Вы добавили
+                </div>
+                <div ng-repeat="friend in desirableFriends">
+                    <friend-item friend="friend"></friend-item>
+                </div>
             </ion-content>
         </ion-tab>
 

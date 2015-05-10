@@ -7,7 +7,7 @@
   }
 }
 
-.bar {
+.bar.bar-header:not(.bar-subheader) {
   .title {
     font-size: 20px;
   }
@@ -20,4 +20,8 @@
       align-self: center;
     }
   }
+}
+
+.icon {
+  color: rgba(0,0,0,.5);
 }

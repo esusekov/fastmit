@@ -4,9 +4,15 @@
     </ion-nav-buttons>
     <ion-content>
         <ion-list>
-            <ion-item ng-repeat="friend in topFriends">
+            <div ng-repeat="friend in topFriends">
                 <friend-item friend="friend"></friend-item>
-            </ion-item>
+            </div>
+            <div class="item item-divider">
+                Вас добавили
+            </div>
+            <div ng-repeat="friend in requestingFriends">
+                <friend-item friend="friend"></friend-item>
+            </div>
         </ion-list>
     </ion-content>
 
