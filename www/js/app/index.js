@@ -13,8 +13,11 @@ angular.module('friends', [])
 angular.module('common', ['friends'])
     .service('urlsApi', require('./common/urls-api-service'))
     .service('popupService', require('./common/popup-service'))
-    .factory('httpService', require('./common/httpService'))
-    .service('authorizationService', require('./common/authorization-service'));
+    .factory('httpService', require('./common/http-service'))
+    .service('authorizationService', require('./common/authorization-service'))
+    .factory('correspondenceModel', require('./common/correspondence-model'))
+    .factory('messageModel', require('./common/message-model'))
+    .factory('websocketService', require('./common/websocket-service'));
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
@@ -51,8 +54,6 @@ angular.module('search-page', [])
 
 angular.module('chat-page', [])
     .controller('ChatController', require('./components/chat-page/chat-controller'))
-    .factory('correspondenceModel', require('./components/chat-page/correspondence-model'))
-    .factory('messageModel', require('./components/chat-page/message-model'))
     .directive('myMessage', require('./components/chat-page/directives/my-message'))
     .directive('companionMessage', require('./components/chat-page/directives/companion-message'));
 
@@ -60,6 +61,7 @@ angular.module('chat-page', [])
 angular.module('app', [
         'ionic',
         'ngCordova',
+        'ngWebSocket',
         'LocalForageModule',
         'pascalprecht.translate',
         'sidebar',

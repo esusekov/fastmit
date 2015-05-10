@@ -5,7 +5,7 @@ module.exports = /*@ngInject*/ function() {
     return {
         restrict: 'E',
         replace: true,
-        templateUrl: './../templates/my-message.html',
+        templateUrl: 'js/app/components/chat-page/templates/my-message.html',
         scope: {
             message: '='
         },

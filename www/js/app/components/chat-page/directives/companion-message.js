@@ -6,7 +6,7 @@ module.exports = /*@ngInject*/ function() {
     return {
         restrict: 'E',
         replace: true,
-        templateUrl: '',
+        templateUrl: 'js/app/components/chat-page/templates/companion-message.html',
         scope: {
             message: '='
         },

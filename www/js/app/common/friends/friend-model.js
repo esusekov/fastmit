@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(correspondenceModel) {
+module.exports = /*@ngInject*/ function(correspondenceModel, websocketService) {
 
     function Friend(source) {
         this.__id = source.id;
@@ -15,7 +15,7 @@ module.exports = /*@ngInject*/ function(correspondenceModel) {
     Friend.prototype = {
 
         get correspondence() {
-            return this.__correspondence;
+            return this.__correspondence.list;
         },
 
         get id() {
@@ -64,6 +64,15 @@ module.exports = /*@ngInject*/ function(correspondenceModel) {
 
         checkId: function(id) {
             return Number(this.__id) === Number(id);
+        },
+
+        sendMessage: function(data) {
+            this.__correspondence.setMessage(data);
+            var message = {
+                id: this.__id,
+                data: data
+            };
+            //websocketService.send(message);
         }
 
     };

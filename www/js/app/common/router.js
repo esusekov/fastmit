@@ -100,7 +100,7 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
             url: '/chat/:id',
             views: {
                 'menuContent': {
-                    templateUrl: 'js/app/components/chat-page/chat.html',
+                    templateUrl: 'js/app/components/chat-page/templates/chat.html',
                     controller: 'ChatController'
                 }
             }
