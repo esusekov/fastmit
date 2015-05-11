@@ -3,24 +3,34 @@
 var polyfills = require('./polyfills');
 polyfills.array();
 
-angular.module('friends', [])
-    .filter('friendChatUrl', require('./common/friends/friend-chat-url'))
-    .factory('UserModel', require('./common/friends/user-model'))
-    .factory('FriendModel', require('./common/friends/friend-model'))
-    .factory('PotentialFriendModel', require('./common/friends/potential-friend-model'))
-    .factory('friendsFactory', require('./common/friends/friends-factory'))
-    .factory('friendsService', require('./common/friends/friends-service'))
-    .factory('contactsService', require('./common/friends/contacts-service'))
-    .directive('friendItem', require('./common/friends/friend-item'));
+//angular.module('friends', [])
+//    .filter('friendChatUrl', require('./common/friends/friend-chat-url'))
+//    .factory('UserModel', require('./common/friends/user-model'))
+//    .factory('FriendModel', require('./common/friends/friend-model'))
+//    .factory('PotentialFriendModel', require('./common/friends/potential-friend-model'))
+//    .factory('friendsFactory', require('./common/friends/friends-factory'))
+//    .factory('friendsService', require('./common/friends/friends-service'))
+//    .factory('contactsService', require('./common/friends/contacts-service'))
+//    .directive('friendItem', require('./common/friends/friend-item'));
 
-angular.module('common', ['friends'])
-    .service('urlsApi', require('./common/urls-api-service'))
-    .service('popupService', require('./common/popup-service'))
-    .factory('httpService', require('./common/http-service'))
-    .service('authorizationService', require('./common/authorization-service'))
-    .factory('correspondenceModel', require('./common/correspondence-model'))
-    .factory('messageModel', require('./common/message-model'))
-    .factory('websocketService', require('./common/websocket-service'));
+
+angular.module('models', [])
+    .factory('CorrespondenceModel', require('./models/correspondence-model'))
+    .factory('MessageModel', require('./models/message-model'))
+    .factory('FriendModel', require('./models/friend-model'))
+    .factory('FriendsModel', require('./models/friends-model'))
+    .factory('StateModel', require('./models/state-model'));
+
+
+angular.module('services', [])
+    .service('urlsApi', require('./services/urls-api-service'))
+    .service('popupService', require('./services/popup-service'))
+    .factory('httpService', require('./services/http-service'))
+    .service('authorizationService', require('./services/authorization-service'))
+    .factory('websocketService', require('./services/websocket-service'))
+    .factory('websocketInteraction', require('./services/websocketInteraction-service'))
+    .factory('FriendsService', require('./services/friends-service'))
+    .service('app', require('./services/app'));
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
@@ -47,7 +57,8 @@ angular.module('change-password', [])
 
 
 angular.module('main-page', [])
-    .controller('MainController', require('./components/main-page/main-controller'));
+    .controller('MainController', require('./components/main-page/main-controller'))
+    .directive('friendItem', require('./common/friends/friend-item'));
 
 angular.module('friends-page', [])
     .controller('FriendsController', require('./components/friends-page/friends-controller'));
@@ -57,8 +68,8 @@ angular.module('search-page', [])
 
 angular.module('chat-page', [])
     .controller('ChatController', require('./components/chat-page/chat-controller'))
-    .directive('myMessage', require('./components/chat-page/directives/my-message'))
-    .directive('companionMessage', require('./components/chat-page/directives/companion-message'));
+    .directive('text', require('./components/chat-page/directives/text'))
+    .directive('photo', require('./components/chat-page/directives/photo'));
 
 
 angular.module('app', [
@@ -67,20 +78,22 @@ angular.module('app', [
         'ngWebSocket',
         'LocalForageModule',
         'pascalprecht.translate',
+
+        'models',
+        'services',
+
         'sidebar',
         'login',
         'registration',
         'forgot',
         'settings',
-        'friends',
-        'common',
+        //'friends',
+        //'common',
         'change-password',
         'main-page',
         'friends-page',
         'search-page',
         'chat-page',
-        'common'
-
     ])
 
     .config(require('./common/translate'))

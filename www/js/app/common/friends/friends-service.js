@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(httpService, friendsFactory) {
+
     function makeFriendsListFromSource(sourceArray, type) {
         return sourceArray.map(source => friendsFactory.create(source, type));
     }
@@ -23,7 +24,7 @@ module.exports = /*@ngInject*/ function(httpService, friendsFactory) {
         },
 
         get onlineFriends() {
-            return friends.filter(friend => friend.isOnline === true);
+            return friends.filter(friend => friend.isOnline);
         },
 
         get potentialFriends() {
@@ -57,21 +58,21 @@ module.exports = /*@ngInject*/ function(httpService, friendsFactory) {
         },
 
         getTopFriends: function(limit) {
-            return topFriends.splice(0, limit);
+            return topFriends.slice(0, limit);
         },
 
         getRequesters: function(limit) {
-            var requesters = potentialFriends.filter(user => user.in === true);
-            return limit ? requesters.splice(0, limit) : requesters;
+            var requesters = potentialFriends.filter(user => user.in);
+            return limit ? requesters.slice(0, limit) : requesters;
         },
 
         getDesirables: function(limit) {
-            var desirables = potentialFriends.filter(user => user.out === true);
-            return limit ? desirables.splice(0, limit) : desirables;
+            var desirables = potentialFriends.filter(user => user.out);
+            return limit ? desirables.slice(0, limit) : desirables;
         },
 
         getFriendById: function(id) {
-            var index = friends.findIndex(friend => friend.checkId(id) );
+            var index = friends.findIndex(friend => friend.checkId(id));
             return index !== -1 ? friends[index] : null;
         },
 

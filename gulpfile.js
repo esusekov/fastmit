@@ -31,7 +31,7 @@ gulp.task('browserify', function() {
       .pipe(browserify())
       .pipe(babel())
       .pipe(ngannotate())
-      .pipe(rename('app.js'))
+      .pipe(rename('build.js'))
       .pipe(sourcemaps.write())
       .pipe(gulp.dest(paths.root + '/js'));
 });

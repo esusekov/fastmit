@@ -49,10 +49,14 @@ module.exports = /*@ngInject*/ function(authorizationService) {
         },
 
         isFilled: function() {
-            return this.__username != null && this.__password != null && this.__email != null;
+            return (
+                this.__username != null &&
+                this.__password != null &&
+                this.__email != null
+            );
         },
 
-        register: function(successCallback, errorCallback) {
+        register: function() {
             return authorizationService.register(this.getData());
         }
 

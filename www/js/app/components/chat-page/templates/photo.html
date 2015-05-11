@@ -1,0 +1,14 @@
+
+<div class="text-message" ng-class="message.isMy ? 'my-message': 'friend-message';">
+
+
+    <span class="text">{{ message.isMy ? 'отправка': 'пришло новое фото' }} <i>{{ message.timeout / 1000 }}</i></span>
+
+    <div ng-if="show" class="photo-box">
+
+        <img src="{{ message.message }}" class="image">
+
+    </div>
+
+</div>
+

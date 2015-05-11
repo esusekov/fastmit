@@ -1,12 +1,17 @@
 <ion-view view-title="Chat">
     <ion-content>
 
-        <ul>
-            <li ng-repeat="message in friend.correspondence">
-                <my-message ng-if="message.isMy" message="message"></my-message>
-                <companion-message ng-if="!message.isMy" ng-message="message"></companion-message>
-            </li>
-        </ul>
+        <div class="chat">
+            <div class="messages">
+                <div ng-repeat="message in friend.correspondence" class="message">
+
+                    <text ng-if="message.isText" message="message" delete="friend.correspondence.deleteMessage"></text>
+
+                    <photo ng-if="message.isPhoto" message="message" ></photo>
+
+                </div>
+            </div>
+        </div>
 
 
     </ion-content>
@@ -14,7 +19,7 @@
         <label class="item-input-wrapper">
             <input type="text" placeholder="Type your message" on-return="" ng-model="message" />
         </label>
-        <button class="button button-clear" ng-click="sendMsg()">
+        <button class="button button-clear" ng-click="sendMessage()">
             Send
         </button>
     </ion-footer-bar>
