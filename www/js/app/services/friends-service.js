@@ -1,8 +1,9 @@
 "use strict";
-
-module.exports = /*@ngInject*/ function(FriendsModel, httpService, $q) {
+//TODO - refactoring
+module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, httpService, $q) {
 
     var friends = new FriendsModel();
+    var potentialFriends = [];
 
     return {
 
@@ -15,18 +16,41 @@ module.exports = /*@ngInject*/ function(FriendsModel, httpService, $q) {
             ]);
         },
 
+        refresh() {
+            return $q.all([
+                this.loadFriends(),
+                this.loadPotentialFriends()
+            ]);
+        },
+
         getFriends: function() {
             return friends.getFriends();
+        },
+
+        getOnlineFriends() {
+            return friends.getFriends().filter(friend => friend.isOnline);
+        },
+
+        getPotentialFriends() {
+            return friends.getFriends().filter(friend => friend.isOnline);
+        },
+
+        getFollowers() {
+            return potentialFriends.filter(user => user.isFollower());
+        },
+
+        getFollowees() {
+            return potentialFriends.filter(user => user.isFollowee());
         },
 
         loadFriends: function() {
             return httpService.friendsList({}).then(response => {
                 console.log('FriendList', response);
 
-                var friends_ = response.data.friends;
+                let friends_ = response.data.friends || [];
 
                 if (response.status === 200 && friends_ != null) {
-                    friends.setFriends(friends_);
+                    friends.refreshFriends(friends_);
                 }
             });
         },
@@ -34,6 +58,12 @@ module.exports = /*@ngInject*/ function(FriendsModel, httpService, $q) {
         loadPotentialFriends: function() {
             return httpService.potentialFriendsList({}).then(response => {
                 console.log('PotentialFriends', response);
+
+                let users = response.data.users || [];
+
+                if (response.status === 200 && users != null) {
+                    potentialFriends = users.map(user => new PotentialFriendModel(user));
+                }
             });
         },
 

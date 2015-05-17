@@ -60,6 +60,10 @@ module.exports = /*@ngInject*/ function(FriendModel) {
             });
         }
 
+        refreshFriends(data) {
+            this.__list = data;
+        }
+
     }
 
     return FriendsModel;

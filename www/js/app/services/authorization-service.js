@@ -10,10 +10,10 @@ module.exports = /*@ngInject*/ function($localForage, httpService, $q) {
 
         checkAuth() {
             return $localForage.getItem(this.AUTH_TOKEN_KEY).then(data => {
-                console.log(data);
+                console.log('AUTH SERVICE DATA', data);
                 if (data != null) {
                     this.isAuth = true;
-                    httpService.setToken(data.token);
+                    httpService.setToken(data);
                 } else {
                     return $q.reject();
                 }

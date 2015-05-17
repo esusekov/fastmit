@@ -33,6 +33,10 @@ module.exports = /*@ngInject*/ function(CorrespondenceModel, websocketInteractio
             return this.__photoUrl;
         }
 
+        get isOnline() {
+            return this.__isOnline;
+        }
+
         setMessage(data) {
             var correspondence = this.__correspondence;
             data.isMy = false;

@@ -12,6 +12,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
         }
 
         setToken(token) {
+            console.log('SET TOKEN', token);
             this.__token = token;
         }
 
@@ -32,12 +33,17 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
         }
 
         friendsList(data) {
-            data.token = this.__token;
+            data.params = {
+                token: this.__token
+            };
+            console.log('TOKEN', data);
             return $http.get(urlsApi.friendsList, data);
         }
 
         potentialFriendsList(data) {
-            data.token = this.__token;
+            data.params = {
+                token: this.__token
+            };
             return $http.get(urlsApi.potentialFriendsList, data);
         }
 

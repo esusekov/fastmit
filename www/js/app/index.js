@@ -6,11 +6,11 @@ polyfills.array();
 //angular.module('friends', [])
 //    .filter('friendChatUrl', require('./common/friends/friend-chat-url'))
 //    .factory('UserModel', require('./common/friends/user-model'))
-//    .factory('FriendModel', require('./common/friends/friend-model'))
+//    //.factory('FriendModel', require('./common/friends/friend-model'))
 //    .factory('PotentialFriendModel', require('./common/friends/potential-friend-model'))
 //    .factory('friendsFactory', require('./common/friends/friends-factory'))
-//    .factory('friendsService', require('./common/friends/friends-service'))
-//    .factory('contactsService', require('./common/friends/contacts-service'))
+//    //.factory('friendsService', require('./common/friends/friends-service'))
+//    //.factory('contactsService', require('./common/friends/contacts-service'))
 //    .directive('friendItem', require('./common/friends/friend-item'));
 
 
@@ -18,6 +18,7 @@ angular.module('models', [])
     .factory('CorrespondenceModel', require('./models/correspondence-model'))
     .factory('MessageModel', require('./models/message-model'))
     .factory('FriendModel', require('./models/friend-model'))
+    .factory('PotentialFriendModel', require('./models/potential-friend-model'))
     .factory('FriendsModel', require('./models/friends-model'))
     .factory('StateModel', require('./models/state-model'));
 
@@ -29,7 +30,7 @@ angular.module('services', [])
     .service('authorizationService', require('./services/authorization-service'))
     .factory('websocketService', require('./services/websocket-service'))
     .factory('websocketInteraction', require('./services/websocketInteraction-service'))
-    .factory('FriendsService', require('./services/friends-service'))
+    .factory('friendsService', require('./services/friends-service'))
     .service('app', require('./services/app'));
 
 angular.module('sidebar', [])
@@ -140,11 +141,14 @@ angular.module('app', [
         });
     })
 
-    .run(function(authorizationService, $location) {
+    .run(function(authorizationService, $location, $q, $rootScope) {
+        $rootScope.authCheck = $q.defer();
         authorizationService.checkAuth().then(() => {
             $location.path('/app/main');
         }).catch(() => {
             $location.path('/login');
+        }).finally(function() {
+            $rootScope.authCheck.resolve();
         });
     });
 

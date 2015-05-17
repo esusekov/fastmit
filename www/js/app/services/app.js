@@ -1,13 +1,13 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(FriendsService, websocketInteraction) {
+module.exports = /*@ngInject*/ function(friendsService, websocketInteraction) {
 
     return {
 
         init() {
             console.log('App init');
 
-            return FriendsService.init().then(() => {
+            return friendsService.init().then(() => {
 
                 websocketInteraction.on(event => {
                     var type = event.type;
@@ -19,7 +19,7 @@ module.exports = /*@ngInject*/ function(FriendsService, websocketInteraction) {
                     switch(type) {
 
                         case 'message':
-                            FriendsService.setMessage(data);
+                            friendsService.setMessage(data);
                             break;
 
                     }
@@ -29,7 +29,7 @@ module.exports = /*@ngInject*/ function(FriendsService, websocketInteraction) {
         },
 
         get friendsService() {
-            return FriendsService;
+            return friendsService;
         }
 
     };

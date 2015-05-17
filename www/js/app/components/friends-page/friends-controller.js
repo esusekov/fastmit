@@ -1,10 +1,10 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $ionicLoading) {
-    //$scope.friends = friendsService.friends;
-    //$scope.onlineFriends = friendsService.onlineFriends;
-    //$scope.requestingFriends = friendsService.getRequesters();
-    //$scope.desirableFriends = friendsService.getDesirables();
-    //$scope.friendsCount = $scope.friends.length;
-    //$scope.onlineFriendsCount = $scope.onlineFriends.length;
+module.exports = /*@ngInject*/ function($scope, friendsService) {
+    $scope.friends = friendsService.getFriends();
+    $scope.onlineFriends = friendsService.getOnlineFriends();
+    $scope.requestingFriends = friendsService.getFollowers();
+    $scope.desirableFriends = friendsService.getFollowees();
+    $scope.friendsCount = $scope.friends.length;
+    $scope.onlineFriendsCount = $scope.onlineFriends.length;
 };

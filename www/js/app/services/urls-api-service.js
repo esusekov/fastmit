@@ -15,9 +15,9 @@ module.exports = /*@ngInject*/ function() {
 
         forgot: main_url + 'forgot-password',
 
-        friendsList: apiary_url + 'friends',
+        friendsList: main_url + 'friends',
 
-        potentialFriendsList: apiary_url + 'potential-friends',
+        potentialFriendsList: main_url + 'potential-friends',
 
         websocket_interaction: 'ws://localhost:8081'
 
