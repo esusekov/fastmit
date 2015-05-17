@@ -6,7 +6,7 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
     return {
         restrict: 'E',
         replace: true,
-        templateUrl: '/chat/templates/photo.html',
+        templateUrl: 'js/app/components/chat-page/templates/photo.html',
         scope: {
             message: '=',
         },

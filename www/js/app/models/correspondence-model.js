@@ -29,7 +29,7 @@ module.exports = /*@ngInject*/ function(MessageModel) {
             return this.size() === 0;
         }
 
-        searchMessageById(id) {
+        getMessageById(id) {
             return this.__list.find(message => {
                 return message.id === id;
             });

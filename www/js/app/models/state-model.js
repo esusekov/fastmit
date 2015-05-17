@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function() {
+module.exports = /*@ngInject*/ function($timeout) {
 
     var States = {
         TRANSFER: 'transfer',//передается
@@ -20,6 +20,10 @@ module.exports = /*@ngInject*/ function() {
 
         transferred() {
             this.value = States.TRANSFERRED;
+
+            $timeout(() => {
+                this.none();
+            }, 10 * 1000);
         }
 
         notTransferred() {

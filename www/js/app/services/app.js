@@ -8,21 +8,23 @@ module.exports = /*@ngInject*/ function(FriendsService, websocketInteraction) {
             console.log('App init');
 
             return FriendsService.init().then(() => {
-                websocketInteraction.onMessage(data => {
-                    console.log('OnMessage', data);
 
-                    FriendsService.setMessage(data);
+                websocketInteraction.on(event => {
+                    var type = event.type;
+                    var data = event.body;
+
+                    console.log('On message', event);
+                    
+                        
+                    switch(type) {
+
+                        case 'message':
+                            FriendsService.setMessage(data);
+                            break;
+
+                    }
                 });
 
-                websocketInteraction.onFriend(data => {
-                    console.log('OnFolder', data);
-
-                    FriendsService.setFriend(data);
-                });
-                
-                websocketInteraction.onError(data => {
-                    console.log('Error', data);
-                })
             });
         },
 

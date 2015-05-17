@@ -35,22 +35,40 @@ module.exports = /*@ngInject*/ function(CorrespondenceModel, websocketInteractio
 
         setMessage(data) {
             var correspondence = this.__correspondence;
+            data.isMy = false;
             var msg = correspondence.setMessage(data);
         }
 
         sendMessage(message) {
             var correspondence = this.__correspondence;
             console.log('MEssage', message);
-            
             var msg = correspondence.setMessage(message);
+            this.send(msg);
+        }
 
-            console.log('Msg', msg);
-            
-            
+        send(msg) {
             var data = this.generateData(msg);
-            console.log('Data', data);
+
+            msg.state.transfer();
+
+            websocketInteraction.send(data).then(event => {
+                console.log('Transferred');
+                msg.state.transferred();
+            }).catch(event => {
+                msg.state.notTransferred();
+            });
+        }
+
+        resend(id) {
+            console.log('id', id);
             
-            websocketInteraction.sendMessage(data);
+            var correspondence = this.__correspondence;
+            var msg = correspondence.getMessageById(id);
+            console.log('msg', msg);
+            
+            if (msg != null) {
+                this.send(msg);
+            }
         }
 
         generateData(msg) {

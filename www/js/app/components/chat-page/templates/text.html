@@ -1,4 +1,17 @@
 
-<div class="text-message" ng-class="message.isMy ? 'my-message': 'friend-message';">
-    <span class="text">{{ message.message }}</span>
+<div class="row">
+    <div class="text">
+        <span>{{ message.message }}</span>
+    </div>
+    <div class="state">
+        <span ng-if="message.state.isTransfer()" class="ion-load-d"></span>
+        <span ng-if="message.state.isTransferred()" class="ion-checkmark-round"></span>
+        <span ng-if="message.state.isNotTransferred()" ng-click="resend()" class="ion-close-round"></span>
+    </div>
 </div>
+
+
+
+
+
+

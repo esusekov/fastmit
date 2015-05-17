@@ -3,12 +3,14 @@
 
         <div class="chat">
             <div class="messages">
-                <div ng-repeat="message in friend.correspondence" class="message">
+                <div ng-repeat="message in friend.correspondence">
+                    <div class="message" ng-class=" message.isMy ? 'my-message': 'not-my-message' ">
 
-                    <text ng-if="message.isText" message="message" delete="friend.correspondence.deleteMessage"></text>
+                        <text ng-if="message.isText" message="message" delete="friend.correspondence.deleteMessage"></text>
 
-                    <photo ng-if="message.isPhoto" message="message" ></photo>
+                        <photo ng-if="message.isPhoto" message="message" ></photo>
 
+                    </div>
                 </div>
             </div>
         </div>

@@ -7,17 +7,18 @@ module.exports = /*@ngInject*/ function($scope, $stateParams, app) {
     $scope.message = null;
 
     $scope.sendMessage = function() {
-
-        console.log('Friend', $scope.friend);
         
-        if ($scope.message != null) {
+        var message = $scope.message.trim();
+                   console.log('Message', message);
+                   
+        if (message != null && message != '') {
             $scope.friend.sendMessage({
                 isMy: true,
-                message: $scope.message,
+                message: message,
                 type: 'text'
             });
-            $scope.clearMessage();
         }
+        $scope.clearMessage();
     };
 
     $scope.clearMessage = function() {
@@ -26,6 +27,10 @@ module.exports = /*@ngInject*/ function($scope, $stateParams, app) {
 
     $scope.$on('delete-message', (event, id) => {
         $scope.friend.deleteMessage(id);
+    });
+
+    $scope.$on('resend-message', (event, id) => {
+        $scope.friend.resend(id);
     });
 
 };

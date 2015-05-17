@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($websocket, urlsApi) {
+module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
 
     class websocketService {
         constructor(url) {
@@ -8,33 +8,69 @@ module.exports = /*@ngInject*/ function($websocket, urlsApi) {
                 throw new Error('websocket-service: is not define url');
             }
             this.url = url;
+            this.stream = null;
+            this.connected = false;
+            this.open();
+        }
+
+        open() {
+            console.log('Open new socket');
+
             this.stream = $websocket(this.url);
+            
+            this.stream.onOpen(event => {
+                this.connected = true;
+            });
+
+            this.stream.onClose(event => {
+                console.log('Close', event);
+                this.connected = false;
+                $timeout(() => {
+                    this.open();
+                }, 10 * 1000);
+            });
         }
 
         close() {
-            this.stream.close();
+            var stream = this.stream;
+            if (stream != null) {
+                stream.close();
+                stream = null;
+            }
         }
 
         send(message) {
-            this.stream.send(JSON.stringify(message));
+            return this.testSend(message);
+            //if (this.connected) {
+            //    return this.stream.send(JSON.stringify(message));
+            //}
+            //return $q.reject('not connected');
         }
 
         on(callback) {
-            this.stream.onMessage(callback);
+            this.stream.onMessage(event => {
+                var data = JSON.parse(event.data);
+                callback(data);
+            });
         }
 
-        onError(callback) {
-            this.stream.onClose(callback);
+        testSend(message) {
+            return $q((resolve, reject) => {
+                $timeout(() => {
+
+                    if (this.connected) {
+                        this.stream.send(JSON.stringify(message));
+                        resolve();
+                    } else {
+                        reject('not connected');
+                    }
+
+
+                }, 5 * 1000);
+            });
         }
 
-        onOpen(callback) {
-            this.stream.onOpen(callback);
-        }
-
-        onClose(callback) {
-            this.stream.onClose(callback);
-        }
     }
 
-    return new websocketService(urlsApi.websocket_interaction);
+    return websocketService;
 };

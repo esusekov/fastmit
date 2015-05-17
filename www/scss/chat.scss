@@ -1,0 +1,33 @@
+
+.chat {
+    > .messages {
+
+        .message {
+
+            .text {
+                word-wrap: break-word;
+                padding: 7px;
+                border-radius: 5px;
+                max-width: 70%;
+            }
+
+            .state {
+                padding: 0px 5px;
+            }
+
+        }
+
+        .my-message {
+            .text {
+                background-color: #33cd5f;
+            }
+        }
+
+        .not-my-message {
+            .text {
+                background-color: #dddddd;
+            }
+        }
+
+    }
+}

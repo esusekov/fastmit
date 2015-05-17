@@ -8,7 +8,8 @@ module.exports = /*@ngInject*/ function(FriendModel) {
         }
 
         addFriend(data) {
-            this.__list.push(new FriendModel(data));
+            var friend = new FriendModel(data);
+            this.__list.push(friend);
         }
 
         getFriends() {
@@ -30,7 +31,9 @@ module.exports = /*@ngInject*/ function(FriendModel) {
         setMessage(data) {
             var friendId = data.id_friend;
             var friend = this.getFriendById(friendId);
-            friend.setMessage(data);
+            if (friend != null) {
+                friend.setMessage(data);
+            }
         }
 
         hasFriend(id) {
