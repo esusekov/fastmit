@@ -61,7 +61,7 @@ module.exports = /*@ngInject*/ function(FriendModel) {
         }
 
         refreshFriends(data) {
-            this.__list = data;
+            this.__list = data.map(friend => new FriendModel(friend));
         }
 
     }
