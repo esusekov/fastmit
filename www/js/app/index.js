@@ -3,7 +3,9 @@
 var polyfills = require('./polyfills');
 polyfills.array();
 
-//angular.module('friends', [])
+angular.module('friends', [])
+    .directive('userItem', require('./common/friends/user-item'))
+    .directive('friendItem', require('./common/friends/friend-item'));
 //    .filter('friendChatUrl', require('./common/friends/friend-chat-url'))
 //    .factory('UserModel', require('./common/friends/user-model'))
 //    //.factory('FriendModel', require('./common/friends/friend-model'))
@@ -58,8 +60,7 @@ angular.module('change-password', [])
 
 
 angular.module('main-page', [])
-    .controller('MainController', require('./components/main-page/main-controller'))
-    .directive('friendItem', require('./common/friends/friend-item'));
+    .controller('MainController', require('./components/main-page/main-controller'));
 
 angular.module('friends-page', [])
     .controller('FriendsController', require('./components/friends-page/friends-controller'));
@@ -88,7 +89,7 @@ angular.module('app', [
         'registration',
         'forgot',
         'settings',
-        //'friends',
+        'friends',
         //'common',
         'change-password',
         'main-page',
@@ -147,8 +148,6 @@ angular.module('app', [
             $location.path('/app/main');
         }).catch(() => {
             $location.path('/login');
-        }).finally(function() {
-            $rootScope.authCheck.resolve();
-        });
+        }).finally($rootScope.authCheck.resolve);
     });
 

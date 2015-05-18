@@ -14,6 +14,6 @@ module.exports = /*@ngInject*/ function($scope, $ionicLoading, app, friendsServi
         friendsService.loadFriends().then(() => {
             console.log('loadFriends');
             $scope.topFriends = friendsService.getFriends();
-        })
-    }, 10000)
+        });
+    }, 10000);
 };

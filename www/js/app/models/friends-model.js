@@ -18,13 +18,10 @@ module.exports = /*@ngInject*/ function(FriendModel) {
 
         getFriendById(id) {
             console.log('ID', id);
-            if (typeof id !== 'number') {
-                id = Number(id);
-            }
             var friends = this.__list;
 
             return friends.filter(friend => {
-                return friend.id === id;
+                return Number(friend.id) === Number(id);
             })[0];
         }
 

@@ -1,0 +1,8 @@
+<a class="item item-avatar item-button-right" ng-href="#" ui-sref-active>
+    <img ng-src="{{user.photoUrl}}" class="photo">
+    <h2>{{user.username}}</h2>
+
+    <button class="button button-positive" ng-click="makeFriend()" ng-if="user.isFollower()">
+        <i class="icon ion-ios-telephone"></i>
+    </button>
+</a>

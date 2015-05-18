@@ -77,6 +77,10 @@ module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, http
 
         getFriendById(id) {
             return friends.getFriendById(id);
+        },
+
+        addFriend(id) {
+            return httpService.addFriend(id);
         }
     };
 };

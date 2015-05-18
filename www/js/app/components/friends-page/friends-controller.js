@@ -7,4 +7,8 @@ module.exports = /*@ngInject*/ function($scope, friendsService) {
     $scope.desirableFriends = friendsService.getFollowees();
     $scope.friendsCount = $scope.friends.length;
     $scope.onlineFriendsCount = $scope.onlineFriends.length;
+
+    $scope.addFriend = function(id) {
+        friendsService.addFriend(id);
+    }
 };
