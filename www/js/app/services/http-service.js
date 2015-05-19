@@ -51,7 +51,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
             var data = {
                 params: {
                     token: this.__token,
-                    id: id
+                    friendId: id
                 }
             };
             return $http.get(urlsApi.addFriend, data);
