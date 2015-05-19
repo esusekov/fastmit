@@ -20,9 +20,9 @@ module.exports = /*@ngInject*/ function(FriendModel) {
             console.log('ID', id);
             var friends = this.__list;
 
-            return friends.filter(friend => {
+            return friends.find(friend => {
                 return Number(friend.id) === Number(id);
-            })[0];
+            });
         }
 
         setMessage(data) {
@@ -52,13 +52,18 @@ module.exports = /*@ngInject*/ function(FriendModel) {
         }
 
         setFriends(data) {
-            data.forEach(friend => {
-                this.addFriend(friend);
-            });
+            this.__list = data.map(friend => new FriendModel(friend));
         }
 
-        refreshFriends(data) {
-            this.__list = data.map(friend => new FriendModel(friend));
+        updateFriends(data) {
+            data.forEach(friend => {
+                var oldFriend = this.getFriendById(friend.id);
+                if (oldFriend !== undefined) {
+                    oldFriend.update(friend);
+                } else {
+                    this.addFriend(friend);
+                }
+            });
         }
 
     }

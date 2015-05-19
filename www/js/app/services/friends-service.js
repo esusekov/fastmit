@@ -1,9 +1,10 @@
 "use strict";
 //TODO - refactoring
-module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, httpService, $q) {
+module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, httpService, $q, $interval) {
 
     var friends = new FriendsModel();
     var potentialFriends = [];
+    var dataInterval;
 
     return {
 
@@ -23,7 +24,7 @@ module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, http
             ]);
         },
 
-        getFriends: function() {
+        getFriends() {
             return friends.getFriends();
         },
 
@@ -43,19 +44,19 @@ module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, http
             return potentialFriends.filter(user => user.isFollowee());
         },
 
-        loadFriends: function() {
+        loadFriends() {
             return httpService.friendsList({}).then(response => {
                 console.log('FriendList', response);
 
                 let friends_ = response.data.friends || [];
 
                 if (response.status === 200 && friends_ != null) {
-                    friends.refreshFriends(friends_);
+                    friends.updateFriends(friends_);
                 }
             });
         },
 
-        loadPotentialFriends: function() {
+        loadPotentialFriends() {
             return httpService.potentialFriendsList({}).then(response => {
                 console.log('PotentialFriends', response);
 
@@ -67,11 +68,21 @@ module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, http
             });
         },
 
-        setMessage: function(data) {
+        setDataListener() {
+            dataInterval = $interval(() => {
+                this.refresh();
+            }, 30000);
+        },
+
+        removeDataListener() {
+            $interval.cancel(dataInterval);
+        },
+
+        setMessage(data) {
             friends.setMessage(data);
         },
 
-        setFriend: function(data) {
+        setFriend(data) {
             friends.setFriend(data);
         },
 
@@ -80,7 +91,15 @@ module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, http
         },
 
         addFriend(id) {
-            return httpService.addFriend(id);
+            return httpService.addFriend(id).success(function() {
+                return this.refresh();
+            }).error(function() {
+                return $q.reject();
+            });
+        },
+
+        deleteFriend(id) {
+            return httpService.deleteFriend(id);
         }
     };
 };

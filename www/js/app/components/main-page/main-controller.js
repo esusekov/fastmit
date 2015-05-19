@@ -6,14 +6,10 @@ module.exports = /*@ngInject*/ function($scope, $ionicLoading, app, friendsServi
     $scope.authCheck.promise
         .then(app.init)
         .then(() => {
-        $scope.topFriends = friendsService.getFriends();
-        $ionicLoading.hide();
+            $scope.topFriends = friendsService.getFriends();
+            $ionicLoading.hide();
+            friendsService.setDataListener();
     });
 
-    $interval(() => {
-        friendsService.loadFriends().then(() => {
-            console.log('loadFriends');
-            $scope.topFriends = friendsService.getFriends();
-        });
-    }, 10000);
+    $scope.$on('$destroy', friendsService.removeDataListener);
 };
