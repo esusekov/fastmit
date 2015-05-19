@@ -21,7 +21,7 @@ module.exports = /*@ngInject*/ function() {
 
         addFriend: main_url + 'friends/add',
 
-        websocket_interaction: 'ws://localhost:8081'
+        websocket_interaction: 'ws://95.85.8.141:8888/some-secret-api/websocket'
 
     }
 
