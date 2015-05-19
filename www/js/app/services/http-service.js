@@ -57,6 +57,26 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
             return $http.get(urlsApi.addFriend, data);
         }
 
+        deleteFriend(id) {
+            var data = {
+                params: {
+                    token: this.__token,
+                    friendId: id
+                }
+            };
+            return $http.get(urlsApi.deleteFriend, data);
+        }
+
+        search(username) {
+            var data = {
+                params: {
+                    token: this.__token,
+                    username: username
+                }
+            };
+            return $http.get(urlsApi.search, data);
+        }
+
     }
 
     return new httpService();

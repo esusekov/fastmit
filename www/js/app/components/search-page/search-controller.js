@@ -1,18 +1,21 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, contactsService, friendsService) {
-    $scope.friends = friendsService.friends;
-    $scope.filteredFriends = [];
+module.exports = /*@ngInject*/ function($scope, friendsService, $stateParams) {
+    $scope.friends = [];
+    $scope.users = [];
 
-    $scope.$watch('query.username', function(value) {
+    $scope.noFriends = $stateParams.noFriends === 'noFriends';
+
+    $scope.$watch('query.username', value => {
         if (value === undefined || value === '') {
-            $scope.filteredFriends = [];
+            $scope.friends = [];
             return;
         }
 
-        var lowercasedValue = value.toLowerCase();
-
-        $scope.filteredFriends = $scope.friends.filter(friend => friend.username.toLowerCase().indexOf(lowercasedValue) >= 0);
+        $scope.friends = friendsService.filterFriendsByUsername(value);
+        friendsService.searchForUser(value).then(users => {
+            $scope.users = users;
+        });
     });
 
     //contactsService.load().then(function() {

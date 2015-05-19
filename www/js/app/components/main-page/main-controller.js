@@ -6,7 +6,7 @@ module.exports = /*@ngInject*/ function($scope, $ionicLoading, app, friendsServi
     $scope.authCheck.promise
         .then(app.init)
         .then(() => {
-            $scope.topFriends = friendsService.getFriends();
+            $scope.topFriends = friendsService.friends;
             $ionicLoading.hide();
             friendsService.setDataListener();
     });

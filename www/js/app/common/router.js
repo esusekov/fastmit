@@ -39,7 +39,7 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
         })
 
         .state('app.search', {
-            url: '/search',
+            url: '/search/:noFriends',
             views: {
                 'menuContent': {
                     templateUrl: 'js/app/components/search-page/search.html',

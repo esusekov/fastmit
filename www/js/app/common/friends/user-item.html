@@ -2,7 +2,7 @@
     <img ng-src="{{user.photoUrl}}" class="photo">
     <h2>{{user.username}}</h2>
 
-    <button class="button button-positive" ng-click="makeFriend()" ng-if="user.isFollower()">
+    <button class="button button-positive" ng-click="makeFriend($event)">
         <i class="icon ion-ios-telephone"></i>
     </button>
 </a>

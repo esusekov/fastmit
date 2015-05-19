@@ -1,7 +1,7 @@
 <ion-view view-title="{{ 'FRIENDS' | translate }}" class="friends">
 
     <ion-nav-buttons side="secondary">
-        <a class="button button-icon button-clear ion-search" href="#/app/search"></a>
+        <a class="button button-icon button-clear ion-search" href="#/app/search/"></a>
     </ion-nav-buttons>
 
     <ion-tabs class="tabs-stable tabs-striped tabs-top friend-tabs">
@@ -33,13 +33,13 @@
                 <div class="item item-divider">
                     Вас добавили
                 </div>
-                <div ng-repeat="user in requestingFriends">
+                <div ng-repeat="user in followers">
                     <user-item user="user" add-friend="addFriend(id)"></user-item>
                 </div>
                 <div class="item item-divider">
                     Вы добавили
                 </div>
-                <div ng-repeat="user in desirableFriends">
+                <div ng-repeat="user in followees">
                     <user-item user="user"></user-item>
                 </div>
             </ion-content>
@@ -47,7 +47,7 @@
 
     </ion-tabs>
 
-    <a class="action-button" href="#/app/main">
+    <a class="action-button" href="#/app/search/noFriends">
         <button class="button icon ion-plus btn-normal button-assertive"></button>
     </a>
 </ion-view>

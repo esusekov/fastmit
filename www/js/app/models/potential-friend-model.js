@@ -1,25 +1,11 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function() {
+module.exports = /*@ngInject*/ function(UserModel) {
 
-    class PotentialFriendModel {
+    class PotentialFriendModel extends UserModel {
         constructor(source) {
-            this.__id = source.id;
-            this.__username = source.username;
-            this.__photoUrl = source.photoUrl;
+            super(source);
             this.__request = source.request || 'in';
-        }
-
-        get username() {
-            return this.__username;
-        }
-
-        get id() {
-            return this.__id;
-        }
-
-        get photoUrl() {
-            return this.__photoUrl;
         }
 
         isFollower() {

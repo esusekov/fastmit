@@ -8,8 +8,18 @@ module.exports = /*@ngInject*/ function() {
         scope: {
             friend: '='
         },
-        link: function(scope, element) {
-
-        }
+        controller: ['$scope', 'popupService', 'friendsService', function($scope, popupService, friendsService) {
+            $scope.deleteFriend = function($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+                friendsService.deleteFriend($scope.friend.id).then(function() {
+                    //var message = follow ? 'Запрос на добавление в друзья отправлен!' : 'Новый друг успешно добавлен!';
+                    var message = 'Потрачено!';
+                    popupService.alert(message);
+                }).catch(function() {
+                    popupService.alert('При удалении возникла ошибка.');
+                });
+            };
+        }]
     };
 };

@@ -1,23 +1,29 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function($scope, friendsService, popupService) {
-    $scope.friends = friendsService.getFriends();
+    $scope.friends = friendsService.friends;
     $scope.onlineFriends = friendsService.getOnlineFriends();
-    $scope.requestingFriends = friendsService.getFollowers();
-    $scope.desirableFriends = friendsService.getFollowees();
+    $scope.potentialFriends = friendsService.potentialFriends;
     $scope.friendsCount = $scope.friends.length;
     $scope.onlineFriendsCount = $scope.onlineFriends.length;
+    $scope.potentialFriendsCount = $scope.potentialFriends.length;
+    $scope.followers = friendsService.getFollowers();
+    $scope.followees = friendsService.getFollowees();
 
-    $scope.addFriend = function(id, follow) {
-        friendsService.addFriend(id).then(function() {
-            var message = follow ? 'Запрос на добавление в друзья отправлен!' : 'Новый друг успешно добавлен!';
-            popupService.alert(message);
-        }).catch(function() {
-            popupService.alert('При добавлении возникла ошибка.');
-        });
-    };
+    $scope.$watchCollection('friends', () => {
+        console.log('friends updated', $scope.friends);
+        $scope.onlineFriends = friendsService.getOnlineFriends();
+        $scope.friendsCount = $scope.friends.length;
+        $scope.onlineFriendsCount = $scope.onlineFriends.length;
+        console.log($scope.onlineFriends, $scope.friendsCount, $scope.onlineFriendsCount);
+    });
 
-    $scope.deleteFriend = function(id) {
-        friendsService.deleteFriend(id);
-    };
+    $scope.$watchCollection('potentialFriends', () => {
+        console.log('potential friends updated', $scope.potentialFriends);
+        $scope.followers = friendsService.getFollowers();
+        $scope.followees = friendsService.getFollowees();
+        $scope.potentialFriendsCount = $scope.potentialFriends.length;
+        console.log($scope.followers, $scope.followees, $scope.potentialFriendsCount);
+    });
+
 };

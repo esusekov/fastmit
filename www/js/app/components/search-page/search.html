@@ -12,10 +12,27 @@
     </ion-header-bar>
 
     <ion-content class="has-subheader friends">
-        <ion-list>
-            <div ng-repeat="friend in filteredFriends">
+
+        <ion-list ng-if="noFriends">
+            <div ng-repeat="user in users">
+                <user-item user="user"></user-item>
+            </div>
+        </ion-list>
+
+        <ion-list ng-if="!noFriends">
+            <div class="item item-divider">
+                Найдено в Fastmit
+            </div>
+            <div ng-repeat="user in users">
+                <user-item user="user"></user-item>
+            </div>
+            <div class="item item-divider">
+                Друзья
+            </div>
+            <div ng-repeat="friend in friends">
                 <friend-item friend="friend"></friend-item>
             </div>
         </ion-list>
+
     </ion-content>
 </ion-view>

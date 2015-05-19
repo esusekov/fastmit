@@ -12,7 +12,7 @@ module.exports = /*@ngInject*/ function(FriendModel) {
             this.__list.push(friend);
         }
 
-        getFriends() {
+        get friends() {
             return this.__list;
         }
 
@@ -56,14 +56,20 @@ module.exports = /*@ngInject*/ function(FriendModel) {
         }
 
         updateFriends(data) {
-            data.forEach(friend => {
+            this.__list = data.map(friend => {
                 var oldFriend = this.getFriendById(friend.id);
                 if (oldFriend !== undefined) {
                     oldFriend.update(friend);
+                    return oldFriend;
                 } else {
-                    this.addFriend(friend);
+                    return new FriendModel(friend);
                 }
             });
+            console.log(this.__list);
+        }
+
+        filterByUsername(query) {
+            return this.__list.filter(friend => friend.username.toLowerCase().indexOf(query) >= 0);
         }
 
     }

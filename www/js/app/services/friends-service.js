@@ -1,6 +1,6 @@
 "use strict";
 //TODO - refactoring
-module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, httpService, $q, $interval) {
+module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, PotentialFriendModel, httpService, $q, $interval) {
 
     var friends = new FriendsModel();
     var potentialFriends = [];
@@ -24,16 +24,21 @@ module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, http
             ]);
         },
 
-        getFriends() {
-            return friends.getFriends();
+        reset() {
+            friends = new FriendsModel();
+            potentialFriends = [];
+        },
+
+        get friends() {
+            return friends.friends;
         },
 
         getOnlineFriends() {
-            return friends.getFriends().filter(friend => friend.isOnline);
+            return friends.friends.filter(friend => friend.isOnline);
         },
 
-        getPotentialFriends() {
-            return friends.getFriends().filter(friend => friend.isOnline);
+        get potentialFriends() {
+            return potentialFriends;
         },
 
         getFollowers() {
@@ -44,7 +49,13 @@ module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, http
             return potentialFriends.filter(user => user.isFollowee());
         },
 
-        loadFriends() {
+        filterFriendsByUsername(query) {
+            var lowercasedQuery = query.toLowerCase();
+
+            return friends.filterByUsername(lowercasedQuery);
+        },
+
+        loadFriends: function() {
             return httpService.friendsList({}).then(response => {
                 console.log('FriendList', response);
 
@@ -56,7 +67,7 @@ module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, http
             });
         },
 
-        loadPotentialFriends() {
+        loadPotentialFriends: function() {
             return httpService.potentialFriendsList({}).then(response => {
                 console.log('PotentialFriends', response);
 
@@ -91,15 +102,29 @@ module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendModel, http
         },
 
         addFriend(id) {
-            return httpService.addFriend(id).success(function() {
+            return httpService.addFriend(id).success(() => {
                 return this.refresh();
-            }).error(function() {
+            }).error(() => {
                 return $q.reject();
             });
         },
 
         deleteFriend(id) {
-            return httpService.deleteFriend(id);
+            return httpService.deleteFriend(id).success(() => {
+                return this.refresh();
+            }).error(() => {
+                return $q.reject();
+            });
+        },
+
+        searchForUser(username) {
+            var lowercasedUsername = username.toLowerCase();
+
+            return $q((resolve, reject) => {
+                httpService.search(lowercasedUsername).success((data) => {
+                    resolve(data.users.map(user => new UserModel(user)));
+                }).error(reject);
+            })
         }
     };
 };

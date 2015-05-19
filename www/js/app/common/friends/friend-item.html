@@ -1,4 +1,4 @@
-<a class="item item-avatar" ng-href="{{friend.chatUrl}}" ui-sref-active>
+<a class="item item-avatar item-button-right" ng-href="{{friend.chatUrl}}" ui-sref-active>
     <img ng-src="{{friend.photoUrl}}" class="photo">
     <h2>{{friend.username}}</h2>
     <!--<div class="username-container">-->
@@ -8,4 +8,8 @@
         <!--<i class="icon ion-android-mail" ng-if="friend.hasUnread"></i>-->
         <!--<i class="icon ion-record" ng-if="friend.isOnline"></i>-->
     <!--</div>-->
+
+    <button class="button button-assertive" ng-click="deleteFriend($event)">
+        <i class="icon ion-ios-telephone"></i>
+    </button>
 </a>
