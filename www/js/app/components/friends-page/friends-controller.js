@@ -10,20 +10,16 @@ module.exports = /*@ngInject*/ function($scope, friendsService, popupService) {
     $scope.followers = friendsService.getFollowers();
     $scope.followees = friendsService.getFollowees();
 
-    $scope.$watchCollection('friends', () => {
-        console.log('friends updated', $scope.friends);
+    $scope.$watch('friends', () => {
         $scope.onlineFriends = friendsService.getOnlineFriends();
-        $scope.friendsCount = $scope.friends.length;
+        $scope.friendsCount = $scope.friends.friends.length;
         $scope.onlineFriendsCount = $scope.onlineFriends.length;
-        console.log($scope.onlineFriends, $scope.friendsCount, $scope.onlineFriendsCount);
     });
 
-    $scope.$watchCollection('potentialFriends', () => {
-        console.log('potential friends updated', $scope.potentialFriends);
+    $scope.$watch('potentialFriends', () => {
+        $scope.potentialFriendsCount = $scope.potentialFriends.users.length;
         $scope.followers = friendsService.getFollowers();
         $scope.followees = friendsService.getFollowees();
-        $scope.potentialFriendsCount = $scope.potentialFriends.length;
-        console.log($scope.followers, $scope.followees, $scope.potentialFriendsCount);
     });
 
 };

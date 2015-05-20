@@ -3,7 +3,9 @@
 module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, PotentialFriendModel, httpService, $q, $interval) {
 
     var friends = new FriendsModel();
-    var potentialFriends = [];
+    var potentialFriends = {
+        users: [ ]
+    };
     var dataInterval;
 
     return {
@@ -30,7 +32,7 @@ module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, Po
         },
 
         get friends() {
-            return friends.friends;
+            return friends;
         },
 
         getOnlineFriends() {
@@ -42,11 +44,11 @@ module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, Po
         },
 
         getFollowers() {
-            return potentialFriends.filter(user => user.isFollower());
+            return potentialFriends.users.filter(user => user.isFollower());
         },
 
         getFollowees() {
-            return potentialFriends.filter(user => user.isFollowee());
+            return potentialFriends.users.filter(user => user.isFollowee());
         },
 
         filterFriendsByUsername(query) {
@@ -74,7 +76,7 @@ module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, Po
                 let users = response.data.users || [];
 
                 if (response.status === 200 && users != null) {
-                    potentialFriends = users.map(user => new PotentialFriendModel(user));
+                    potentialFriends.users = users.map(user => new PotentialFriendModel(user));
                 }
             });
         },
