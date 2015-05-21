@@ -14,8 +14,7 @@ module.exports = /*@ngInject*/ function(friendsService, websocketInteraction) {
                     var data = event.body;
 
                     console.log('On message', event);
-                    
-                        
+
                     switch(type) {
 
                         case 'message':

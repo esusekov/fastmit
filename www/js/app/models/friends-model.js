@@ -17,7 +17,8 @@ module.exports = /*@ngInject*/ function(FriendModel) {
         }
 
         getFriendById(id) {
-            console.log('ID', id);
+            console.log('ID', id, 'Type', typeof id);
+
             var friends = this.__list;
 
             return friends.find(friend => {
@@ -34,7 +35,7 @@ module.exports = /*@ngInject*/ function(FriendModel) {
         }
 
         hasFriend(id) {
-            var list = this.getFriends();
+            var list = this.__list;
 
             for (var i = 0; list.length; ++i) {
                 if (list[i].id === id) {

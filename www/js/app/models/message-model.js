@@ -18,7 +18,7 @@ module.exports = /*@ngInject*/ function(StateModel) {
             this.__id = opts.id || generateId();
             this.__time = opts.time || Date.now();
             this.__message = opts.message;
-            this.__type = opts.type;
+            this.__type = opts.type_message;
             this.__isMy = opts.isMy;
             this.__timeout = opts.timeout || null;
 
