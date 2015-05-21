@@ -79,6 +79,7 @@ angular.module('app', [
         'ionic',
         'ngCordova',
         'ngWebSocket',
+        'ngCookies',
         'LocalForageModule',
         'pascalprecht.translate',
 

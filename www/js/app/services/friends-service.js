@@ -27,8 +27,8 @@ module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, Po
         },
 
         reset() {
-            friends = new FriendsModel();
-            potentialFriends = [];
+            friends.reset();
+            potentialFriends.users = [];
         },
 
         get friends() {

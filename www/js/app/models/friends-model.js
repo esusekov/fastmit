@@ -72,6 +72,9 @@ module.exports = /*@ngInject*/ function(FriendModel) {
             return this.__list.filter(friend => friend.username.toLowerCase().indexOf(query) >= 0);
         }
 
+        reset() {
+            this.__list = [];
+        }
     }
 
     return FriendsModel;

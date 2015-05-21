@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($localForage, httpService, $q) {
+module.exports = /*@ngInject*/ function($localForage, httpService, $q, $cookies) {
 
     class authorizationService {
         constructor() {

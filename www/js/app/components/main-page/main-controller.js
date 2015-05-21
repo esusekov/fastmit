@@ -12,4 +12,8 @@ module.exports = /*@ngInject*/ function($scope, $ionicLoading, app, friendsServi
     });
 
     $scope.$on('$destroy', friendsService.removeDataListener);
+
+    $scope.refresh = function() {
+
+    }
 };
