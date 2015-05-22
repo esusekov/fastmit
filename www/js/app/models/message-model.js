@@ -25,6 +25,14 @@ module.exports = /*@ngInject*/ function(StateModel) {
             this.__state = new StateModel();
         }
 
+        get timeout() {
+            return this.__timeout;
+        }
+
+        set timeout(timeout) {
+            this.__timeout = timeout;
+        }
+
         get isText() {
             return this.__type === 'text';
         }

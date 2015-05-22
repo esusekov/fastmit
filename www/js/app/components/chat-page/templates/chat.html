@@ -6,7 +6,7 @@
                 <div ng-repeat="message in friend.correspondence">
                     <div class="message" ng-class=" message.isMy ? 'my-message': 'not-my-message' ">
 
-                        <text ng-if="message.isText" message="message" delete="friend.correspondence.deleteMessage"></text>
+                        <text ng-if="message.isText" message="message"></text>
 
                         <photo ng-if="message.isPhoto" message="message" ></photo>
 
@@ -15,14 +15,15 @@
             </div>
         </div>
 
-
     </ion-content>
     <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
         <label class="item-input-wrapper">
             <input type="text" placeholder="Type your message" on-return="" ng-model="message" />
         </label>
-        <button class="button button-clear" ng-click="sendMessage()">
+        <button class="button button-clear" ng-click="sendText()">
             Send
+        </button>
+        <button class="button ion-ios-camera" ng-click="sendPhoto()">
         </button>
     </ion-footer-bar>
 </ion-view>

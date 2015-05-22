@@ -10,10 +10,8 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
         scope: {
             message: '=',
         },
-        controller: function($scope, $element, $attrs) {
-
-        },
         link: function(scope, element, attrs) {
+            var flagTick = true;
             var isMy = scope.message.isMy;
             var id = scope.message.id;
             var tick = 1000;
@@ -23,8 +21,7 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
             if (isMy) {
                 return;
             }
-
-            var promise = null;
+            console.log('INIT');
 
             function timeoutTick() {
                 if (scope.message.timeout === 0) {
@@ -32,18 +29,15 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
                     scope.$emit('delete-message', id);
                     scope.show = false;
 
-                    $timeout.cancel(promise);
-
                     $document.off('mouseup', mouseup);
                     element.off('mousedown', mousedown);
 
                 } else {
                     scope.message.timeout -= tick;
 
-                    promise = $timeout(timeoutTick, tick);
+                    $timeout(timeoutTick, tick);
                 }
             }
-
 
             element.on('mousedown', mousedown);
 
@@ -52,7 +46,10 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
                     console.log('mouse down');
                     scope.show = true;
                     $document.on('mouseup', mouseup);
-                    $timeout(timeoutTick, tick);
+                    if (flagTick) {
+                        flagTick = false;
+                        $timeout(timeoutTick, tick);
+                    }
                 });
             }
 
