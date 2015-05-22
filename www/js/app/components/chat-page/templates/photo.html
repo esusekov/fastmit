@@ -1,14 +1,19 @@
 
-<div class="text-message" ng-class="message.isMy ? 'my-message': 'friend-message';">
+<div class="row">
+    <div class="text">
+        <span>{{ message.isMy ? 'отправка': 'новое фото' }} <i>{{message.timeout / 1000 }}</i></span>
+    </div>
+    <div class="state">
+        <span ng-if="message.state.isTransfer()" class="ion-loading-d"></span>
+        <span ng-if="message.state.isTransferred()" class="ion-checkmark-round"></span>
+        <span ng-if="message.state.isNotTransferred()" ng-click="resend()" class="ion-close-round"></span>
+    </div>
 
-
-    <span class="text">{{ message.isMy ? 'отправка': 'пришло новое фото' }} <i>{{ message.timeout / 1000 }}</i></span>
-
-    <div ng-if="show" class="photo-box">
-
+    <div ng-show="show" class="photo-box">
         <img src="{{ message.message }}" class="image">
-
     </div>
 
 </div>
+
+
 
