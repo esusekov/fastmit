@@ -32,6 +32,9 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
                     $document.off('mouseup', mouseup);
                     element.off('mousedown', mousedown);
 
+                    $document.off('touchend', mouseup);
+                    element.off('touchstart', mousedown);
+
                 } else {
                     scope.message.timeout -= tick;
 
@@ -40,12 +43,16 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
             }
 
             element.on('mousedown', mousedown);
+            element.on('touchstart', mousedown);
 
             function mousedown() {
                 scope.$apply(() => {
                     console.log('mouse down');
                     scope.show = true;
                     $document.on('mouseup', mouseup);
+
+                    $document.on('touchend', mouseup);
+
                     if (flagTick) {
                         flagTick = false;
                         $timeout(timeoutTick, tick);
@@ -58,6 +65,8 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
                     console.log('mouse up');
                     scope.show = false;
                     $document.off('mouseup', mouseup);
+
+                    $document.off('touchend', mouseup);
                 });
             }
 
