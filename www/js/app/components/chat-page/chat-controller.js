@@ -18,7 +18,8 @@ module.exports = /*@ngInject*/ function($scope, $stateParams, friendsService, ca
         $scope.friend.sendMessage({
             isMy: true,
             message: message,
-            type_message: type
+            type_message: type,
+            timeout: 10
         });
     }
 

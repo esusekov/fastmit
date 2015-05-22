@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $ionicLoading, app, friendsService, $interval) {
+module.exports = /*@ngInject*/ function($scope, $ionicLoading, app, friendsService, cameraService, $interval) {
     $ionicLoading.show();
 
     $scope.authCheck.promise
@@ -13,7 +13,9 @@ module.exports = /*@ngInject*/ function($scope, $ionicLoading, app, friendsServi
 
     $scope.$on('$destroy', friendsService.removeDataListener);
 
-    $scope.refresh = function() {
-
+    $scope.openCamera = function() {
+        return cameraService.makePhoto().then(data => {
+            //some action
+        });
     }
 };

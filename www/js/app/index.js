@@ -23,6 +23,7 @@ angular.module('models', [])
     .factory('FriendModel', require('./models/friend-model'))
     .factory('PotentialFriendModel', require('./models/potential-friend-model'))
     .factory('FriendsModel', require('./models/friends-model'))
+    .factory('PotentialFriendsModel', require('./models/potential-friends-model'))
     .factory('StateModel', require('./models/state-model'));
 
 
@@ -34,6 +35,7 @@ angular.module('services', [])
     .factory('websocketService', require('./services/websocket-service'))
     .factory('websocketInteraction', require('./services/websocketInteraction-service'))
     .factory('friendsService', require('./services/friends-service'))
+    .factory('cameraService', require('./services/camera-service'))
     .service('app', require('./services/app'));
 
 angular.module('sidebar', [])

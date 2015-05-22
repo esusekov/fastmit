@@ -1,11 +1,9 @@
 "use strict";
 //TODO - refactoring
-module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, PotentialFriendModel, httpService, $q, $interval) {
+module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendsModel, UserModel, httpService, $q, $interval) {
 
     var friends = new FriendsModel();
-    var potentialFriends = {
-        users: [ ]
-    };
+    var potentialFriends = new PotentialFriendsModel();
     var dataInterval;
 
     return {
@@ -28,7 +26,7 @@ module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, Po
 
         reset() {
             friends.reset();
-            potentialFriends.users = [];
+            potentialFriends.reset();
         },
 
         get friends() {
@@ -41,14 +39,6 @@ module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, Po
 
         get potentialFriends() {
             return potentialFriends;
-        },
-
-        getFollowers() {
-            return potentialFriends.users.filter(user => user.isFollower());
-        },
-
-        getFollowees() {
-            return potentialFriends.users.filter(user => user.isFollowee());
         },
 
         filterFriendsByUsername(query) {
@@ -76,7 +66,7 @@ module.exports = /*@ngInject*/ function(FriendsModel, UserModel, FriendModel, Po
                 let users = response.data.users || [];
 
                 if (response.status === 200 && users != null) {
-                    potentialFriends.users = users.map(user => new PotentialFriendModel(user));
+                    potentialFriends.setFriends(users);
                 }
             });
         },

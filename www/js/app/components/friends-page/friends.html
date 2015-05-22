@@ -6,7 +6,7 @@
 
     <ion-tabs class="tabs-stable tabs-striped tabs-top friend-tabs">
 
-        <ion-tab title="{{friendsCount + ' ' + ( 'ALL_FRIENDS' | translate )}}">
+        <ion-tab title="{{friends.friends.length + ' ' + ( 'ALL_FRIENDS' | translate )}}">
             <!--<ion-nav-view name="friendsAll"></ion-nav-view>-->
             <ion-content class="friend-tab">
                 <ion-list>
@@ -33,13 +33,13 @@
                 <div class="item item-divider">
                     Вас добавили
                 </div>
-                <div ng-repeat="user in followers">
+                <div ng-repeat="user in potentialFriends.followers">
                     <user-item user="user" add-friend="addFriend(id)"></user-item>
                 </div>
                 <div class="item item-divider">
                     Вы добавили
                 </div>
-                <div ng-repeat="user in followees">
+                <div ng-repeat="user in potentialFriends.followees">
                     <user-item user="user"></user-item>
                 </div>
             </ion-content>
