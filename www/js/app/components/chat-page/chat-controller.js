@@ -2,20 +2,24 @@
 
 module.exports = /*@ngInject*/ function($scope, $stateParams, friendsService) {
     $scope.id = $stateParams.id;
-    $scope.friend = friendsService.getFriendById($scope.id);
+
+    var friend = friendsService.getFriendById($scope.id);
+
+    console.log('Friend', friend);
+
+    $scope.friend = friend;
 
     $scope.message = null;
 
     $scope.sendMessage = function() {
         
         var message = $scope.message.trim();
-                   console.log('Message', message);
                    
         if (message != null && message != '') {
             $scope.friend.sendMessage({
                 isMy: true,
                 message: message,
-                type: 'text'
+                type_message: 'text'
             });
         }
         $scope.clearMessage();

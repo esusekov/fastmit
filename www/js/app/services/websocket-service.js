@@ -17,7 +17,7 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
             console.log('Open new socket');
 
             this.stream = $websocket(this.url);
-            
+
             this.stream.onOpen(event => {
                 this.connected = true;
             });
@@ -64,7 +64,6 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
                     } else {
                         reject('not connected');
                     }
-
 
                 }, 5 * 1000);
             });

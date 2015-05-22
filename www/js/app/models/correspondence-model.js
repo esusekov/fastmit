@@ -12,6 +12,8 @@ module.exports = /*@ngInject*/ function(MessageModel) {
         }
 
         setMessage(data) {
+            console.log('NEW MESSAGE', data);
+            
             var message = new MessageModel(data);
             this.__list.push(message);
             return message;
