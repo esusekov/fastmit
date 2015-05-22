@@ -13,12 +13,12 @@ module.exports = /*@ngInject*/ function($scope, $stateParams, friendsService, ca
 
     $scope.message = null;
 
-
     function sendMessage(message, type) {
         $scope.friend.sendMessage({
             isMy: true,
             message: message,
-            type_message: type
+            type_message: type,
+            timeout: 1 * 1000
         });
     }
 
