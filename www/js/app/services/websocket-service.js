@@ -49,6 +49,7 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
 
         on(callback) {
             this.stream.onMessage(event => {
+                console.log('ON MESSAGE', event.data);
                 var data = JSON.parse(event.data);
                 callback(data);
             });
