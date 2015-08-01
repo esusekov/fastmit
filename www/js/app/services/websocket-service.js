@@ -1,33 +1,34 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
-
-    class websocketService {
+    class WebsocketService {
         constructor(url) {
             if (url == null) {
-                throw new Error('websocket-service: is not define url');
+                throw new Error('websocketService: is not define url');
             }
+
             this.url = url;
             this.stream = null;
             this.connected = false;
-            this.open();
+            this.timeoutReopen = 10 * 1000;
+
+            this.openStream();
         }
 
-        open() {
-            console.log('Open new socket');
+        openStream() {
+            var stream = $websocket(this.url);
+            this.stream = stream;
 
-            this.stream = $websocket(this.url);
-
-            this.stream.onOpen(event => {
+            stream.onOpen(event => {
                 this.connected = true;
             });
 
-            this.stream.onClose(event => {
-                console.log('Close', event);
+            stream.onClose(event => {
                 this.connected = false;
+
                 $timeout(() => {
-                    this.open();
-                }, 10 * 1000);
+                    this.openStream();
+                }, this.timeoutReopen);
             });
         }
 
@@ -40,7 +41,16 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
         }
 
         send(message) {
-            return this.testSend(message);
+            return $q((resolve, reject) => {
+                $timeout(() => {
+                    if (this.connected) {
+                        this.stream.send(JSON.stringify(message));
+                        resolve();
+                    } else {
+                        reject('not connected');
+                    }
+                }, 5 * 1000);
+            });
             //if (this.connected) {
             //    return this.stream.send(JSON.stringify(message));
             //}
@@ -53,23 +63,7 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
                 callback(data);
             });
         }
-
-        testSend(message) {
-            return $q((resolve, reject) => {
-                $timeout(() => {
-
-                    if (this.connected) {
-                        this.stream.send(JSON.stringify(message));
-                        resolve();
-                    } else {
-                        reject('not connected');
-                    }
-
-                }, 5 * 1000);
-            });
-        }
-
     }
 
-    return websocketService;
+    return WebsocketService;
 };

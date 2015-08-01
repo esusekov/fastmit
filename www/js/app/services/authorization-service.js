@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function($localForage, httpService, $q, $cookies) {
-
     class authorizationService {
         constructor() {
             this.AUTH_TOKEN_KEY = 'AUTH_TOKEN_KEY';

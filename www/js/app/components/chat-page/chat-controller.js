@@ -1,58 +1,69 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $stateParams, friendsService, cameraService) {
-    $scope.id = $stateParams.id;
-    
-    console.log('chat friends', friendsService.friends);
-    
-    var friend = friendsService.getFriendById($scope.id);
+module.exports = /*@ngInject*/ function($scope,
+    $stateParams, friendsService, messagesBoxService,
+    chatSenderService, cameraService, typesMessagesConstants) {
 
-    console.log('Friend', friend);
+    var DEFAULT_TIMEOUT = 10 * 1000;
+
+    var friendId = $stateParams.id;
+    var friend = friendsService.getFriendById(friendId);
+    var messages = messagesBoxService.getMessages(friendId);
 
     $scope.friend = friend;
+    $scope.messages = messages;
+    $scope.text = null;
 
-    $scope.message = null;
-
-    function sendMessage(message, type) {
-        $scope.friend.sendMessage({
+    function generateMessageData(text, type) {
+        return {
             isMy: true,
-            message: message,
-            type_message: type,
-            timeout: 10 * 1000
-        });
+            text: text,
+            type: type,
+            timeout: DEFAULT_TIMEOUT
+        };
+    }
+
+    function isValidTextMessage(text) {
+        if (text != null) {
+            text = text.trim();
+
+            if (text != null && text != '') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function clearText() {
+        $scope.text = null;
+    }
+
+    function sendMessage(text, typeMessage) {
+        var data = generateMessageData(text, typeMessage);
+        console.log('Message', data);
+        chatSenderService.sendMessage(friendId, data);
     }
 
     $scope.sendText = function() {
-        if ($scope.message == null) {
-            return;
+        var text = $scope.text;
+        if (isValidTextMessage(text)) {
+            sendMessage(text, typesMessagesConstants.TEXT);
+            clearText();
         }
-
-        var message = $scope.message.trim();
-                   
-        if (message != null && message != '') {
-            sendMessage(message, 'text');
-        }
-        $scope.clearMessage();
     };
 
-    $scope.sendPhoto = function() {
-        cameraService.makePhoto().then(data => {
-            var message = 'data:image/jpeg;base64,' + data;
-
-            sendMessage(message, 'photo');
+    $scope.makePhoto = function() {
+        cameraService.makePhoto().then(text => {
+            console.log(text);
+            sendMessage(text, typesMessagesConstants.PHOTO);
         });
     };
 
-    $scope.clearMessage = function() {
-        $scope.message = null;
-    };
-
-    $scope.$on('delete-message', (event, id) => {
-        $scope.friend.deleteMessage(id);
+    $scope.$on('delete-message', (event, messageId) => {
+        messagesBoxService.removeMessageById(friendId, messageId);
     });
 
-    $scope.$on('resend-message', (event, id) => {
-        $scope.friend.resend(id);
+    $scope.$on('resend-message', (event, messageId) => {
+        chatSenderService.resendMessage(friendId, messageId);
     });
-
 };

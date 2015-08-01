@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(FriendModel) {
-
     class FriendsModel {
         constructor() {
             this.__list = [];
@@ -24,14 +23,6 @@ module.exports = /*@ngInject*/ function(FriendModel) {
             return friends.find(friend => {
                 return Number(friend.id) === Number(id);
             });
-        }
-
-        setMessage(data) {
-            var friendId = data.id_friend;
-            var friend = this.getFriendById(friendId);
-            if (friend != null) {
-                friend.setMessage(data);
-            }
         }
 
         hasFriend(id) {

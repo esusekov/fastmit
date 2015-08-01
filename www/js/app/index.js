@@ -15,17 +15,18 @@ angular.module('friends', [])
 //    //.factory('contactsService', require('./common/friends/contacts-service'))
 //    .directive('friendItem', require('./common/friends/friend-item'));
 
-
 angular.module('models', [])
-    .factory('CorrespondenceModel', require('./models/correspondence-model'))
     .factory('MessageModel', require('./models/message-model'))
     .factory('UserModel', require('./models/user-model'))
     .factory('FriendModel', require('./models/friend-model'))
     .factory('PotentialFriendModel', require('./models/potential-friend-model'))
     .factory('FriendsModel', require('./models/friends-model'))
     .factory('PotentialFriendsModel', require('./models/potential-friends-model'))
-    .factory('StateModel', require('./models/state-model'));
+    .factory('StateTransferModel', require('./models/state-transfer-model'));
 
+angular.module('constants', [])
+    .service('statesTransferConstants', require('./constants/states-transfer-constants'))
+    .service('typesMessagesConstants', require('./constants/types-messages-constants'));
 
 angular.module('services', [])
     .service('urlsApi', require('./services/urls-api-service'))
@@ -33,10 +34,11 @@ angular.module('services', [])
     .factory('httpService', require('./services/http-service'))
     .service('authorizationService', require('./services/authorization-service'))
     .factory('websocketService', require('./services/websocket-service'))
-    .factory('websocketInteraction', require('./services/websocketInteraction-service'))
+    .factory('websocketInteractionService', require('./services/websocketInteraction-service'))
     .factory('friendsService', require('./services/friends-service'))
     .factory('cameraService', require('./services/camera-service'))
-    .service('app', require('./services/app'));
+    .factory('messagesBoxService', require('./services/messages-box-service'))
+    .factory('chatSenderService', require('./services/chat-sender-service'));
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
@@ -76,15 +78,19 @@ angular.module('chat-page', [])
     .directive('text', require('./components/chat-page/directives/text'))
     .directive('photo', require('./components/chat-page/directives/photo'));
 
+angular.module('utils', [])
+    .factory('generateRandomId', require('./utils/generate-random-id'));
 
 angular.module('app', [
         'ionic',
         'ngCordova',
         'ngWebSocket',
         'ngCookies',
+        'utils',
         'LocalForageModule',
         'pascalprecht.translate',
 
+        'constants',
         'models',
         'services',
 
@@ -148,6 +154,7 @@ angular.module('app', [
 
     .run(function(authorizationService, $location, $q, $rootScope) {
         $rootScope.authCheck = $q.defer();
+
         authorizationService.checkAuth().then(() => {
             $location.path('/app/main');
         }).catch(() => {

@@ -1,26 +1,20 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(websocketService, urlsApi) {
+    var socket = new websocketService(urlsApi.websocketInteraction);
 
-    class websocketInteraction {
-        constructor() {
-            var url = urlsApi.websocket_interaction;
-            this.socket = new websocketService(url);
-        }
-
-        on(callback) {
-            this.socket.on(callback);
-        }
-
+    return {
         send(data) {
             var message = {
                 type: 'message',
                 body: data
             };
-            
-            return this.socket.send(message);
-        }
-    }
 
-    return new websocketInteraction();
+            return socket.send(message);
+        },
+
+        on(callback) {
+            socket.on(callback);
+        }
+    };
 };

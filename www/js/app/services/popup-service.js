@@ -2,17 +2,17 @@
 
 module.exports = /*@ngInject*/ function($ionicPopup, $q) {
      return {
-
-         alert: function(text) {
+         alert(text) {
             var alert = $ionicPopup.alert({
                 title: text
             });
+
             alert.then(res => {
                 console.log(res);
             });
          },
 
-         confirm: function(text) {
+         confirm(text) {
             var confirm = $ionicPopup.confirm({
                 template: text
             });

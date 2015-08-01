@@ -1,10 +1,13 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $ionicLoading, app, friendsService, cameraService, $interval) {
+module.exports = /*@ngInject*/ function($scope, $ionicLoading, friendsService, cameraService, $interval) {
     $ionicLoading.show();
 
+    console.log(friendsService);
+    
+    
     $scope.authCheck.promise
-        .then(app.init)
+        .then(friendsService.init())
         .then(() => {
             $scope.topFriends = friendsService.friends;
             $ionicLoading.hide();

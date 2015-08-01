@@ -1,70 +1,25 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(StateModel) {
-
-    function generateId() {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
-    }
-
-
+module.exports = /*@ngInject*/ function(StateTransferModel, generateRandomId, typesMessagesConstants) {
     class MessageModel {
         constructor(opts) {
-            this.__id = opts.id || generateId();
-            this.__time = opts.time || Date.now();
-            this.__message = opts.message;
-            this.__type = opts.type_message;
-            this.__isMy = opts.isMy;
-            this.__timeout = opts.timeout || null;
-
-            this.__state = new StateModel();
+            this.id = opts.id || generateRandomId();
+            this.time = opts.time || Date.now();
+            this.text = opts.text;
+            this.type = opts.type;
+            this.isMy = opts.isMy || true;
+            this.isRead = opts.isRead || false;
+            this.timeout = opts.timeout || null;
+            this.stateTransfer = new StateTransferModel();
         }
 
-        get timeout() {
-            return this.__timeout;
+        get isTypeText() {
+            return this.type === typesMessagesConstants.TEXT;
         }
 
-        set timeout(timeout) {
-            this.__timeout = timeout;
+        get isTypePhoto() {
+            return this.type === typesMessagesConstants.PHOTO;
         }
-
-        get isText() {
-            return this.__type === 'text';
-        }
-
-        get isPhoto() {
-            return this.__type === 'photo';
-        }
-
-        get state() {
-            return this.__state;
-        }
-
-        get id() {
-            return this.__id;
-        }
-
-        get type() {
-            return this.__type;
-        }
-
-        get message() {
-            return this.__message;
-        }
-
-        get isMy() {
-            return this.__isMy;
-        }
-
-        get time() {
-            return this.__time;
-        }
-
     }
 
     return MessageModel;

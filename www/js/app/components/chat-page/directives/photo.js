@@ -1,15 +1,14 @@
 "use strict";
 
-
 module.exports = /*@ngInject*/ function($document, $timeout) {
-
     return {
         restrict: 'E',
         replace: true,
         templateUrl: 'js/app/components/chat-page/templates/photo.html',
         scope: {
-            message: '=',
+            message: '='
         },
+
         link: function(scope, element, attrs) {
             var flagTick = true;
             var isMy = scope.message.isMy;
@@ -42,15 +41,11 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
                 }
             }
 
-            element.on('mousedown', mousedown);
-            element.on('touchstart', mousedown);
-
             function mousedown() {
                 scope.$apply(() => {
                     console.log('mouse down');
                     scope.show = true;
                     $document.on('mouseup', mouseup);
-
                     $document.on('touchend', mouseup);
 
                     if (flagTick) {
@@ -65,13 +60,12 @@ module.exports = /*@ngInject*/ function($document, $timeout) {
                     console.log('mouse up');
                     scope.show = false;
                     $document.off('mouseup', mouseup);
-
                     $document.off('touchend', mouseup);
                 });
             }
 
-
+            element.on('mousedown', mousedown);
+            element.on('touchstart', mousedown);
         }
     }
-
 };
