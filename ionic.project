@@ -1,4 +1,11 @@
 {
   "name": "fastmit",
-  "app_id": "b13df434"
+  "app_id": "a7c533fc",
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
+  ]
 }
