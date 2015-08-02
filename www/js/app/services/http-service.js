@@ -32,46 +32,36 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
         }
 
         friendsList(data) {
-            data.params = {
-                token: this.__token
-            };
+            data.token = this.__token;
             console.log('TOKEN', data);
             return $http.post(urlsApi.friendsList, data);
         }
 
         potentialFriendsList(data) {
-            data.params = {
-                token: this.__token
-            };
+            data.token = this.__token;
             return $http.post(urlsApi.potentialFriendsList, data);
         }
 
         addFriend(id) {
             var data = {
-                params: {
-                    token: this.__token,
-                    friendId: id
-                }
+                token: this.__token,
+                friendId: id
             };
             return $http.post(urlsApi.addFriend, data);
         }
 
         deleteFriend(id) {
             var data = {
-                params: {
-                    token: this.__token,
-                    friendId: id
-                }
+                token: this.__token,
+                friendId: id
             };
             return $http.post(urlsApi.deleteFriend, data);
         }
 
         search(username) {
             var data = {
-                params: {
-                    token: this.__token,
-                    username: username
-                }
+                token: this.__token,
+                username: username
             };
             return $http.post(urlsApi.search, data);
         }
