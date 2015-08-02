@@ -75,6 +75,8 @@ angular.module('search-page', [])
 
 angular.module('chat-page', [])
     .controller('ChatController', require('./components/chat-page/chat-controller'))
+    .directive('message', require('./components/chat-page/directives/message'))
+    .directive('stateTransfer', require('./components/chat-page/directives/state-transfer'))
     .directive('text', require('./components/chat-page/directives/text'))
     .directive('photo', require('./components/chat-page/directives/photo'));
 

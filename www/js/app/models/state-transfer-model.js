@@ -39,7 +39,7 @@ module.exports = /*@ngInject*/ function($timeout, statesTransferConstants) {
             return this.value === statesTransferConstants.NOT_TRANSFERRED;
         }
 
-        isNone() {
+        get isNone() {
             return this.value === statesTransferConstants.NONE;
         }
     }

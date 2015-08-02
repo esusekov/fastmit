@@ -1,64 +1,66 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($document, $timeout) {
+module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal) {
     return {
         restrict: 'E',
         replace: true,
         templateUrl: 'js/app/components/chat-page/templates/photo.html',
         scope: {
-            message: '='
+            text: '=',
+            messageId: '=',
+            timeout: '='
         },
-
         link: function(scope, element, attrs) {
             var flagTick = true;
-            var isMy = scope.message.isMy;
-            var id = scope.message.id;
-            var tick = 1000;
+            var TICK = 1000;
 
-            scope.show = false;
+            $ionicModal.fromTemplateUrl('js/app/components/chat-page/templates/photo-img.html', {
+                scope: scope,
+                animation: 'fade-in'
+            }).then(modal => {
+                scope.modal = modal;
+            });
 
-            if (isMy) {
-                return;
+            function showModal() {
+                scope.modal.show();
             }
-            console.log('INIT');
+
+            function hideModal() {
+                scope.modal.hide();
+            }
 
             function timeoutTick() {
-                if (scope.message.timeout === 0) {
-
-                    scope.$emit('delete-message', id);
-                    scope.show = false;
+                if (scope.timeout === 0) {
+                    scope.$emit('delete-message', scope.messageId);
+                    hideModal();
 
                     $document.off('mouseup', mouseup);
                     element.off('mousedown', mousedown);
-
                     $document.off('touchend', mouseup);
                     element.off('touchstart', mousedown);
 
                 } else {
-                    scope.message.timeout -= tick;
-
-                    $timeout(timeoutTick, tick);
+                    scope.timeout -= TICK;
+                    $timeout(timeoutTick, TICK);
                 }
             }
 
             function mousedown() {
                 scope.$apply(() => {
-                    console.log('mouse down');
-                    scope.show = true;
+                    showModal();
                     $document.on('mouseup', mouseup);
                     $document.on('touchend', mouseup);
 
                     if (flagTick) {
                         flagTick = false;
-                        $timeout(timeoutTick, tick);
+                        $timeout(timeoutTick, TICK);
                     }
                 });
             }
 
             function mouseup() {
                 scope.$apply(() => {
-                    console.log('mouse up');
-                    scope.show = false;
+                    hideModal();
                     $document.off('mouseup', mouseup);
                     $document.off('touchend', mouseup);
                 });

@@ -28,7 +28,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
         }
 
         forgotPassword(data) {
-            return $http.get(urlsApi.forgot, data);
+            return $http.post(urlsApi.forgot, data);
         }
 
         friendsList(data) {
@@ -36,14 +36,14 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
                 token: this.__token
             };
             console.log('TOKEN', data);
-            return $http.get(urlsApi.friendsList, data);
+            return $http.post(urlsApi.friendsList, data);
         }
 
         potentialFriendsList(data) {
             data.params = {
                 token: this.__token
             };
-            return $http.get(urlsApi.potentialFriendsList, data);
+            return $http.post(urlsApi.potentialFriendsList, data);
         }
 
         addFriend(id) {
@@ -53,7 +53,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
                     friendId: id
                 }
             };
-            return $http.get(urlsApi.addFriend, data);
+            return $http.post(urlsApi.addFriend, data);
         }
 
         deleteFriend(id) {
@@ -63,7 +63,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
                     friendId: id
                 }
             };
-            return $http.get(urlsApi.deleteFriend, data);
+            return $http.post(urlsApi.deleteFriend, data);
         }
 
         search(username) {
@@ -73,7 +73,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
                     username: username
                 }
             };
-            return $http.get(urlsApi.search, data);
+            return $http.post(urlsApi.search, data);
         }
 
     }

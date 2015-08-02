@@ -1,0 +1,25 @@
+<div class="message-wrapper">
+    <div ng-class=" message.isMy ? 'my-message' : 'not-my-message' ">
+        <div class="row">
+            <div class="time col col-75">
+                {{ message.time | date: 'MMM d, h:mm a' }}
+            </div>
+            <div ng-if="message.isMy" class="col">
+                <state-transfer
+                        state="message.stateTransfer"
+                        message-id="message.id">
+                </state-transfer>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-if="message.isTypeText" class="col text">{{ message.text }}</div>
+            <div ng-if="message.isTypePhoto && message.isMy" class="col text">Фотография</div>
+            <photo
+                    ng-if="message.isTypePhoto && !message.isMy"
+                    text="message.text"
+                    message-id="message.id"
+                    timeout="message.timeout">
+            </photo>
+        </div>
+    </div>
+</div>

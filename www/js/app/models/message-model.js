@@ -7,9 +7,9 @@ module.exports = /*@ngInject*/ function(StateTransferModel, generateRandomId, ty
             this.time = opts.time || Date.now();
             this.text = opts.text;
             this.type = opts.type;
-            this.isMy = opts.isMy || true;
+            this.isMy = opts.isMy || false;
             this.isRead = opts.isRead || false;
-            this.timeout = opts.timeout || null;
+            this.timeout = opts.timeout || 10 * 1000;
             this.stateTransfer = new StateTransferModel();
         }
 
@@ -19,6 +19,16 @@ module.exports = /*@ngInject*/ function(StateTransferModel, generateRandomId, ty
 
         get isTypePhoto() {
             return this.type === typesMessagesConstants.PHOTO;
+        }
+
+        get formatForReciver() {
+            return {
+                id: this.id,
+                time: this.time,
+                text: this.text,
+                type: this.type,
+                timeout: this.timeout
+            };
         }
     }
 

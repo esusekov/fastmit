@@ -1,24 +1,24 @@
-<ion-view view-title="Chat">
+<ion-view view-title="{{ friend.username }}">
     <ion-content>
         <div class="chat">
             <div class="messages">
-                <div ng-repeat="message in messages">
-                    <div class="message" ng-class=" message.isMy ? 'my-message': 'not-my-message' ">
-                        <text ng-if="message.isTypeText" message="message"></text>
-                        <photo ng-if="message.isTypePhoto" message="message" ></photo>
-                    </div>
+                <div class="card card-custom" ng-repeat="message in messages">
+                    <message message="message"></message>
                 </div>
             </div>
         </div>
     </ion-content>
     <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+        <a class="button button-icon icon ion-android-camera" ng-click="makePhoto()"></a>
         <label class="item-input-wrapper">
-            <input type="text" placeholder="Type your message" on-return="" ng-model="text" />
+            <input
+                type="text"
+                placeholder="Type your message"
+                on-return="sendText()"
+                ng-model="text"
+                autofocus
+            />
         </label>
-        <button class="button button-clear" ng-click="sendText()">
-            Send
-        </button>
-        <button class="button ion-ios-camera" ng-click="makePhoto()">
-        </button>
+        <a class="button button-icon icon ion-android-send" ng-click="sendText()"></a>
     </ion-footer-bar>
 </ion-view>

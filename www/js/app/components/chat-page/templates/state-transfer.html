@@ -1,0 +1,15 @@
+<div class="state-transfer">
+    <i
+        ng-if="state.isTransfer"
+        class="icon ion-loading-d">
+    </i>
+    <i
+        ng-if="state.isTransferred"
+        class="icon ion-android-done">
+    </i>
+    <i
+        ng-if="state.isNotTransferred"
+        ng-click="resendMessage()"
+        class="icon ion-android-close">
+    </i>
+</div>

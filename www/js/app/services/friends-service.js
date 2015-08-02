@@ -1,10 +1,18 @@
 "use strict";
 //TODO - refactoring
-module.exports = /*@ngInject*/ function(FriendsModel, PotentialFriendsModel, UserModel, httpService, $q, $interval) {
+module.exports = /*@ngInject*/ function( /*FriendModel,*/ FriendsModel, PotentialFriendsModel, UserModel, httpService, $q, $interval) {
 
     var friends = new FriendsModel();
     var potentialFriends = new PotentialFriendsModel();
     var dataInterval;
+
+    //friends.__list.push(new FriendModel({
+    //    id: 1212,
+    //    username: 'Text account',
+    //    isOnline: false,
+    //    isFriend: true,
+    //    photoUrl: null
+    //}));
 
     return {
 

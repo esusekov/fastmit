@@ -2,7 +2,7 @@
 
 module.exports = /*@ngInject*/ function($scope,
     $stateParams, friendsService, messagesBoxService,
-    chatSenderService, cameraService, typesMessagesConstants) {
+    chatSenderService, cameraService, typesMessagesConstants, $ionicScrollDelegate) {
 
     var DEFAULT_TIMEOUT = 10 * 1000;
 
@@ -13,6 +13,10 @@ module.exports = /*@ngInject*/ function($scope,
     $scope.friend = friend;
     $scope.messages = messages;
     $scope.text = null;
+
+    $scope.$watchCollection('messages', event => {
+        $ionicScrollDelegate.scrollBottom();
+    });
 
     function generateMessageData(text, type) {
         return {
@@ -40,7 +44,6 @@ module.exports = /*@ngInject*/ function($scope,
 
     function sendMessage(text, typeMessage) {
         var data = generateMessageData(text, typeMessage);
-        console.log('Message', data);
         chatSenderService.sendMessage(friendId, data);
     }
 
@@ -54,7 +57,6 @@ module.exports = /*@ngInject*/ function($scope,
 
     $scope.makePhoto = function() {
         cameraService.makePhoto().then(text => {
-            console.log(text);
             sendMessage(text, typesMessagesConstants.PHOTO);
         });
     };
