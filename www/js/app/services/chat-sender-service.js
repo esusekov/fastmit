@@ -3,12 +3,13 @@
 module.exports = /*@ngInject*/ function(websocketInteractionService, MessageModel, messagesBoxService) {
     websocketInteractionService.on(event => {
         var type = event.type;
-        var data = event.data;
+        var data = event.body;
 
+        console.log('SOCKET EVENT', event);
         switch(type) {
             case 'message':
-                var message = new MessageModel(data);
-                messagesBoxService.setMessage(data.friendId, [message]);
+                var message = new MessageModel(data.message);
+                messagesBoxService.setMessages(data.friendId, [message]);
                 break;
         }
     });
@@ -39,7 +40,7 @@ module.exports = /*@ngInject*/ function(websocketInteractionService, MessageMode
             friendId: friendId,
             message: message.formatForReciver
         }).then(() => {
-            stateTransfer.tranferred();
+            stateTransfer.transferred();
         }).catch(() => {
             stateTransfer.notTransferred();
         });
