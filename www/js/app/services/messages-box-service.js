@@ -20,15 +20,25 @@ module.exports = /*@ngInject*/ function() {
             });
         },
 
+        setMessage(id, message) {
+            this.checkMessages(id);
+            messagesBox[id].push(message);
+        },
+
         setMessages(id, messagesArray) {
-            if (this.hasMessagesById(id)) {
-                var messages = messagesBox[id];
-                messages.push.apply(messages, messagesArray);
-            } else {
-                messagesBox[id] = messagesArray;
+            this.checkMessages(id);
+            var messages = messagesBox[id];
+            messages.push.apply(messages, messagesArray);
+        },
+
+        checkMessages(id) {
+            if (!this.hasMessagesById(id)) {
+                messagesBox[id] = [];
             }
-            console.log(messagesBox);
-            
+        },
+
+        hasMessagesById(id) {
+            return messagesBox.hasOwnProperty(id);
         },
 
         removeMessageById(friendId, messageId) {
@@ -54,10 +64,6 @@ module.exports = /*@ngInject*/ function() {
 
         clearBox() {
             messagesBox = {};
-        },
-
-        hasMessagesById(id) {
-            return messagesBox.hasOwnProperty(id);
         }
     };
 };
