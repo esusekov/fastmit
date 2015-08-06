@@ -32,12 +32,14 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
         }
 
         friendsList(data) {
+            data = data || { };
             data.token = this.__token;
             console.log('TOKEN', data);
             return $http.post(urlsApi.friendsList, data);
         }
 
         potentialFriendsList(data) {
+            data = data || { };
             data.token = this.__token;
             return $http.post(urlsApi.potentialFriendsList, data);
         }
