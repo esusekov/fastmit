@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function() {
+module.exports = /*@ngInject*/ function(popupService, friendsService) {
     return {
         restrict: 'E',
         replace: true,
@@ -8,11 +8,11 @@ module.exports = /*@ngInject*/ function() {
         scope: {
             friend: '='
         },
-        controller: ['$scope', 'popupService', 'friendsService', function($scope, popupService, friendsService) {
-            $scope.deleteFriend = function($event) {
-                $event.preventDefault();
-                $event.stopPropagation();
-                friendsService.deleteFriend($scope.friend.id).then(function() {
+        link: function(scope, element) {
+            var dragging = false;
+
+            scope.deleteFriend = function() {
+                friendsService.deleteFriend(scope.friend.id).then(function() {
                     //var message = follow ? 'Запрос на добавление в друзья отправлен!' : 'Новый друг успешно добавлен!';
                     var message = 'Потрачено!';
                     popupService.alert(message);
@@ -20,6 +20,22 @@ module.exports = /*@ngInject*/ function() {
                     popupService.alert('При удалении возникла ошибка.');
                 });
             };
-        }]
+
+            scope.onDragLeft = function($event) {
+                dragging = true;
+                element[0].style.transform = `translateX(-${$event.gesture.distance}px)`;
+            };
+
+            scope.onDragEnd = function($event) {
+                if (dragging) {
+                    if ($event.gesture.distance > 100) {
+                        scope.deleteFriend();
+                    } else {
+                        element[0].style.transform = `translateX(0)`;
+                    }
+                    dragging = false;
+                }
+            };
+        }
     };
 };

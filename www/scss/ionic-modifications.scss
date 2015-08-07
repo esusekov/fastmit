@@ -1,5 +1,5 @@
 .list {
-  .item {
+  >.item {
     &:first-child {
       border-top: none!important;
     }

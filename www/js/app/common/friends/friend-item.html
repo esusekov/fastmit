@@ -1,4 +1,8 @@
-<a class="item item-avatar item-button-right" ng-href="{{friend.chatUrl}}" ui-sref-active>
+<a class="item item-avatar item-button-right"
+   ng-href="{{friend.chatUrl}}"
+   ui-sref-active
+   on-swipe-left="onDragLeft($event)"
+   on-release="onDragEnd($event)">
     <img ng-src="{{friend.photoUrl}}" class="photo">
     <h2>{{friend.username}}</h2>
     <!--<div class="username-container">-->
@@ -9,7 +13,7 @@
         <!--<i class="icon ion-record" ng-if="friend.isOnline"></i>-->
     <!--</div>-->
 
-    <button class="button button-assertive" ng-click="deleteFriend($event)">
-        <i class="icon ion-ios-telephone"></i>
-    </button>
+    <!--<button class="button button-assertive" ng-click="deleteFriend($event)">-->
+        <!--<i class="icon ion-ios-telephone"></i>-->
+    <!--</button>-->
 </a>
