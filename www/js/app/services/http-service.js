@@ -27,6 +27,10 @@ module.exports = /*@ngInject*/ function($http, urlsApi) {
             return $http.post(urlsApi.login, data);
         }
 
+        logout() {
+            return $http.post(urlsApi.logout, {token: this.__token});
+        }
+
         forgotPassword(data) {
             return $http.post(urlsApi.forgot, data);
         }

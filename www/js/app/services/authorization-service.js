@@ -41,6 +41,8 @@ module.exports = /*@ngInject*/ function($localForage, httpService, $q, $cookies)
         logout() {
             return $localForage.removeItem(this.AUTH_TOKEN_KEY).then(() => {
                 this.isAuth = false;
+
+                return httpService.logout();
             });
         }
 
