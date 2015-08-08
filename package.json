@@ -20,6 +20,13 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "org.apache.cordova.globalization"
+    "org.apache.cordova.globalization",
+    "cordova-plugin-contacts",
+    "cordova-plugin-camera",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-crosswalk-webview",
+    "cordova-plugin-device",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-console"
   ]
 }

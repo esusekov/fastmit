@@ -26,7 +26,9 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
                 console.log(err);
                 $q.reject(err);
             }).then(data => {
-                return 'data:image/jpeg;base64,' + data;
+                if (data != null) {
+                    return 'data:image/jpeg;base64,' + data;
+                }
             });
         }
     };

@@ -1,9 +1,11 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($timeout, statesTransferConstants) {
+module.exports = /*@ngInject*/ function($timeout,
+    statesTransferConstants, globalConstants) {
+
     class StateTransferModel {
         constructor(timeout) {
-            this.timeout = timeout || 10 * 1000;
+            this.timeout = timeout || globalConstants.DEFAULT_TIMEOUT;
             this.value = statesTransferConstants.NONE;
         }
 

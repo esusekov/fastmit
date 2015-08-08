@@ -17,28 +17,35 @@ angular.module('friends', [])
 
 angular.module('models', [])
     .factory('MessageModel', require('./models/message-model'))
+    .factory('PhotoMessageModel', require('./models/photo-message-model'))
+    .factory('TextMessageModel', require('./models/text-message-model'))
     .factory('UserModel', require('./models/user-model'))
     .factory('FriendModel', require('./models/friend-model'))
     .factory('PotentialFriendModel', require('./models/potential-friend-model'))
     .factory('FriendsModel', require('./models/friends-model'))
     .factory('PotentialFriendsModel', require('./models/potential-friends-model'))
-    .factory('StateTransferModel', require('./models/state-transfer-model'));
+    .factory('StateTransferModel', require('./models/state-transfer-model'))
+    .factory('StateLoadingModel', require('./models/state-loading-model'));
 
 angular.module('constants', [])
+    .service('readyStateConstants', require('./constants/ready-state-constants'))
+    .service('globalConstants', require('./constants/global-constants'))
     .service('statesTransferConstants', require('./constants/states-transfer-constants'))
-    .service('typesMessagesConstants', require('./constants/types-messages-constants'));
+    .service('typesMessagesConstants', require('./constants/types-messages-constants'))
+    .service('statesLoadingConstants', require('./constants/states-loading-constants'));
 
 angular.module('services', [])
     .service('urlsApi', require('./services/urls-api-service'))
     .service('popupService', require('./services/popup-service'))
     .factory('httpService', require('./services/http-service'))
-    .service('authorizationService', require('./services/authorization-service'))
     .factory('websocketService', require('./services/websocket-service'))
-    .factory('websocketInteractionService', require('./services/websocketInteraction-service'))
-    .factory('friendsService', require('./services/friends-service'))
-    .factory('cameraService', require('./services/camera-service'))
+    .factory('websocketInteractionService', require('./services/websocket-interaction-service'))
     .factory('messagesBoxService', require('./services/messages-box-service'))
-    .factory('chatSenderService', require('./services/chat-sender-service'));
+    .factory('messageFactoryService', require('./services/message-factory-service'))
+    .factory('chatService', require('./services/chat-service'))
+    .service('authorizationService', require('./services/authorization-service'))
+    .factory('friendsService', require('./services/friends-service'))
+    .factory('cameraService', require('./services/camera-service'));
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
@@ -62,7 +69,6 @@ angular.module('settings', [])
 angular.module('change-password', [])
     .controller('ChangePasswordController', require('./components/change-password/change-password-controller'))
     .service('changePasswordModel', require('./components/change-password/change-password-model'));
-
 
 angular.module('main-page', [])
     .controller('MainController', require('./components/main-page/main-controller'));

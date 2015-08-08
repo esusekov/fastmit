@@ -6,7 +6,7 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal) {
         replace: true,
         templateUrl: 'js/app/components/chat-page/templates/photo.html',
         scope: {
-            text: '=',
+            photoData: '=',
             messageId: '=',
             timeout: '='
         },

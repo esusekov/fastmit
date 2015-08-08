@@ -1,7 +1,27 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function() {
+module.exports = /*@ngInject*/ function($localForage, globalConstants) {
+    var MESSAGES_BOX_KEY = globalConstants.MESSAGES_BOX_KEY;
+
     var messagesBox = {};
+
+    function loadFromStorage() {
+        $localForage.getItem(MESSAGES_BOX_KEY).then(messages => {
+            console.log('MEssageBOX STORE', messages);
+
+            if (messages != null) {
+                messagesBox = messages;
+            }
+        });
+    }
+
+    function saveInStorage() {
+        $localForage.setItem(MESSAGES_BOX_KEY, messagesBox);
+    }
+
+    function clearStorage() {
+        $localForage.removeItem(MESSAGES_BOX_KEY);
+    }
 
     return {
         getMessages(friendId) {
@@ -23,12 +43,16 @@ module.exports = /*@ngInject*/ function() {
         setMessage(id, message) {
             this.checkMessages(id);
             messagesBox[id].push(message);
+
+            saveInStorage();
         },
 
         setMessages(id, messagesArray) {
             this.checkMessages(id);
             var messages = messagesBox[id];
             messages.push.apply(messages, messagesArray);
+
+            saveInStorage();
         },
 
         checkMessages(id) {
@@ -57,6 +81,8 @@ module.exports = /*@ngInject*/ function() {
         removeMessagesById(id) {
             if (this.hasMessagesById(id)) {
                 messagesBox[id] = [];
+
+                saveInStorage();
                 return true;
             }
             return false;
@@ -64,6 +90,7 @@ module.exports = /*@ngInject*/ function() {
 
         clearBox() {
             messagesBox = {};
+            clearStorage();
         }
     };
 };

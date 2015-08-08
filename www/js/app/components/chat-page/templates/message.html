@@ -13,10 +13,10 @@
         </div>
         <div class="row">
             <div ng-if="message.isTypeText" class="col text">{{ message.text }}</div>
-            <div ng-if="message.isTypePhoto && message.isMy" class="col text">Фотография</div>
+            <div ng-if="message.isTypePhoto && message.isMy" class="col text">Прикоснитесь чтобы посмотреть фотография</div>
             <photo
                     ng-if="message.isTypePhoto && !message.isMy"
-                    text="message.text"
+                    photo-data="message.photoData"
                     message-id="message.id"
                     timeout="message.timeout">
             </photo>

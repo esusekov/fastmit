@@ -2,9 +2,8 @@
 
 module.exports = /*@ngInject*/ function($scope,
     $stateParams, friendsService, messagesBoxService,
-    chatSenderService, cameraService, typesMessagesConstants, $ionicScrollDelegate) {
-
-    var DEFAULT_TIMEOUT = 10 * 1000;
+    chatService, cameraService, typesMessagesConstants,
+    globalConstants, $ionicScrollDelegate) {
 
     var friendId = $stateParams.id;
     var friend = friendsService.getFriendById(friendId);
@@ -18,12 +17,20 @@ module.exports = /*@ngInject*/ function($scope,
         $ionicScrollDelegate.scrollBottom();
     });
 
-    function generateMessageData(text, type) {
+    function generateTextMessage(text) {
         return {
             isMy: true,
             text: text,
-            type: type,
-            timeout: DEFAULT_TIMEOUT
+            type: typesMessagesConstants.TEXT
+        };
+    }
+
+    function generatePhotoMessage(photoData) {
+        return {
+            isMy: true,
+            photoData: photoData,
+            type: typesMessagesConstants.PHOTO,
+            timeout: globalConstants.DEFAULT_TIMEOUT
         };
     }
 
@@ -42,22 +49,23 @@ module.exports = /*@ngInject*/ function($scope,
         $scope.text = null;
     }
 
-    function sendMessage(text, typeMessage) {
-        var data = generateMessageData(text, typeMessage);
-        chatSenderService.sendMessage(friendId, data);
+    function sendMessage(message) {
+        chatService.sendMessage(friendId, message);
     }
 
     $scope.sendText = function() {
         var text = $scope.text;
         if (isValidTextMessage(text)) {
-            sendMessage(text, typesMessagesConstants.TEXT);
+            var message = generateTextMessage(text);
+            sendMessage(message);
             clearText();
         }
     };
 
     $scope.makePhoto = function() {
-        cameraService.makePhoto().then(text => {
-            sendMessage(text, typesMessagesConstants.PHOTO);
+        cameraService.makePhoto().then(photoData => {
+            var message = generatePhotoMessage(photoData);
+            sendMessage(message);
         });
     };
 
@@ -66,6 +74,6 @@ module.exports = /*@ngInject*/ function($scope,
     });
 
     $scope.$on('resend-message', (event, messageId) => {
-        chatSenderService.resendMessage(friendId, messageId);
+        chatService.resendMessage(friendId, messageId);
     });
 };

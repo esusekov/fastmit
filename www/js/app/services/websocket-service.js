@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
+module.exports = /*@ngInject*/ function($websocket, $timeout, $q, readyStateConstants, globalConstants) {
     class WebsocketService {
         constructor(url) {
             if (url == null) {
@@ -8,14 +8,12 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
             }
 
             this.url = url;
+            this.timeoutReopen = globalConstants.DEFAULT_TIMEOUT;
             this.stream = null;
             this.connected = false;
-            this.timeoutReopen = 10 * 1000;
-
-            this.openStream();
         }
 
-        openStream() {
+        open() {
             var stream = $websocket(this.url);
             this.stream = stream;
 
@@ -27,7 +25,7 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
                 this.connected = false;
 
                 $timeout(() => {
-                    this.openStream();
+                    this.open();
                 }, this.timeoutReopen);
             });
         }
@@ -62,6 +60,22 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q) {
                 var data = JSON.parse(event.data);
                 callback(data);
             });
+        }
+
+        isOpen() {
+            return this.stream.readyState === readyStateConstants.OPEN;
+        }
+
+        isClosing() {
+            return this.stream.readyState === readyStateConstants.CLOSING;
+        }
+
+        isClosed() {
+            return this.stream.readyState === readyStateConstants.CLOSED;
+        }
+
+        isConnecting() {
+            return this.stream.readyState === readyStateConstants.CONNECTING;
         }
     }
 
