@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(FriendModel) {
+
     class FriendsModel {
         constructor() {
             this.__list = [];

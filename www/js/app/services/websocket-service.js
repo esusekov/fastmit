@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function($websocket, $timeout, $q, readyStateConstants, globalConstants) {
+
     class WebsocketService {
         constructor(url) {
             if (url == null) {

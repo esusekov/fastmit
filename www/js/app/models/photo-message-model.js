@@ -1,11 +1,12 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(MessageModel, StateLoadingModel, globalConstants) {
+module.exports = /*@ngInject*/ function(MessageModel, StateLoadingModel, TimeoutPhotoModel) {
+
     class PhotoMessageModel extends MessageModel {
         constructor(opts) {
             super(opts);
 
-            this.timeout = opts.timeout || globalConstants.DEFAULT_TIMEOUT;
+            this.timeout = new TimeoutPhotoModel(opts);
             this.stateLoading = new StateLoadingModel();
             this.photoUrl = opts.photoUrl;
             this.photoData = opts.photoData;
@@ -14,7 +15,7 @@ module.exports = /*@ngInject*/ function(MessageModel, StateLoadingModel, globalC
         getMessageFormatReceiver() {
             var message = this.getBaseMessageFormatReceiver();
             message.photoData = this.photoData;
-            message.timeout = this.timeout;
+            message.timeout = this.timeout.timeout;
 
             return message;
         }

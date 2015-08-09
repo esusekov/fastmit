@@ -1,29 +1,29 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($localForage, globalConstants) {
-    var MESSAGES_BOX_KEY = globalConstants.MESSAGES_BOX_KEY;
-
+module.exports = /*@ngInject*/ function($rootScope) {
     var messagesBox = {};
 
-    function loadFromStorage() {
-        $localForage.getItem(MESSAGES_BOX_KEY).then(messages => {
-            console.log('MEssageBOX STORE', messages);
-
-            if (messages != null) {
-                messagesBox = messages;
+    function forEachMessage(callback) {
+        for (var key in messagesBox) {
+            if (messagesBox.hasOwnProperty(key)) {
+                callback(key);
             }
-        });
+        }
     }
 
-    function saveInStorage() {
-        $localForage.setItem(MESSAGES_BOX_KEY, messagesBox);
+    function emitSaveInStorage() {
+        $rootScope.$emit('save-in-storage');
     }
 
-    function clearStorage() {
-        $localForage.removeItem(MESSAGES_BOX_KEY);
+    function emitClearStorage() {
+        $rootScope.$emit('clear-storage');
     }
 
     return {
+        getBox() {
+            return messagesBox;
+        },
+
         getMessages(friendId) {
             if (!this.hasMessagesById(friendId)) {
                 messagesBox[friendId] = [];
@@ -40,32 +40,44 @@ module.exports = /*@ngInject*/ function($localForage, globalConstants) {
             });
         },
 
-        setMessage(id, message) {
-            this.checkMessages(id);
-            messagesBox[id].push(message);
+        setMessage(friendId, message) {
+            this.checkMessages(friendId);
+            messagesBox[friendId].push(message);
 
-            saveInStorage();
+            emitSaveInStorage();
         },
 
-        setMessages(id, messagesArray) {
-            this.checkMessages(id);
-            var messages = messagesBox[id];
+        setMessages(friendId, messagesArray) {
+            this.checkMessages(friendId);
+            var messages = messagesBox[friendId];
             messages.push.apply(messages, messagesArray);
 
-            saveInStorage();
+            emitSaveInStorage();
         },
 
-        checkMessages(id) {
-            if (!this.hasMessagesById(id)) {
-                messagesBox[id] = [];
+        checkMessages(friendId) {
+            if (!this.hasMessagesById(friendId)) {
+                messagesBox[friendId] = [];
             }
         },
 
-        hasMessagesById(id) {
-            return messagesBox.hasOwnProperty(id);
+        hasMessagesById(friendId) {
+            return messagesBox.hasOwnProperty(friendId);
         },
 
-        removeMessageById(friendId, messageId) {
+        removeMessageById(messageId) {
+            forEachMessage(key => {
+                var messages = messagesBox[key];
+
+                messages.forEach((message, index) => {
+                    if (message.id === messageId) {
+                        messages.splice(index, 1);
+                    }
+                });
+            });
+        },
+
+        removeMessageByIds(friendId, messageId) {
             var messages = this.getMessages(friendId);
             var index = messages.findIndex(message => {
                 return message.id === messageId;
@@ -73,24 +85,38 @@ module.exports = /*@ngInject*/ function($localForage, globalConstants) {
 
             if (index != null) {
                 messages.splice(index, 1);
+            }
+        },
+
+        removeMessagesById(friendId) {
+            if (this.hasMessagesById(friendId)) {
+                messagesBox[friendId] = [];
+
+                emitSaveInStorage();
                 return true;
             }
             return false;
         },
 
-        removeMessagesById(id) {
-            if (this.hasMessagesById(id)) {
-                messagesBox[id] = [];
+        removeTextMessagesById(friendId) {
+            var messages = this.getMessages(friendId);
 
-                saveInStorage();
-                return true;
-            }
-            return false;
+            messagesBox[friendId] = messages.filter(message => {
+                return message.isTypePhoto;
+            });
+
+            emitSaveInStorage();
+        },
+
+        removeTextMessages() {
+            forEachMessage(key => {
+                this.removeTextMessagesById(key);
+            });
         },
 
         clearBox() {
             messagesBox = {};
-            clearStorage();
+            emitClearStorage();
         }
     };
 };
