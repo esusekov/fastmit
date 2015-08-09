@@ -17,6 +17,7 @@ angular.module('friends', [])
 
 angular.module('models', [])
     .factory('MessageModel', require('./models/message-model'))
+    .factory('TimeoutPhotoModel', require('./models/timeout-photo-model'))
     .factory('PhotoMessageModel', require('./models/photo-message-model'))
     .factory('TextMessageModel', require('./models/text-message-model'))
     .factory('UserModel', require('./models/user-model'))

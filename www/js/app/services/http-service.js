@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function($http, urlsApi) {
+
     class httpService {
         constructor() {
             this.__token = null;

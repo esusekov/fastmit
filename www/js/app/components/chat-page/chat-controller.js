@@ -3,7 +3,7 @@
 module.exports = /*@ngInject*/ function($scope,
     $stateParams, friendsService, messagesBoxService,
     chatService, cameraService, typesMessagesConstants,
-    globalConstants, $ionicScrollDelegate) {
+    globalConstants, $ionicScrollDelegate, $ionicHistory) {
 
     var friendId = $stateParams.id;
     var friend = friendsService.getFriendById(friendId);
@@ -69,11 +69,16 @@ module.exports = /*@ngInject*/ function($scope,
         });
     };
 
-    $scope.$on('delete-message', (event, messageId) => {
-        messagesBoxService.removeMessageById(friendId, messageId);
+    $scope.$on('remove-message', (event, messageId) => {
+        messagesBoxService.removeMessageById(messageId);
     });
 
     $scope.$on('resend-message', (event, messageId) => {
         chatService.resendMessage(friendId, messageId);
     });
+
+    $scope.goBack = function() {
+        messagesBoxService.removeTextMessagesById(friendId);
+        $ionicHistory.goBack();
+    };
 };

@@ -11,8 +11,6 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal) {
             timeout: '='
         },
         link: function(scope, element, attrs) {
-            var flagTick = true;
-            var TICK = 1000;
 
             $ionicModal.fromTemplateUrl('js/app/components/chat-page/templates/photo-img.html', {
                 scope: scope,
@@ -29,45 +27,26 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal) {
                 scope.modal.hide();
             }
 
-            function timeoutTick() {
-                if (scope.timeout === 0) {
-                    scope.$emit('delete-message', scope.messageId);
-                    hideModal();
-
-                    $document.off('mouseup', mouseup);
-                    element.off('mousedown', mousedown);
-                    $document.off('touchend', mouseup);
-                    element.off('touchstart', mousedown);
-
-                } else {
-                    scope.timeout -= TICK;
-                    $timeout(timeoutTick, TICK);
-                }
-            }
-
             function mousedown() {
-                scope.$apply(() => {
-                    showModal();
-                    $document.on('mouseup', mouseup);
-                    $document.on('touchend', mouseup);
+                $document.on('touchend', mouseup);
+                scope.timeout.start();
 
-                    if (flagTick) {
-                        flagTick = false;
-                        $timeout(timeoutTick, TICK);
-                    }
-                });
+                showModal();
+                console.log('mouseDown');
             }
 
             function mouseup() {
-                scope.$apply(() => {
-                    hideModal();
-                    $document.off('mouseup', mouseup);
-                    $document.off('touchend', mouseup);
-                });
+                $document.off('touchend', mouseup);
+
+                hideModal();
+                console.log('mouseUp');
             }
 
-            element.on('mousedown', mousedown);
-            element.on('touchstart', mousedown);
+            scope.timeout.onFinish(() => {
+                hideModal();
+            });
+
+            element.on('touchstart',mousedown);
         }
     }
 };

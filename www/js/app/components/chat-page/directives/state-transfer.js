@@ -18,7 +18,7 @@ module.exports = /*@ngInject*/ function(popupService) {
                         scope.$emit('resend-message', messageId);
                     })
                     .catch(() => {
-                        scope.$emit('delete-message', messageId);
+                        scope.$emit('remove-message', messageId);
                     });
             };
         }

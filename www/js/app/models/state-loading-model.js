@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(statesLoadingConstants) {
+
     class StateLoadingImageModel {
         constructor() {
             this.value = statesLoadingConstants.NONE;

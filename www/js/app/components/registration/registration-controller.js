@@ -18,5 +18,4 @@ module.exports = /*@ngInject*/ function($scope, $location, RegistrationModel, po
         $scope.model.clear();
         $ionicHistory.goBack();
     };
-
 };

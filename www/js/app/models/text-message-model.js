@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(MessageModel) {
+
     class TextMessageModel extends MessageModel {
         constructor(opts) {
             super(opts);

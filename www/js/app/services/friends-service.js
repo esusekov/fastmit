@@ -6,14 +6,6 @@ module.exports = /*@ngInject*/ function( /*FriendModel,*/ FriendsModel, Potentia
     var potentialFriends = new PotentialFriendsModel();
     var dataInterval;
 
-    //friends.__list.push(new FriendModel({
-    //    id: 1212,
-    //    username: 'Text account',
-    //    isOnline: false,
-    //    isFriend: true,
-    //    photoUrl: null
-    //}));
-
     return {
 
         init() {
