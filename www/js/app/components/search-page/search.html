@@ -7,31 +7,34 @@
     <ion-header-bar class="bar bar-subheader bar-positive item-input-inset input-bar">
         <label class="item item-input">
             <i class="icon ion-search placeholder-icon"></i>
-            <input type="text" placeholder="Search" ng-model="query.username">
+            <input type="text" placeholder="Search" ng-model="query.username" ng-model-options="{debounce: 300}">
         </label>
     </ion-header-bar>
 
     <ion-content class="has-subheader friends">
 
         <ion-list ng-if="noFriends">
-            <div ng-repeat="user in users">
+            <ion-item class="item-avatar friend" ng-repeat="user in users">
                 <user-item user="user"></user-item>
-            </div>
+            </ion-item>
         </ion-list>
 
         <ion-list ng-if="!noFriends">
-            <div class="item item-divider">
+            <ion-item class="item item-divider" ng-if="users.length > 0">
                 Найдено в Fastmit
-            </div>
-            <div ng-repeat="user in users">
+            </ion-item>
+            <ion-item class="item-avatar friend" ng-repeat="user in users">
                 <user-item user="user"></user-item>
-            </div>
-            <div class="item item-divider">
+            </ion-item>
+            <ion-item class="item item-divider" ng-if="friends.length > 0">
                 Друзья
-            </div>
-            <div ng-repeat="friend in friends">
+            </ion-item>
+            <ion-item class="item-avatar friend"
+                      ng-repeat="friend in friends"
+                      ng-href="{{friend.chatUrl}}"
+                      ui-sref-active>
                 <friend-item friend="friend"></friend-item>
-            </div>
+            </ion-item>
         </ion-list>
 
     </ion-content>

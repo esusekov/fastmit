@@ -3,16 +3,15 @@
         <a href="#/app/settings" class="button button-icon button-clear ion-gear-a"></a>
     </ion-nav-buttons>
     <ion-content>
-        <ion-list>
-            <div ng-repeat="friend in topFriends.friends">
-                <friend-item friend="friend"></friend-item>
-            </div>
-            <!--<div class="item item-divider">-->
-                <!--Вас добавили-->
-            <!--</div>-->
-            <!--<div ng-repeat="friend in requestingFriends">-->
-                <!--<friend-item friend="friend"></friend-item>-->
-            <!--</div>-->
+        <ion-list delegate-handle="friends"
+                  can-swipe="true">
+            <ion-item
+                      class="item-avatar friend"
+                      collection-repeat="friend in topFriends.friends"
+                      ng-href="{{friend.chatUrl}}"
+                      ui-sref-active>
+                <friend-item></friend-item>
+            </ion-item>
         </ion-list>
         <span ng-if="topFriends.friends.length === 0">У вас 0 друзей.<br><b>Зачем так жить?</b></span>
     </ion-content>

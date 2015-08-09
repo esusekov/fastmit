@@ -26,6 +26,10 @@ module.exports = /*@ngInject*/ function(httpService, $q) {
         get isOnline() {
             return this.__isOnline;
         }
+
+        get isFriend() {
+            return this.__isFriend;
+        }
     }
 
     return UserModel;

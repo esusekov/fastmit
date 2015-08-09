@@ -6,16 +6,17 @@ module.exports = /*@ngInject*/ function() {
         replace: true,
         templateUrl: 'js/app/common/friends/user-item.html',
         scope: {
-            user: '=',
-            addFriend: '&'
+            user: '='
         },
-        controller: ['$scope', 'popupService', 'friendsService', function($scope, popupService, friendsService) {
+        controller: ['$scope', 'popupService', 'friendsService', 'PotentialFriendModel',
+            function($scope, popupService, friendsService, PotentialFriendModel) {
             $scope.makeFriend = function($event) {
                 $event.preventDefault();
                 $event.stopPropagation();
                 friendsService.addFriend($scope.user.id).then(function() {
-                    //var message = follow ? 'Запрос на добавление в друзья отправлен!' : 'Новый друг успешно добавлен!';
-                    var message = 'Новый друг успешно добавлен!';
+                    var message = ($scope.user instanceof PotentialFriendModel  && $scope.user.isFollower()) ?
+                        'Новый друг успешно добавлен!' :
+                        'Запрос на добавление в друзья отправлен!';
                     popupService.alert(message);
                 }).catch(function() {
                     popupService.alert('При добавлении возникла ошибка.');

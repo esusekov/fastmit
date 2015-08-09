@@ -1,19 +1,15 @@
-<a class="item item-avatar item-button-right"
-   ng-href="{{friend.chatUrl}}"
-   ui-sref-active
-   on-swipe-left="onDragLeft($event)"
-   on-release="onDragEnd($event)">
-    <img ng-src="{{friend.photoUrl}}" class="photo">
+<div>
+    <img ng-if="friend.photoUrl" class="item-image" ng-src="{{friend.photoUrl}}">
+    <div ng-if="!friend.photoUrl" class="item-image avatar-placeholder">
+        <span ng-bind="friend.username.charAt(0)"></span>
+    </div>
     <h2>{{friend.username}}</h2>
-    <!--<div class="username-container">-->
-        <!--<span class="username">{{friend.username}}</span>-->
-    <!--</div>-->
-    <!--<div class="indicators-container">-->
-        <!--<i class="icon ion-android-mail" ng-if="friend.hasUnread"></i>-->
-        <!--<i class="icon ion-record" ng-if="friend.isOnline"></i>-->
-    <!--</div>-->
+    <p ng-bind="friend.isOnline ? 'Онлайн' : 'Оффлайн'"></p>
 
-    <!--<button class="button button-assertive" ng-click="deleteFriend($event)">-->
-        <!--<i class="icon ion-ios-telephone"></i>-->
-    <!--</button>-->
-</a>
+    <ion-option-button class="button-positive button-outline icon ion-information-circled"
+                       ng-click="share(item)">
+    </ion-option-button>
+    <ion-option-button class="button-assertive button-outline icon ion-trash-b"
+                       ng-click="deleteFriend()">
+    </ion-option-button>
+</div>

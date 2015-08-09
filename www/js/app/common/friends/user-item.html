@@ -1,6 +1,11 @@
-<a class="item item-avatar item-button-right" ng-href="#" ui-sref-active>
-    <img ng-src="{{user.photoUrl}}" class="photo">
+<div ng-class="{'item-button-right': !user.isFollowee()}">
+    <img ng-if="user.photoUrl" class="item-image" ng-src="{{user.photoUrl}}">
+    <div ng-if="!user.photoUrl" class="item-image avatar-placeholder">
+        <span ng-bind="user.username.charAt(0)"></span>
+    </div>
     <h2>{{user.username}}</h2>
 
-    <button class="button icon ion-plus btn-normal button-stable" ng-click="makeFriend($event)"></button>
-</a>
+    <button ng-if="!user.isFollowee()"
+            class="button button-large icon ion-plus-round button-dark button-outline add-friend-button"
+            ng-click="makeFriend($event)"></button>
+</div>

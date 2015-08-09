@@ -9,6 +9,7 @@ module.exports = /*@ngInject*/ function($scope, friendsService, $stateParams) {
     $scope.$watch('query.username', value => {
         if (value === undefined || value === '') {
             $scope.friends = [];
+            $scope.users = [];
             return;
         }
 
