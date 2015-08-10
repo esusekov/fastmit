@@ -2,6 +2,7 @@
 
 var polyfills = require('./polyfills');
 polyfills.array();
+polyfills.object();
 
 angular.module('friends', [])
     .directive('userItem', require('./common/friends/user-item'))
@@ -88,6 +89,7 @@ angular.module('chat-page', [])
     .directive('photo', require('./components/chat-page/directives/photo'));
 
 angular.module('utils', [])
+    .factory('EventEmitter', require('../utils/event-emitter'))
     .factory('generateRandomId', require('./utils/generate-random-id'));
 
 angular.module('app', [
