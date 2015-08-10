@@ -1,10 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function (websocketInteractionService,
-    messageFactoryService, messagesBoxService, $rootScope, $localForage, globalConstants) {
-
-    var MESSAGES_BOX_KEY = globalConstants.MESSAGES_BOX_KEY;
-    var offRemoveMessageHandler = null;
+    messageFactoryService, messagesBoxService, eventer, storageService) {
 
     function send(friendId, message) {
         var stateTransfer = message.stateTransfer;
@@ -74,21 +71,21 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
 
     function onSaveInStorageHandler() {
         var messagesStorage = getMessagesBoxFormatStorage();
-        console.log(messagesStorage);
-        
-        $localForage.setItem(MESSAGES_BOX_KEY, messagesStorage);
+        storageService.setMessagesBox(messagesStorage);
     }
 
     function onClearStorageHandler() {
-        $localForage.removeItem(MESSAGES_BOX_KEY);
+        storageService.clearMessagesBox();
+    }
+
+    function onRemoveMessageHandler(messageId) {
+        messagesBoxService.removeMessageById(messageId);
     }
 
     return {
         start() {
             console.log('Start');
-            websocketInteractionService.open();
-
-            $localForage.getItem(MESSAGES_BOX_KEY).then(messagesStorage => {
+            storageService.getMessagesBox().then(messagesStorage => {
                 console.log('MEssageBOX STORE', messagesStorage);
 
                 if (messagesStorage != null) {
@@ -96,24 +93,24 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
                 }
             });
 
+            websocketInteractionService.open();
+
             websocketInteractionService.on(event => {
                 onMessageHandler(event);
             });
 
             messagesBoxService.on('save-in-storage', onSaveInStorageHandler);
             messagesBoxService.on('clear-storage', onClearStorageHandler);
-
-            offRemoveMessageHandler = $rootScope.$on('remove-message', (event, messageId) => {
-                messagesBoxService.removeMessageById(messageId);
-            });
+            eventer.on('remove-message', onRemoveMessageHandler);
         },
 
-        stop() {
+        finish() {
             console.log('Stop');
             messagesBoxService.off('save-in-storage', onSaveInStorageHandler);
             messagesBoxService.off('clear-storage', onClearStorageHandler);
-            offRemoveMessageHandler();
+            eventer.off('remove-message', onRemoveMessageHandler);
             websocketInteractionService.close();
+            messagesBoxService.clearBox();
         },
 
         sendMessage(friendId, data) {

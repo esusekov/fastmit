@@ -42,7 +42,7 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal) {
                 console.log('mouseUp');
             }
 
-            scope.timeout.onFinish(() => {
+            scope.timeout.on('timeout-finish', () => {
                 hideModal();
             });
 

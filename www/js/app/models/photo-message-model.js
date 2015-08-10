@@ -1,6 +1,7 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(MessageModel, StateLoadingModel, TimeoutPhotoModel, $rootScope) {
+module.exports = /*@ngInject*/ function(MessageModel,
+    StateLoadingModel, TimeoutPhotoModel, eventer) {
 
     class PhotoMessageModel extends MessageModel {
         constructor(opts) {
@@ -13,7 +14,7 @@ module.exports = /*@ngInject*/ function(MessageModel, StateLoadingModel, Timeout
 
 
             this.timeout.on('timeout-finish', () => {
-                $rootScope.$emit('remove-message', this.id);
+                eventer.emit('remove-message', this.id);
             });
         }
 

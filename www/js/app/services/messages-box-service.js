@@ -94,7 +94,13 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
             var messages = this.getMessages(friendId);
 
             messagesBox[friendId] = messages.filter(message => {
-                return message.isTypePhoto;
+                var stateTransfer = message.stateTransfer;
+
+                return (
+                    message.isTypePhoto ||
+                    stateTransfer.isTransferred ||
+                    stateTransfer.isNotTransferred
+                );
             });
 
             this.emit('save-in-storage');
