@@ -5,10 +5,6 @@ module.exports = /*@ngInject*/ function($websocket,
 
     class WebsocketService extends EventEmitter {
         constructor(url) {
-            if (url == null) {
-                throw new Error('websocketService: is not define url');
-            }
-
             this.url = url;
             this.timeoutReopen = globalConstants.DEFAULT_TIMEOUT;
             this.stream = null;
