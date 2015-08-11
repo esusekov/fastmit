@@ -8,3 +8,4 @@ plugins/
 www/lib
 www/js/build.js
 www/css
+.io-config.json
