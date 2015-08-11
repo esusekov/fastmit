@@ -20,14 +20,14 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
     function setMessagesInBox(data) {
         data.forEach(info => {
             var messages = info.messages.map(message => {
-                return messageFactoryService.create(message);
+                return messageFactoryService.createIn(message);
             });
             messagesBoxService.setMessages(info.friendId, messages);
         });
     }
 
     function setMessageInBox(data) {
-        var message = messageFactoryService.create(data.message);
+        var message = messageFactoryService.createIn(data.message);
         messagesBoxService.setMessage(data.friendId, message);
     }
 
@@ -111,7 +111,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
         },
 
         sendMessage(friendId, data) {
-            var message = messageFactoryService.create(data);
+            var message = messageFactoryService.createOut(data);
             messagesBoxService.setMessage(friendId, message);
 
             send(friendId, message);

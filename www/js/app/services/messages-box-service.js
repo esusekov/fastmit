@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(EventEmitter) {
+
     var messagesBox = {};
 
     function forEachMessage(callback) {
@@ -11,15 +12,13 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
         }
     }
 
-    return Object.assign(new EventEmitter, {
+    return Object.assign(new EventEmitter(), {
         getBox() {
             return messagesBox;
         },
 
         getMessages(friendId) {
-            if (!this.hasMessagesById(friendId)) {
-                messagesBox[friendId] = [];
-            }
+            this.checkMessages(friendId);
 
             return messagesBox[friendId];
         },

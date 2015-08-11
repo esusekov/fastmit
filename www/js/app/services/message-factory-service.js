@@ -1,16 +1,34 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(PhotoMessageModel,
-    TextMessageModel, typesMessagesConstants) {
+module.exports = /*@ngInject*/ function(PhotoInMessageModel,
+    PhotoOutMessageModel, TextInMessageModel, TextOutMessageModel, typesMessagesConstants) {
+
+    function isTypePhoto(type) {
+        return type ===  typesMessagesConstants.PHOTO;
+    }
+
+    function isTypeText(type) {
+        return type === typesMessagesConstants.TEXT;
+    }
 
     return {
-        create(opts) {
+        createIn(opts) {
             var type = opts.type;
 
-            if (type ===  typesMessagesConstants.TEXT) {
-                return new TextMessageModel(opts);
-            } else if (type === typesMessagesConstants.PHOTO) {
-                return new PhotoMessageModel(opts);
+            if (isTypeText(type)) {
+                return new TextInMessageModel(opts);
+            } else if (isTypePhoto(type)) {
+                return new PhotoInMessageModel(opts);
+            }
+        },
+
+        createOut(opts) {
+            var type = opts.type;
+
+            if (isTypeText(type)) {
+                return new TextOutMessageModel(opts);
+            } else if (isTypePhoto(type)) {
+                return new PhotoOutMessageModel(opts);
             }
         }
     }

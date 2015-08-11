@@ -17,10 +17,16 @@ angular.module('friends', [])
 //    .directive('friendItem', require('./common/friends/friend-item'));
 
 angular.module('models', [])
-    .factory('MessageModel', require('./models/message-model'))
+    .factory('MessageModel', require('./models/messages/message-model'))
     .factory('TimeoutPhotoModel', require('./models/timeout-photo-model'))
-    .factory('PhotoMessageModel', require('./models/photo-message-model'))
-    .factory('TextMessageModel', require('./models/text-message-model'))
+
+    .factory('InboxMessageModel', require('./models/messages/inbox-message-model'))
+    .factory('OutboxMessageModel', require('./models/messages/outbox-message-model'))
+    .factory('PhotoInMessageModel', require('./models/messages/photo-in-message-model'))
+    .factory('PhotoOutMessageModel', require('./models/messages/photo-out-message-model'))
+    .factory('TextInMessageModel', require('./models/messages/text-in-message-model'))
+    .factory('TextOutMessageModel', require('./models/messages/text-out-message-model'))
+
     .factory('UserModel', require('./models/user-model'))
     .factory('FriendModel', require('./models/friend-model'))
     .factory('PotentialFriendModel', require('./models/potential-friend-model'))
