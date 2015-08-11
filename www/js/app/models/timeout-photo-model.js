@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function($timeout, globalConstants, EventEmitter) {
-    var TICK = 1000;
+    var TICK = globalConstants.TICK;
 
     class TimeoutPhotoModel extends EventEmitter {
         constructor(opts) {
