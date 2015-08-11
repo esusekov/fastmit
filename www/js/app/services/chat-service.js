@@ -31,7 +31,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
         messagesBoxService.setMessage(data.friendId, message);
     }
 
-    function onMessageHandler(event) {
+    function handlerMessage(event) {
         console.log('SOCKET EVENT', event);
         var type = event.type;
         var body = event.body;
@@ -69,16 +69,16 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
         return messagesStorage;
     }
 
-    function onSaveInStorageHandler() {
+    function handlerSaveInStorage() {
         var messagesStorage = getMessagesBoxFormatStorage();
         storageService.setMessagesBox(messagesStorage);
     }
 
-    function onClearStorageHandler() {
+    function handlerClearStorage() {
         storageService.clearMessagesBox();
     }
 
-    function onRemoveMessageHandler(messageId) {
+    function handlerRemoveMessage(messageId) {
         messagesBoxService.removeMessageById(messageId);
     }
 
@@ -94,21 +94,18 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
             });
 
             websocketInteractionService.open();
+            websocketInteractionService.on(handlerMessage);
 
-            websocketInteractionService.on(event => {
-                onMessageHandler(event);
-            });
-
-            messagesBoxService.on('save-in-storage', onSaveInStorageHandler);
-            messagesBoxService.on('clear-storage', onClearStorageHandler);
-            eventer.on('remove-message', onRemoveMessageHandler);
+            messagesBoxService.on('save-in-storage', handlerSaveInStorage);
+            messagesBoxService.on('clear-storage', handlerClearStorage);
+            eventer.on('remove-message', handlerRemoveMessage);
         },
 
         finish() {
             console.log('Stop');
-            messagesBoxService.off('save-in-storage', onSaveInStorageHandler);
-            messagesBoxService.off('clear-storage', onClearStorageHandler);
-            eventer.off('remove-message', onRemoveMessageHandler);
+            messagesBoxService.off('save-in-storage', handlerSaveInStorage);
+            messagesBoxService.off('clear-storage', handlerClearStorage);
+            eventer.off('remove-message', handlerRemoveMessage);
             websocketInteractionService.close();
             messagesBoxService.clearBox();
         },

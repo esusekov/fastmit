@@ -12,7 +12,6 @@ module.exports = /*@ngInject*/ function(MessageModel,
             this.photoUrl = opts.photoUrl;
             this.photoData = opts.photoData;
 
-
             this.timeout.on('timeout-finish', () => {
                 eventer.emit('remove-message', this.id);
             });
