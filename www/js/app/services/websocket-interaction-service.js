@@ -22,7 +22,7 @@ module.exports = /*@ngInject*/ function(websocketService, urlsApi) {
         },
 
         on(callback) {
-            socket.on(callback);
+            socket.on('message', callback);
         }
     };
 };

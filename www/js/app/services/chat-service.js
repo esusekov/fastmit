@@ -103,10 +103,10 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
 
         finish() {
             console.log('Stop');
+            websocketInteractionService.close();
             messagesBoxService.off('save-in-storage', handlerSaveInStorage);
             messagesBoxService.off('clear-storage', handlerClearStorage);
             eventer.off('remove-message', handlerRemoveMessage);
-            websocketInteractionService.close();
             messagesBoxService.clearBox();
         },
 
