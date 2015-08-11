@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(websocketService, urlsApi) {
+
     var socket = new websocketService(urlsApi.websocketInteraction);
 
     return {
@@ -22,7 +23,7 @@ module.exports = /*@ngInject*/ function(websocketService, urlsApi) {
         },
 
         on(callback) {
-            socket.on(callback);
+            socket.on('message', callback);
         }
     };
 };

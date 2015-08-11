@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($rootScope) {
+module.exports = /*@ngInject*/ function(EventEmitter) {
     var messagesBox = {};
 
     function forEachMessage(callback) {
@@ -11,15 +11,7 @@ module.exports = /*@ngInject*/ function($rootScope) {
         }
     }
 
-    function emitSaveInStorage() {
-        $rootScope.$emit('save-in-storage');
-    }
-
-    function emitClearStorage() {
-        $rootScope.$emit('clear-storage');
-    }
-
-    return {
+    return Object.assign(new EventEmitter, {
         getBox() {
             return messagesBox;
         },
@@ -44,7 +36,7 @@ module.exports = /*@ngInject*/ function($rootScope) {
             this.checkMessages(friendId);
             messagesBox[friendId].push(message);
 
-            emitSaveInStorage();
+            this.emit('save-in-storage');
         },
 
         setMessages(friendId, messagesArray) {
@@ -52,7 +44,7 @@ module.exports = /*@ngInject*/ function($rootScope) {
             var messages = messagesBox[friendId];
             messages.push.apply(messages, messagesArray);
 
-            emitSaveInStorage();
+            this.emit('save-in-storage');
         },
 
         checkMessages(friendId) {
@@ -92,7 +84,7 @@ module.exports = /*@ngInject*/ function($rootScope) {
             if (this.hasMessagesById(friendId)) {
                 messagesBox[friendId] = [];
 
-                emitSaveInStorage();
+                this.emit('save-in-storage');
                 return true;
             }
             return false;
@@ -102,10 +94,16 @@ module.exports = /*@ngInject*/ function($rootScope) {
             var messages = this.getMessages(friendId);
 
             messagesBox[friendId] = messages.filter(message => {
-                return message.isTypePhoto;
+                var stateTransfer = message.stateTransfer;
+
+                return (
+                    message.isTypePhoto ||
+                    stateTransfer.isTransferred ||
+                    stateTransfer.isNotTransferred
+                );
             });
 
-            emitSaveInStorage();
+            this.emit('save-in-storage');
         },
 
         removeTextMessages() {
@@ -116,7 +114,7 @@ module.exports = /*@ngInject*/ function($rootScope) {
 
         clearBox() {
             messagesBox = {};
-            emitClearStorage();
+            this.emit('clear-storage');
         }
-    };
+    });
 };

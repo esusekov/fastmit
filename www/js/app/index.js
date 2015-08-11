@@ -2,6 +2,7 @@
 
 var polyfills = require('./polyfills');
 polyfills.array();
+polyfills.object();
 
 angular.module('friends', [])
     .directive('userItem', require('./common/friends/user-item'))
@@ -46,7 +47,8 @@ angular.module('services', [])
     .factory('chatService', require('./services/chat-service'))
     .service('authorizationService', require('./services/authorization-service'))
     .factory('friendsService', require('./services/friends-service'))
-    .factory('cameraService', require('./services/camera-service'));
+    .factory('cameraService', require('./services/camera-service'))
+    .service('storageService', require('./services/storage-service'));
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
@@ -88,6 +90,8 @@ angular.module('chat-page', [])
     .directive('photo', require('./components/chat-page/directives/photo'));
 
 angular.module('utils', [])
+    .factory('EventEmitter', require('./utils/event-emitter'))
+    .factory('eventer', require('./utils/eventer'))
     .factory('generateRandomId', require('./utils/generate-random-id'));
 
 angular.module('app', [

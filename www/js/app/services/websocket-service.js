@@ -1,13 +1,10 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($websocket, $timeout, $q, readyStateConstants, globalConstants) {
+module.exports = /*@ngInject*/ function($websocket,
+    $timeout, $q, readyStateConstants, globalConstants, EventEmitter) {
 
-    class WebsocketService {
+    class WebsocketService extends EventEmitter {
         constructor(url) {
-            if (url == null) {
-                throw new Error('websocketService: is not define url');
-            }
-
             this.url = url;
             this.timeoutReopen = globalConstants.DEFAULT_TIMEOUT;
             this.stream = null;
@@ -20,6 +17,11 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q, readyStateCons
 
             stream.onOpen(event => {
                 this.connected = true;
+
+                stream.onMessage(event => {
+                    var data = JSON.parse(event.data);
+                    this.emit('message', data);
+                });
             });
 
             stream.onClose(event => {
@@ -54,13 +56,6 @@ module.exports = /*@ngInject*/ function($websocket, $timeout, $q, readyStateCons
             //    return this.stream.send(JSON.stringify(message));
             //}
             //return $q.reject('not connected');
-        }
-
-        on(callback) {
-            this.stream.onMessage(event => {
-                var data = JSON.parse(event.data);
-                callback(data);
-            });
         }
 
         isOpen() {
