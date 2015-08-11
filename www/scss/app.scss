@@ -22,8 +22,13 @@ $assertive:                       #E53935 !default;
 $balanced:                        #4caf50 !default;
 $bar-height:                      56px !default;
 
+$roboto-font-path: "../lib/materialize/font/roboto/";
+$icons-font-path: "../lib/materialize/font/material-design-icons/";
+
 // Include all of Ionic
 @import "../lib/ionic/scss/ionic";
+@import "materialize";
+
 @import "friend";
 @import "search";
 @import "sidebar";
@@ -31,6 +36,7 @@ $bar-height:                      56px !default;
 @import "fonts";
 @import "ionic-modifications";
 @import "chat";
+@import "login";
 
 .text-left {
   text-align: left;

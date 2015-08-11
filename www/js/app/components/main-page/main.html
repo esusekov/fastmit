@@ -8,8 +8,7 @@
             <ion-item
                       class="item-avatar friend"
                       collection-repeat="friend in topFriends.friends"
-                      ng-href="{{friend.chatUrl}}"
-                      ui-sref-active>
+                      ng-href="{{friend.chatUrl}}">
                 <friend-item></friend-item>
             </ion-item>
         </ion-list>
@@ -17,6 +16,6 @@
     </ion-content>
 
     <a class="action-button" href="#" ng-click="openCamera()">
-        <button class="button icon ion-camera btn-normal button-balanced"></button>
+        <button class="button icon ion-camera btn-normal button-balanced waves-effect waves-light btn"></button>
     </a>
 </ion-view>

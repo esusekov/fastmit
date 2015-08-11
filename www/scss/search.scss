@@ -17,8 +17,10 @@
         color: white;
       }
 
-      input {
+      input, input:focus {
         color: white;
+        border: 0;
+        margin: 0;
         &::-webkit-input-placeholder { /* WebKit browsers */
           color: rgba(255, 255, 255, 0.5);
         }

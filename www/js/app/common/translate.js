@@ -15,7 +15,10 @@ module.exports = /*@ngInject*/ function($translateProvider) {
         FORGOT: 'Forgot password',
         CONFIRM: 'Confirm',
         SIGN_UP: 'Sign up',
-        SIGN_IN: 'Sign in'
+        SIGN_IN: 'Sign in',
+        USERNAME: 'Username',
+        PASSWORD: 'Password',
+        EMAIL: 'Email'
     });
 
     $translateProvider.translations('ru', {
@@ -32,7 +35,10 @@ module.exports = /*@ngInject*/ function($translateProvider) {
         FORGOT: 'Забыли пароль',
         CONFIRM: 'Подтвердить',
         SIGN_UP: 'Зарегистрироваться',
-        SIGN_IN: 'Войти'
+        SIGN_IN: 'Войти',
+        USERNAME: 'Логин',
+        PASSWORD: 'Пароль',
+        EMAIL: 'Адрес электронной почты'
     });
 
     $translateProvider.preferredLanguage('ru');

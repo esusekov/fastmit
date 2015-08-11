@@ -1,36 +1,36 @@
 <ion-view view-title="{{ 'LOGIN' | translate }}">
     <ion-nav-bar class="bar-positive" align-title="center">
     </ion-nav-bar>
-    <ion-content>
-        <form name="loginForm">
-            <div class="list">
-                <label class="item item-input">
-                    <span class="input-label">Username</span>
-                    <input type="text" name="username" ng-model="model.username" required ng-minlength="5">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Password</span>
-                    <input type="password" name="password" ng-model="model.password" required ng-minlength="8">
-                </label>
+    <ion-content scroll="false">
+            <form name="loginForm" class="login row row-center">
+                <div class="list list-inset col col-80 col-offset-10">
+                    <div class="input-field">
+                        <input id="username" type="text" name="username" ng-model="model.username" required ng-minlength="5">
+                        <label for="username">{{ 'USERNAME' | translate }}</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="password" type="password" name="password" ng-model="model.password" required ng-minlength="8">
+                        <label for="password">{{ 'PASSWORD' | translate }}</label>
+                    </div>
+                    <div class="padding">
+                        <button class="button button-block button-positive waves-effect waves-light btn" ng-click="signIn()"
+                                ng-disabled="loginForm.$invalid">
+                            {{ 'SIGN_IN' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="login-bottom row row-center">
+                <div class="col col-50 text-left">
+                    <button class="button button-clear button-stable" ng-click="goForgotPassword()">
+                        {{ 'FORGOT' | translate }}?
+                    </button>
+                </div>
+                <div class="col col-50 text-right">
+                    <button class="button button-clear button-stable" ng-click="goRegistration()">
+                        {{ 'REGISTRATION' | translate }}
+                    </button>
+                </div>
             </div>
-            <div class="padding">
-                <button class="button button-block button-positive" ng-click="signIn()"
-                        ng-disabled="loginForm.$invalid">
-                    {{ 'SIGN_IN' | translate }}
-                </button>
-            </div>
-        </form>
-        <div class="row">
-            <div class="col col-50 text-left">
-                <button class="button button-clear button-stable" ng-click="goForgotPassword()">
-                    {{ 'FORGOT' | translate }}?
-                </button>
-            </div>
-            <div class="col col-50 text-right">
-                <button class="button button-clear button-stable" ng-click="goRegistration()">
-                    {{ 'REGISTRATION' | translate }}
-                </button>
-            </div>
-        </div>
     </ion-content>
 </ion-view>
