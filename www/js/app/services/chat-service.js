@@ -17,8 +17,8 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
         });
     }
 
-    function setMessagesInBox(data) {
-        data.forEach(info => {
+    function setArrayMessagesInBox(arrayMessages) {
+        arrayMessages.forEach(info => {
             var messages = info.messages.map(message => {
                 return messageFactoryService.createIn(message);
             });
@@ -47,30 +47,8 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
         }
     }
 
-    function getMessagesBoxFormatStorage() {
-        var messagesBox = messagesBoxService.getBox();
-        var messagesStorage = [];
-
-        for (var key in messagesBox) {
-            if (messagesBox.hasOwnProperty(key)) {
-                var messages = messagesBox[key].filter(message => {
-                    return !message.isMy;
-                }).map(message => {
-                    return message.getMessageFormatReceiver();
-                });
-
-                messagesStorage.push({
-                    friendId: key,
-                    messages: messages
-                });
-            }
-        }
-
-        return messagesStorage;
-    }
-
     function handlerSaveInStorage() {
-        var messagesStorage = getMessagesBoxFormatStorage();
+        var messagesStorage = messagesBoxService.getBoxFormatStorage();
         storageService.setMessagesBox(messagesStorage);
     }
 
@@ -89,7 +67,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
                 console.log('MEssageBOX STORE', messagesStorage);
 
                 if (messagesStorage != null) {
-                    setMessagesInBox(messagesStorage);
+                    setArrayMessagesInBox(messagesStorage);
                 }
             });
 

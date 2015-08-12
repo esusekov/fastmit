@@ -3,8 +3,8 @@
 module.exports = /*@ngInject*/ function(statesLoadingConstants) {
 
     class StateLoadingImageModel {
-        constructor() {
-            this.value = statesLoadingConstants.NONE;
+        constructor(state) {
+            this.value = state || statesLoadingConstants.NONE;
         }
 
         none() {
@@ -19,6 +19,14 @@ module.exports = /*@ngInject*/ function(statesLoadingConstants) {
             this.value = statesLoadingConstants.LOADED;
         }
 
+        notLoaded() {
+            this.value = statesLoadingConstants.NOT_LOADED;
+        }
+
+        get current() {
+            return this.value;
+        }
+
         get isNone() {
             return this.value === statesLoadingConstants.NONE;
         }
@@ -29,6 +37,10 @@ module.exports = /*@ngInject*/ function(statesLoadingConstants) {
 
         get isLoaded() {
             return this.value === statesLoadingConstants.LOADED;
+        }
+
+        get isNotLoaded() {
+            return this.value === statesLoadingConstants.NOT_LOADED;
         }
     }
 

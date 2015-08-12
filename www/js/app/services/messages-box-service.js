@@ -4,14 +4,6 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
 
     var messagesBox = {};
 
-    function forEachMessage(callback) {
-        for (var key in messagesBox) {
-            if (messagesBox.hasOwnProperty(key)) {
-                callback(key);
-            }
-        }
-    }
-
     return Object.assign(new EventEmitter(), {
         getBox() {
             return messagesBox;
@@ -29,6 +21,31 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
             return messages.find(message => {
                 return message.id === messageId;
             });
+        },
+
+        getInboxMessagesById(friendId) {
+            if (this.hasMessagesById(friendId)) {
+                return messagesBox[friendId].filter(message => {
+                    return !message.isMy;
+                });
+            }
+        },
+
+        getBoxFormatStorage() {
+            var messagesStorage = [];
+
+            this.forEachMessages(friendId => {
+                var messages = this.getInboxMessagesById(friendId).map(message => {
+                    return message.getMessageFormatReceiver();
+                });
+
+                messagesStorage.push({
+                    friendId: friendId,
+                    messages: messages
+                });
+            });
+
+            return messagesStorage;
         },
 
         setMessage(friendId, message) {
@@ -57,7 +74,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
         },
 
         removeMessageById(messageId) {
-            forEachMessage(key => {
+            this.forEachMessages(key => {
                 var messages = messagesBox[key];
 
                 messages.forEach((message, index) => {
@@ -76,6 +93,8 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
 
             if (index != null) {
                 messages.splice(index, 1);
+
+                this.emit('save-in-storage');
             }
         },
 
@@ -106,9 +125,17 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
         },
 
         removeTextMessages() {
-            forEachMessage(key => {
+            this.forEachMessages(key => {
                 this.removeTextMessagesById(key);
             });
+        },
+
+        forEachMessages(callback) {
+            for (var key in messagesBox) {
+                if (this.hasMessagesById(key)) {
+                    callback(key);
+                }
+            }
         },
 
         clearBox() {
