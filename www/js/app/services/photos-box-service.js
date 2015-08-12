@@ -21,7 +21,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
         },
 
         setPhoto(messageId, photo) {
-            if (!this.hasMessagesById(messageId)) {
+            if (!this.hasPhotoById(messageId)) {
                 photosBox[messageId] = photo;
 
                 this.emit('save-in-storage');
@@ -55,7 +55,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
         getNoLoadedPhotos() {
             var notLoadedPhotos = [];
 
-            this.forEachMessages(messageId => {
+            this.forEachPhotos(messageId => {
                 var photo = photosBox[messageId];
 
                 if (!photo.stateLoading.isLoaded) {

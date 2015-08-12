@@ -7,6 +7,12 @@ module.exports = /*@ngInject*/ function(InboxMessageModel) {
             super(opts);
             this.text = opts.text;
         }
+
+        getFormatStorage() {
+            var message = this.getBaseFormatStorage();
+            message.text = this.text;
+            return message;
+        }
     }
 
     return TextInMessageModel;

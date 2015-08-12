@@ -7,21 +7,31 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
     var flagStartLoading = false;
 
     function loadPhotos() {
+        console.log('Size-1', queuePhotos.size());
+
         if (queuePhotos.isNotEmpty()) {
             var photoUpload = queuePhotos.shift();
+            console.log(photoUpload);
+            console.log('Size-2', queuePhotos.size());
+            
             var stateLoading = photoUpload.stateLoading;
             stateLoading.loading();
 
             httpService.getPhotoByUrl(photoUpload.photoUrl).then(data => {
                 photoUpload.photoData = data;
                 stateLoading.loaded();
+                console.log('---------1');
+
             }).then(() => {
                 var photosStorage = photosBoxService.getBox();
-                handlerSaveInStorage(photosStorage);
-            }).catch(() => {
+                //handlerSaveInStorage(photosStorage);
+                console.log('---------2');
+            }).catch((e) => {
+                console.log(e);
                 stateLoading.notLoaded();
                 queuePhotos.push(photoUpload);
             }).then(() => {
+                console.log('---------3');
                 loadPhotos();
             });
         } else {
@@ -55,7 +65,7 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
     }
 
     function handlerSaveInStorage() {
-        var photosStorage = photosBoxService.getFormatStorage();
+        var photosStorage = photosBoxService.getBoxFormatStorage();
         storageService.setPhotosBox(photosStorage);
     }
 
@@ -94,6 +104,8 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
         },
 
         setPhotoInQueueLoader(message) {
+            console.log('SerPhoto', message);
+            
             var messageId = message.id;
             var photoUpload = new PhotoUploadModel(message);
 

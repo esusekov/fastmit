@@ -36,7 +36,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
 
             this.forEachMessages(friendId => {
                 var messages = this.getInboxMessagesById(friendId).map(message => {
-                    return message.getMessageFormatReceiver();
+                    return message.getFormatStorage();
                 });
 
                 messagesStorage.push({
@@ -111,17 +111,17 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
         removeTextMessagesById(friendId) {
             var messages = this.getMessages(friendId);
 
-            messagesBox[friendId] = messages.filter(message => {
-                var stateTransfer = message.stateTransfer;
+            //messagesBox[friendId] = messages.filter(message => {
+            //    var stateTransfer = message.stateTransfer;
+            //
+            //    return (
+            //        message.isTypePhoto ||
+            //        stateTransfer.isTransferred ||
+            //        stateTransfer.isNotTransferred
+            //    );
+            //});
 
-                return (
-                    message.isTypePhoto ||
-                    stateTransfer.isTransferred ||
-                    stateTransfer.isNotTransferred
-                );
-            });
-
-            this.emit('save-in-storage');
+            //this.emit('save-in-storage');
         },
 
         removeTextMessages() {

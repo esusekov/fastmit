@@ -13,6 +13,13 @@ module.exports = /*@ngInject*/ function(InboxMessageModel, TimeoutPhotoModel, ev
                 eventer.emit('remove-message', messageId);
             });
         }
+
+        getFormatStorage() {
+            var message = this.getBaseFormatStorage();
+            message.photoUrl = this.photoUrl;
+            message.timeout = this.timeout;
+            return message;
+        }
     }
 
     return PhotoInMessageModel;

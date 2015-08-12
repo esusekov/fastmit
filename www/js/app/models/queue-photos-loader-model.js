@@ -12,7 +12,7 @@ module.exports = /*@ngInject*/ function() {
         }
 
         isEmpty() {
-            return this.size === 0;
+            return this.size() === 0;
         }
 
         isNotEmpty() {

@@ -1,7 +1,8 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function (websocketInteractionService,
-    messageFactoryService, messagesBoxService, eventer, storageService) {
+    messageFactoryService, messagesBoxService, eventer,
+    storageService, photoLoaderService) {
 
     function send(friendId, message) {
         var stateTransfer = message.stateTransfer;
@@ -9,7 +10,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
 
         websocketInteractionService.send({
             friendId: friendId,
-            message: message.getMessageFormatReceiver()
+            message: message.getFormatReceiver()
         }).then(() => {
             stateTransfer.transferred();
         }).catch(() => {
@@ -17,10 +18,18 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
         });
     }
 
+    function setPhotoInQueueLoader(message) {
+        if (message.isTypePhoto) {
+            photoLoaderService.setPhotoInQueueLoader(message);
+        }
+    }
+
     function setArrayMessagesInBox(arrayMessages) {
         arrayMessages.forEach(info => {
             var messages = info.messages.map(message => {
-                return messageFactoryService.createIn(message);
+                var messageIn = messageFactoryService.createIn(message);
+                setPhotoInQueueLoader(messageIn);
+                return messageIn;
             });
             messagesBoxService.setMessages(info.friendId, messages);
         });
@@ -28,6 +37,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
 
     function setMessageInBox(data) {
         var message = messageFactoryService.createIn(data.message);
+        setPhotoInQueueLoader(message);
         messagesBoxService.setMessage(data.friendId, message);
     }
 
@@ -42,7 +52,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
                 break;
 
             case 'messages':
-                setMessagesInBox(body);
+                setArrayMessagesInBox(body);
                 break;
         }
     }

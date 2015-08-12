@@ -13,7 +13,6 @@ module.exports = /*@ngInject*/ function(OutboxMessageModel) {
             var message = this.getBaseFormatReceiver();
             message.photoData = this.photoData;
             message.timeout = this.timeout;
-
             return message;
         }
     }

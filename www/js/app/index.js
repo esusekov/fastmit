@@ -27,6 +27,9 @@ angular.module('models', [])
     .factory('TextInMessageModel', require('./models/messages/text-in-message-model'))
     .factory('TextOutMessageModel', require('./models/messages/text-out-message-model'))
 
+    .factory('PhotoUploadModel', require('./models/photo-upload-model'))
+    .factory('QueuePhotosLoaderModel', require('./models/queue-photos-loader-model'))
+
     .factory('UserModel', require('./models/user-model'))
     .factory('FriendModel', require('./models/friend-model'))
     .factory('PotentialFriendModel', require('./models/potential-friend-model'))
@@ -51,6 +54,10 @@ angular.module('services', [])
     .factory('messagesBoxService', require('./services/messages-box-service'))
     .factory('messageFactoryService', require('./services/message-factory-service'))
     .factory('chatService', require('./services/chat-service'))
+
+    .factory('photosBoxService', require('./services/photos-box-service'))
+    .factory('photoLoaderService', require('./services/photo-loader-service'))
+
     .service('authorizationService', require('./services/authorization-service'))
     .factory('friendsService', require('./services/friends-service'))
     .factory('cameraService', require('./services/camera-service'))

@@ -24,6 +24,10 @@ module.exports = /*@ngInject*/ function(generateRandomId, typesMessagesConstants
                 type: this.type
             };
         }
+
+        getBaseFormatStorage() {
+            return this.getBaseFormatReceiver();
+        }
     }
 
     return MessageModel;
