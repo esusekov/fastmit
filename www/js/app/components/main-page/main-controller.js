@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $timeout, $ionicLoading, friendsService, cameraService, $interval) {
+module.exports = /*@ngInject*/ function($scope, $timeout, $location, $ionicLoading, friendsService, cameraService, $interval) {
     $ionicLoading.show();
 
     console.log(friendsService);
@@ -28,7 +28,7 @@ module.exports = /*@ngInject*/ function($scope, $timeout, $ionicLoading, friends
 
     $scope.openCamera = function() {
         return cameraService.makePhoto().then(data => {
-            //some action
+            $location.path('/app/editor');
         });
     }
 };

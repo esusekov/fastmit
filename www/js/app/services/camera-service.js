@@ -4,6 +4,10 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
     var imageData = '';
 
     return  {
+        get image() {
+            return imageData;
+        },
+
         makePhoto(options) {
 
             var defaultOptions = {
@@ -20,14 +24,14 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
 
             return $cordovaCamera.getPicture(options || defaultOptions).then((data) => {
                 console.log(data);
-                imageData = data;
                 return data;
             }, (err) => {
                 console.log(err);
                 $q.reject(err);
             }).then(data => {
                 if (data != null) {
-                    return 'data:image/jpeg;base64,' + data;
+                    imageData = 'data:image/jpeg;base64,' + data;
+                    return imageData;
                 }
             });
         }

@@ -29,5 +29,8 @@
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
     "cordova-plugin-console"
+  ],
+  "cordovaPlatforms": [
+    "android"
   ]
 }

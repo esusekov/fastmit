@@ -82,6 +82,9 @@ angular.module('friends-page', [])
 angular.module('search-page', [])
     .controller('SearchController', require('./components/search-page/search-controller'));
 
+angular.module('editor-page', [])
+    .controller('EditorController', require('./components/editor-page/editor-controller'));
+
 angular.module('chat-page', [])
     .controller('ChatController', require('./components/chat-page/chat-controller'))
     .directive('message', require('./components/chat-page/directives/message'))
@@ -92,7 +95,8 @@ angular.module('chat-page', [])
 angular.module('utils', [])
     .factory('EventEmitter', require('./utils/event-emitter'))
     .factory('eventer', require('./utils/eventer'))
-    .factory('generateRandomId', require('./utils/generate-random-id'));
+    .factory('generateRandomId', require('./utils/generate-random-id'))
+    .factory('$fabric', require('./utils/fabric'));
 
 angular.module('app', [
         'ionic',
@@ -119,6 +123,7 @@ angular.module('app', [
         'friends-page',
         'search-page',
         'chat-page',
+        'editor-page'
     ])
 
     .config(require('./common/translate'))

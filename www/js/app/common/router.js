@@ -104,6 +104,16 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
                     controller: 'ChatController'
                 }
             }
+        })
+
+        .state('app.editor', {
+            url: '/editor',
+            views: {
+                'menuContent': {
+                    templateUrl: 'js/app/components/editor-page/editor.html',
+                    controller: 'EditorController'
+                }
+            }
         });
 
     // if none of the above states are matched, use this as the fallback
