@@ -15,8 +15,8 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
             var stateLoading = photoUpload.stateLoading;
             stateLoading.loading();
 
-            httpService.getPhotoByUrl(photoUpload.photoUrl).then(data => {
-                photoUpload.photoData = data;
+            httpService.getPhotoByUrl(photoUpload.photoUrl).then(response => {
+                photoUpload.photoData = response.data.data;
                 stateLoading.loaded();
             }).catch((e) => {
                 console.log('Error', e);
