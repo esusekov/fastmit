@@ -1,16 +1,34 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal) {
+module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal, photosBoxService, eventer) {
     return {
         restrict: 'E',
         replace: true,
         templateUrl: 'js/app/components/chat-page/templates/photo.html',
         scope: {
-            photoData: '=',
             messageId: '=',
             timeout: '='
         },
         link: function(scope, element, attrs) {
+            scope.photo = photosBoxService.getPhoto(scope.messageId);
+            scope.stateLoading = scope.photo.stateLoading;
+            var stateLoading = scope.stateLoading;
+
+            scope.getTextByStateLoading = function() {
+                var text = null;
+
+                if (stateLoading.isLoaded) {
+                    text = 'Прикоснитесь, чтобы посмотреть фотографию';
+                } else if (stateLoading.isLoading) {
+                    text = 'Фотография загружается...';
+                } else if (stateLoading.isNotLoaded) {
+                    text = 'Не удалось загрузить фотографию';
+                } else {
+                    text = 'Новая фотография';
+                }
+
+                return text;
+            };
 
             $ionicModal.fromTemplateUrl('js/app/components/chat-page/templates/photo-img.html', {
                 scope: scope,
@@ -19,34 +37,36 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal) {
                 scope.modal = modal;
             });
 
-            function showModal() {
+            function showPhoto() {
                 scope.modal.show();
             }
 
-            function hideModal() {
+            function hidePhoto() {
                 scope.modal.hide();
             }
 
-            function mousedown() {
-                $document.on('touchend', mouseup);
-                scope.timeout.start();
+            scope.timeout.on('timeout-finish', () => {
+                hidePhoto();
+            });
 
-                showModal();
-                console.log('mouseDown');
+            function mousedown() {
+                if (stateLoading.isLoaded) {
+                    $document.on('touchend', mouseup);
+                    scope.timeout.start();
+                    showPhoto();
+                } else if (stateLoading.isLoading) {
+
+                } else {
+                    eventer.emit('load-photo', scope.messageId);
+                }
             }
 
             function mouseup() {
                 $document.off('touchend', mouseup);
-
-                hideModal();
-                console.log('mouseUp');
+                hidePhoto();
             }
 
-            scope.timeout.on('timeout-finish', () => {
-                hideModal();
-            });
-
-            element.on('touchstart',mousedown);
+            element.on('touchstart', mousedown);
         }
     }
 };

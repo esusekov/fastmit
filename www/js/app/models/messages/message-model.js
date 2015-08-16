@@ -1,15 +1,12 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(StateTransferModel,
-    generateRandomId, typesMessagesConstants) {
+module.exports = /*@ngInject*/ function(generateRandomId, typesMessagesConstants) {
 
     class MessageModel {
         constructor(opts) {
-            this.id = opts.id || generateRandomId();
+            this.messageId = opts.messageId || generateRandomId();
             this.time = opts.time || Date.now();
             this.type = opts.type;
-            this.isMy = opts.isMy || false;
-            this.stateTransfer = new StateTransferModel();
         }
 
         get isTypeText() {
@@ -20,9 +17,9 @@ module.exports = /*@ngInject*/ function(StateTransferModel,
             return this.type === typesMessagesConstants.PHOTO;
         }
 
-        getBaseMessageFormatReceiver() {
+        getBaseFormat() {
             return {
-                id: this.id,
+                messageId: this.messageId,
                 time: this.time,
                 type: this.type
             };

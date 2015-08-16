@@ -17,10 +17,15 @@ angular.module('friends', [])
 //    .directive('friendItem', require('./common/friends/friend-item'));
 
 angular.module('models', [])
-    .factory('MessageModel', require('./models/message-model'))
+    .factory('MessageModel', require('./models/messages/message-model'))
     .factory('TimeoutPhotoModel', require('./models/timeout-photo-model'))
-    .factory('PhotoMessageModel', require('./models/photo-message-model'))
-    .factory('TextMessageModel', require('./models/text-message-model'))
+
+    .factory('InboxMessageModel', require('./models/messages/inbox-message-model'))
+    .factory('OutboxMessageModel', require('./models/messages/outbox-message-model'))
+
+    .factory('PhotoUploadModel', require('./models/photo-upload-model'))
+    .factory('QueuePhotosLoaderModel', require('./models/queue-photos-loader-model'))
+
     .factory('UserModel', require('./models/user-model'))
     .factory('FriendModel', require('./models/friend-model'))
     .factory('PotentialFriendModel', require('./models/potential-friend-model'))
@@ -45,6 +50,10 @@ angular.module('services', [])
     .factory('messagesBoxService', require('./services/messages-box-service'))
     .factory('messageFactoryService', require('./services/message-factory-service'))
     .factory('chatService', require('./services/chat-service'))
+
+    .factory('photosBoxService', require('./services/photos-box-service'))
+    .factory('photoLoaderService', require('./services/photo-loader-service'))
+
     .service('authorizationService', require('./services/authorization-service'))
     .factory('friendsService', require('./services/friends-service'))
     .factory('cameraService', require('./services/camera-service'))
