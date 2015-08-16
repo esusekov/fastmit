@@ -1,18 +1,23 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $timeout, $location, $ionicLoading, friendsService, cameraService, $interval) {
+module.exports = /*@ngInject*/ function($scope, $timeout, $location, $ionicLoading, $ionicSideMenuDelegate, $ionicNavBarDelegate, friendsService, cameraService, $interval) {
     $ionicLoading.show();
 
     console.log(friendsService);
-    
-    
-    //$scope.authCheck.promise
-    //    .then(friendsService.init())
-    //    .then(() => {
-    //        $scope.topFriends = friendsService.friends;
-    //        $ionicLoading.hide();
-    //        friendsService.setDataListener();
-    //});
+
+    $scope.editMode = false;
+
+    $scope.editModeOn = function() {
+        $scope.editMode = true;
+        $ionicSideMenuDelegate.canDragContent(false);
+        $ionicNavBarDelegate.showBar(false);
+    };
+
+    $scope.editModeOff = function() {
+        $scope.editMode = false;
+        $ionicSideMenuDelegate.canDragContent(true);
+        $ionicNavBarDelegate.showBar(true);
+    };
 
     $timeout(() => {
         friendsService.init()
@@ -27,8 +32,9 @@ module.exports = /*@ngInject*/ function($scope, $timeout, $location, $ionicLoadi
     $scope.$on('$destroy', friendsService.removeDataListener);
 
     $scope.openCamera = function() {
-        return cameraService.makePhoto().then(data => {
-            $location.path('/app/editor');
-        });
+        $scope.editModeOn();
+        //return cameraService.makePhoto().then(data => {
+        //    $scope.editModeOn();
+        //});
     }
 };

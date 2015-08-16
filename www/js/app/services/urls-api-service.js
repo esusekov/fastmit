@@ -16,6 +16,6 @@ module.exports = /*@ngInject*/ function() {
         addFriend: main_url + 'friends/add',
         deleteFriend: main_url + 'friends/delete',
         search: main_url + 'friends/search',
-        websocketInteraction: test_chat_websocket // 'ws://95.85.8.141:8888/some-secret-api/websocket'
+        websocketInteraction: 'ws://95.85.8.141:8888/some-secret-api/websocket'
     }
 };

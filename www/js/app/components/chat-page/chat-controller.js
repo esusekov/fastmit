@@ -12,6 +12,7 @@ module.exports = /*@ngInject*/ function($scope,
     $scope.friend = friend;
     $scope.messages = messages;
     $scope.text = null;
+    $scope.editMode = false;
 
     $scope.$watchCollection('messages', event => {
         $ionicScrollDelegate.scrollBottom();
@@ -64,9 +65,17 @@ module.exports = /*@ngInject*/ function($scope,
 
     $scope.makePhoto = function() {
         cameraService.makePhoto().then(photoData => {
-            var message = generatePhotoMessage(photoData);
-            sendMessage(message);
+            $scope.editMode = true;
         });
+    };
+
+    $scope.sendPhoto = function(success) {
+        $scope.editMode = false;
+
+        if (success) {
+            var message = generatePhotoMessage(cameraService.image);
+            sendMessage(message);
+        }
     };
 
     $scope.$on('remove-message', (event, messageId) => {

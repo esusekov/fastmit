@@ -8,6 +8,10 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
             return imageData;
         },
 
+        set image(img) {
+            imageData = img;
+        },
+
         makePhoto(options) {
 
             var defaultOptions = {
@@ -16,6 +20,7 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
                 //sourceType: Camera.PictureSourceType.CAMERA,
                 //allowEdit: true,
                 encodingType: Camera.EncodingType.JPEG,
+                correctOrientation: true
                 //targetWidth: 100,
                 //targetHeight: 100,
                 //popoverOptions: CameraPopoverOptions,

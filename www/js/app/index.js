@@ -83,6 +83,8 @@ angular.module('search-page', [])
     .controller('SearchController', require('./components/search-page/search-controller'));
 
 angular.module('editor-page', [])
+    .directive('imageEditor', require('./components/editor-page/image-editor'))
+    .directive('colorPicker', require('./components/editor-page/color-picker'))
     .controller('EditorController', require('./components/editor-page/editor-controller'));
 
 angular.module('chat-page', [])

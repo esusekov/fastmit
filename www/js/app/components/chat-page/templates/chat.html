@@ -26,4 +26,6 @@
         </label>
         <a class="button button-icon icon ion-android-send" ng-click="sendText()"></a>
     </ion-footer-bar>
+
+    <image-editor close="sendPhoto(success)" ng-if="editMode"></image-editor>
 </ion-view>

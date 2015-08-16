@@ -1,5 +1,27 @@
-<ion-view hide-nav-bar="true">
-    <ion-content scroll="false">
-        <img class="editor-content" ng-src="{{image}}">
-    </ion-content>
-</ion-view>
+<div class="editor">
+    <div class="editor-content">
+        <canvas id="c" class="canvas" width="300" height="300"></canvas>
+
+        <button class="clear-button button button-icon icon ion-android-refresh"
+                ng-click="clear()" ng-show="canvas.isDrawingMode"></button>
+
+        <button class="draw-mode button button-icon icon ion-android-create"
+                ng-style="{'background-color': canvas.isDrawingMode ? color : 'transparent'}"
+                ng-click="changeDrawMode()"
+                ng-class="{choosed: canvas.isDrawingMode}">
+        </button>
+
+        <color-picker ng-show="canvas.isDrawingMode"
+                choose-color="chooseColor(color)"
+                choose-width="chooseWidth(width)">
+        </color-picker>
+
+        <!--<button class="text-button" ng-click="addText()">Text</button>-->
+
+        <button class="ok-button button button-icon icon ion-android-done"
+                ng-click="saveImage()"></button>
+
+        <button class="cancel-button button button-icon icon ion-android-close"
+                ng-click="cancel()"></button>
+    </div>
+</div>
