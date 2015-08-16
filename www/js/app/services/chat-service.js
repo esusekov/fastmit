@@ -5,6 +5,8 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
     storageService, photoLoaderService) {
 
     function send(friendId, message) {
+        console.log('Send', message);
+        
         var stateTransfer = message.stateTransfer;
         stateTransfer.transfer();
 
@@ -13,7 +15,9 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
             message: message.getFormatReceiver()
         }).then(() => {
             stateTransfer.transferred();
-        }).catch(() => {
+        }).catch((e) => {
+            console.log(e);
+            
             stateTransfer.notTransferred();
         });
     }
@@ -105,13 +109,13 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
 
         sendMessage(friendId, data) {
             var message = messageFactoryService.createOut(data);
-
-            send(friendId, message);
-
             messagesBoxService.setMessage(friendId, message);
+            send(friendId, message);
         },
 
         resendMessage(friendId, messageId) {
+            console.log(friendId, messageId);
+            
             var message = messagesBoxService.getMessage(friendId, messageId);
 
             send(friendId, message);

@@ -38,6 +38,8 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal, photos
             });
 
             function showPhoto() {
+                console.log('Show modal');
+                
                 scope.modal.show();
             }
 
