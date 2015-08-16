@@ -1,17 +1,14 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(PhotoMessageModel,
-    TextMessageModel, typesMessagesConstants) {
+module.exports = /*@ngInject*/ function(OutboxMessageModel, InboxMessageModel) {
 
     return {
-        create(opts) {
-            var type = opts.type;
+        createIn(opts) {
+            return new InboxMessageModel(opts);
+        },
 
-            if (type ===  typesMessagesConstants.TEXT) {
-                return new TextMessageModel(opts);
-            } else if (type === typesMessagesConstants.PHOTO) {
-                return new PhotoMessageModel(opts);
-            }
+        createOut(opts) {
+            return new OutboxMessageModel(opts);
         }
     }
 };

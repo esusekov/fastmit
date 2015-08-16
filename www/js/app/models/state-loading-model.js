@@ -19,6 +19,10 @@ module.exports = /*@ngInject*/ function(statesLoadingConstants) {
             this.value = statesLoadingConstants.LOADED;
         }
 
+        notLoaded() {
+            this.value = statesLoadingConstants.NOT_LOADED;
+        }
+
         get isNone() {
             return this.value === statesLoadingConstants.NONE;
         }
@@ -29,6 +33,10 @@ module.exports = /*@ngInject*/ function(statesLoadingConstants) {
 
         get isLoaded() {
             return this.value === statesLoadingConstants.LOADED;
+        }
+
+        get isNotLoaded() {
+            return this.value === statesLoadingConstants.NOT_LOADED;
         }
     }
 

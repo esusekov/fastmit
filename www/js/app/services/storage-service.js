@@ -4,6 +4,7 @@ module.exports = /*@ngInject*/ function($localForage, globalConstants) {
 
     var AUTH_TOKEN_KEY = globalConstants.AUTH_TOKEN_KEY;
     var MESSAGES_BOX_KEY = globalConstants.MESSAGES_BOX_KEY;
+    var PHOTOS_BOX_KEY = globalConstants.PHOTOS_BOX_KEY;
 
     function setItem(key, data) {
         return $localForage.setItem(key, data);
@@ -42,9 +43,24 @@ module.exports = /*@ngInject*/ function($localForage, globalConstants) {
             return remove(AUTH_TOKEN_KEY);
         },
 
+        setPhotosBox(data) {
+            console.log('storage photos', data);
+            
+            return setItem(PHOTOS_BOX_KEY, data);
+        },
+
+        getPhotosBox() {
+            return getItem(PHOTOS_BOX_KEY);
+        },
+
+        clearPhotosBox() {
+            return remove(PHOTOS_BOX_KEY);
+        },
+
         clearAll() {
             this.clearAuthToken();
             this.clearMessagesBox();
+            this.clearPhotosBox();
         }
     };
 };

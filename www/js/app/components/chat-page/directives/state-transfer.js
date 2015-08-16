@@ -13,7 +13,7 @@ module.exports = /*@ngInject*/ function(popupService) {
             var messageId = scope.messageId;
 
             scope.resendMessage = function() {
-                popupService.confirm('Попробывать отправить еще раз?')
+                popupService.confirm('Попытаться отправить еще раз?')
                     .then(() => {
                         scope.$emit('resend-message', messageId);
                     })

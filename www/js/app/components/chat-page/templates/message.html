@@ -7,17 +7,16 @@
             <div ng-if="message.isMy" class="col">
                 <state-transfer
                         state="message.stateTransfer"
-                        message-id="message.id">
+                        message-id="message.messageId">
                 </state-transfer>
             </div>
         </div>
         <div class="row">
             <div ng-if="message.isTypeText" class="col text">{{ message.text }}</div>
-            <div ng-if="message.isTypePhoto && message.isMy" class="col text">Прикоснитесь чтобы посмотреть фотография</div>
+            <div ng-if="message.isTypePhoto && message.isMy" class="col text">Отправка фотографии</div>
             <photo
                     ng-if="message.isTypePhoto && !message.isMy"
-                    photo-data="message.photoData"
-                    message-id="message.id"
+                    message-id="message.messageId"
                     timeout="message.timeout">
             </photo>
         </div>
