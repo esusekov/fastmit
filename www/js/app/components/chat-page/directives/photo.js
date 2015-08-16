@@ -21,6 +21,8 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal, photos
                     text = 'Прикоснитесь, чтобы посмотреть фотографию';
                 } else if (stateLoading.isLoading) {
                     text = 'Фотография загружается...';
+                } else if (stateLoading.isNotLoaded) {
+                    text = 'Не удалось загрузить фотографию';
                 } else {
                     text = 'Новая фотография';
                 }
