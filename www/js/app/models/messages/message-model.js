@@ -4,7 +4,7 @@ module.exports = /*@ngInject*/ function(generateRandomId, typesMessagesConstants
 
     class MessageModel {
         constructor(opts) {
-            this.id = opts.id || generateRandomId();
+            this.messageId = opts.messageId || generateRandomId();
             this.time = opts.time || Date.now();
             this.type = opts.type;
         }
@@ -17,16 +17,12 @@ module.exports = /*@ngInject*/ function(generateRandomId, typesMessagesConstants
             return this.type === typesMessagesConstants.PHOTO;
         }
 
-        getBaseFormatReceiver() {
+        getBaseFormat() {
             return {
-                id: this.id,
+                messageId: this.messageId,
                 time: this.time,
                 type: this.type
             };
-        }
-
-        getBaseFormatStorage() {
-            return this.getBaseFormatReceiver();
         }
     }
 

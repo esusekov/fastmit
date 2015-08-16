@@ -19,9 +19,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
     }
 
     function setPhotoInQueueLoader(message) {
-        if (message.isTypePhoto) {
-            photoLoaderService.setPhotoInQueueLoader(message);
-        }
+        photoLoaderService.setPhotoInQueueLoader(message);
     }
 
     function setArrayMessagesInBox(arrayMessages) {
@@ -58,7 +56,9 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
     }
 
     function handlerSaveInStorage() {
+        console.log('Save in Storage Messages');
         var messagesStorage = messagesBoxService.getBoxFormatStorage();
+
         storageService.setMessagesBox(messagesStorage);
     }
 
@@ -67,26 +67,29 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
     }
 
     function handlerRemoveMessage(messageId) {
+        console.log('Remove message');
         messagesBoxService.removeMessageById(messageId);
     }
 
     return {
         start() {
             console.log('Start');
-            storageService.getMessagesBox().then(messagesStorage => {
+            return photoLoaderService.start().then(() => {
+                return storageService.getMessagesBox();
+            }).then(messagesStorage => {
                 console.log('MEssageBOX STORE', messagesStorage);
 
                 if (messagesStorage != null) {
                     setArrayMessagesInBox(messagesStorage);
                 }
+            }).then(() => {
+                websocketInteractionService.open();
+                websocketInteractionService.on(handlerMessage);
+
+                messagesBoxService.on('save-in-storage', handlerSaveInStorage);
+                messagesBoxService.on('clear-storage', handlerClearStorage);
+                eventer.on('remove-message', handlerRemoveMessage);
             });
-
-            websocketInteractionService.open();
-            websocketInteractionService.on(handlerMessage);
-
-            messagesBoxService.on('save-in-storage', handlerSaveInStorage);
-            messagesBoxService.on('clear-storage', handlerClearStorage);
-            eventer.on('remove-message', handlerRemoveMessage);
         },
 
         finish() {
@@ -96,13 +99,16 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
             eventer.off('remove-message', handlerRemoveMessage);
             websocketInteractionService.close();
             messagesBoxService.clearBox();
+
+            photoLoaderService.finish();
         },
 
         sendMessage(friendId, data) {
             var message = messageFactoryService.createOut(data);
-            messagesBoxService.setMessage(friendId, message);
 
             send(friendId, message);
+
+            messagesBoxService.setMessage(friendId, message);
         },
 
         resendMessage(friendId, messageId) {

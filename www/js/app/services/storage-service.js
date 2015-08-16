@@ -44,6 +44,8 @@ module.exports = /*@ngInject*/ function($localForage, globalConstants) {
         },
 
         setPhotosBox(data) {
+            console.log('storage photos', data);
+            
             return setItem(PHOTOS_BOX_KEY, data);
         },
 

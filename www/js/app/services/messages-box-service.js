@@ -19,7 +19,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
             var messages = this.getMessages(friendId);
 
             return messages.find(message => {
-                return message.id === messageId;
+                return message.messageId === messageId;
             });
         },
 
@@ -78,7 +78,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
                 var messages = messagesBox[key];
 
                 messages.forEach((message, index) => {
-                    if (message.id === messageId) {
+                    if (message.messageId === messageId) {
                         messages.splice(index, 1);
                     }
                 });
@@ -88,7 +88,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
         removeMessageByIds(friendId, messageId) {
             var messages = this.getMessages(friendId);
             var index = messages.findIndex(message => {
-                return message.id === messageId;
+                return message.messageId === messageId;
             });
 
             if (index != null) {
@@ -111,17 +111,20 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
         removeTextMessagesById(friendId) {
             var messages = this.getMessages(friendId);
 
-            //messagesBox[friendId] = messages.filter(message => {
-            //    var stateTransfer = message.stateTransfer;
-            //
-            //    return (
-            //        message.isTypePhoto ||
-            //        stateTransfer.isTransferred ||
-            //        stateTransfer.isNotTransferred
-            //    );
-            //});
+            messagesBox[friendId] = messages.filter(message => {
+                if (message.isMy) {
+                    var stateTransfer = message.stateTransfer;
 
-            //this.emit('save-in-storage');
+                    return(
+                        stateTransfer.isTransferred ||
+                        stateTransfer.isNotTransferred
+                    );
+                } else {
+                    return message.isTypePhoto
+                }
+            });
+
+            this.emit('save-in-storage');
         },
 
         removeTextMessages() {

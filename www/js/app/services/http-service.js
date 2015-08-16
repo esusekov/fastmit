@@ -10,7 +10,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi, $q) {
         return $q((resolve, reject) => {
             setTimeout(() => {
                 resolve(img);
-            }, 3 * 1000);
+            }, 15 * 1000);
         });
     }
 
@@ -90,7 +90,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi, $q) {
             //return $http.post(url, data);
             console.log('Get photo by url', url);
 
-            return Promise.resolve(img);
+            return getFakePhoto();
 
         }
     };

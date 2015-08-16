@@ -1,37 +1,32 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
-    PhotoUploadModel, photosBoxService, storageService) {
+    PhotoUploadModel, photosBoxService, storageService, eventer) {
 
     var queuePhotos = new QueuePhotosLoaderModel();
     var flagStartLoading = false;
 
     function loadPhotos() {
-        console.log('Size-1', queuePhotos.size());
+        console.log('Queue', queuePhotos);
 
         if (queuePhotos.isNotEmpty()) {
             var photoUpload = queuePhotos.shift();
-            console.log(photoUpload);
-            console.log('Size-2', queuePhotos.size());
-            
+
             var stateLoading = photoUpload.stateLoading;
             stateLoading.loading();
 
             httpService.getPhotoByUrl(photoUpload.photoUrl).then(data => {
                 photoUpload.photoData = data;
                 stateLoading.loaded();
-                console.log('---------1');
-
+            }).catch((e) => {
+                console.log('Error', e);
+                
+                stateLoading.notLoaded();
+                //queuePhotos.push(photoUpload);
             }).then(() => {
                 var photosStorage = photosBoxService.getBox();
-                //handlerSaveInStorage(photosStorage);
-                console.log('---------2');
-            }).catch((e) => {
-                console.log(e);
-                stateLoading.notLoaded();
-                queuePhotos.push(photoUpload);
-            }).then(() => {
-                console.log('---------3');
+                handlerSaveInStorage(photosStorage);
+
                 loadPhotos();
             });
         } else {
@@ -44,6 +39,13 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
             flagStartLoading = true;
             loadPhotos();
         }
+    }
+
+    function handlerLoadPhoto(messageId) {
+        console.log('LOad Photo', messageId);
+        
+        queuePhotos.pickUp(messageId);
+        startLoading();
     }
 
     function setPhotoInBox(photo) {
@@ -59,12 +61,9 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
         });
     }
 
-    function handlerLoadPhoto(messageId) {
-        queuePhotos.up(messageId);
-        startLoading();
-    }
-
     function handlerSaveInStorage() {
+        console.log('Save In Storage Photos');
+        
         var photosStorage = photosBoxService.getBoxFormatStorage();
         storageService.setPhotosBox(photosStorage);
     }
@@ -73,40 +72,60 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
         storageService.clearPhotosBox();
     }
 
+    function handlerRemovePhoto(messageId) {
+        console.log('Remove photo');
+
+        photosBoxService.removePhotoById(messageId);
+    }
+
     return {
         start() {
-            storageService.getPhotosBox().then(photosStorage => {
-                console.log('MEssageBOX STORE', photosStorage);
+            return storageService.getPhotosBox().then(photosStorage => {
+                console.log('Photos Box STORE', photosStorage);
 
                 if (photosStorage != null) {
                     setArrayPhotosInBox(photosStorage);
 
                     var notLoadedPhotos = photosBoxService.getNoLoadedPhotos();
+                    
+                    console.log('Notloaded', notLoadedPhotos);
 
+                    console.log('QUEUE PHOTOS 1', queuePhotos.size());
                     notLoadedPhotos.forEach(photoUpload => {
                         queuePhotos.push(photoUpload);
                     });
                 }
             }).then(() => {
                 startLoading();
-            });
 
-            photosBoxService.on('load-photo', handlerLoadPhoto);
-            photosBoxService.on('save-in-storage', handlerSaveInStorage);
-            photosBoxService.on('clear-storage', handlerClearStorage);
+                photosBoxService.on('load-photo', handlerLoadPhoto);
+                photosBoxService.on('save-in-storage', handlerSaveInStorage);
+                photosBoxService.on('clear-storage', handlerClearStorage);
+                eventer.on('load-photo', handlerLoadPhoto);
+                eventer.on('remove-photo', handlerRemovePhoto);
+            });
         },
 
         finish() {
             photosBoxService.off('load-photo', handlerLoadPhoto);
             photosBoxService.off('save-in-storage', handlerSaveInStorage);
             photosBoxService.off('clear-storage', handlerClearStorage);
+            eventer.off('load-photo', handlerLoadPhoto);
+            eventer.off('remove-photo', handlerRemovePhoto);
             queuePhotos.clear();
         },
 
         setPhotoInQueueLoader(message) {
-            console.log('SerPhoto', message);
-            
-            var messageId = message.id;
+            if (!message.isTypePhoto) {
+                return;
+            }
+
+            var messageId = message.messageId;
+
+            if (photosBoxService.hasPhotoById(messageId)) {
+                return;
+            }
+
             var photoUpload = new PhotoUploadModel(message);
 
             photosBoxService.setPhoto(messageId, photoUpload);

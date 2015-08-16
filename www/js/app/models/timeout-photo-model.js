@@ -6,7 +6,6 @@ module.exports = /*@ngInject*/ function($timeout, globalConstants, EventEmitter)
     class TimeoutPhotoModel extends EventEmitter {
         constructor(opts) {
             super();
-            this.messageId = opts.id;
             this.timeout = opts.timeout || globalConstants.DEFAULT_TIMEOUT;
             this.isStart = false;
         }

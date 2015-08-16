@@ -23,12 +23,6 @@ module.exports = /*@ngInject*/ function() {
             this.queue = [];
         }
 
-        findIndexMessage(messageId) {
-            return this.queue.findIndex(message => {
-                return message.mesageId = messageId;
-            });
-        }
-
         shift() {
             return this.queue.shift();
         }
@@ -37,13 +31,17 @@ module.exports = /*@ngInject*/ function() {
             this.queue.push(message);
         }
 
-        up(messageId) {
+        pickUp(messageId) {
             var queue = this.queue;
-            var index = this.findIndexMessage(messageId);
 
-            var message = queue.splice(index, 1)[0];
+            var index = queue.findIndex(message => {
+                return message.messageId === messageId;
+            });
 
-            queue.unshift(message);
+            if (index != 0) {
+                var photo = queue.splice(index, 1)[0];
+                queue.unshift(photo);
+            }
         }
     }
 

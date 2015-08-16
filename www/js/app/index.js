@@ -22,10 +22,6 @@ angular.module('models', [])
 
     .factory('InboxMessageModel', require('./models/messages/inbox-message-model'))
     .factory('OutboxMessageModel', require('./models/messages/outbox-message-model'))
-    .factory('PhotoInMessageModel', require('./models/messages/photo-in-message-model'))
-    .factory('PhotoOutMessageModel', require('./models/messages/photo-out-message-model'))
-    .factory('TextInMessageModel', require('./models/messages/text-in-message-model'))
-    .factory('TextOutMessageModel', require('./models/messages/text-out-message-model'))
 
     .factory('PhotoUploadModel', require('./models/photo-upload-model'))
     .factory('QueuePhotosLoaderModel', require('./models/queue-photos-loader-model'))

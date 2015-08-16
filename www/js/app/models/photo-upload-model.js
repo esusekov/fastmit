@@ -4,10 +4,19 @@ module.exports = /*@ngInject*/ function(StateLoadingModel) {
     
     class PhotoUploadModel {
         constructor(opts) {
-            this.messageId = opts.id;
+            this.messageId = opts.messageId;
             this.photoUrl = opts.photoUrl;
-            this.photoData = null;
-            this.stateLoading = new StateLoadingModel(opts.stateLoading);
+            this.stateLoading = new StateLoadingModel();
+
+            var photoData = opts.photoData;
+
+            if (photoData != null) {
+                this.photoData = opts.photoData;
+                this.stateLoading.loaded();
+            } else {
+                this.photoData = null;
+                this.stateLoading.none();
+            }
         }
 
         getFormatStorage() {
@@ -15,7 +24,7 @@ module.exports = /*@ngInject*/ function(StateLoadingModel) {
                 messageId: this.messageId,
                 photoUrl: this.photoUrl,
                 photoData: this.photoData,
-                stateLoading: this.stateLoading.current
+                stateLoading: this.stateLoading.value
             };
         }
     }
