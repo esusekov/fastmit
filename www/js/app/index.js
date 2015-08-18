@@ -142,7 +142,7 @@ angular.module('app', [
     .config(require('./common/router'))
 
     .constant('$ionicLoadingConfig', {
-        template: '<i class="icon ion-loading-c"></i>',
+        template: '<ion-spinner icon="android"></ion-spinner>',
         noBackdrop: true
     })
 
