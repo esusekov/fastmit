@@ -4,7 +4,6 @@ var apiary_url = 'https://private-03570-fastmitapi.apiary-mock.com/some-secret-a
 var main_url = 'http://95.85.8.141/some-secret-api/';
 var test_chat_websocket = 'ws://localhost:8081';
 
-
 module.exports = /*@ngInject*/ function() {
     return {
         login: main_url + 'login',

@@ -9,28 +9,41 @@ module.exports = /*@ngInject*/ function($websocket,
             this.timeoutReopen = globalConstants.DEFAULT_TIMEOUT;
             this.stream = null;
             this.connected = false;
+            this.state = true;
+        }
+
+        start() {
+            this.open();
+            this.state = true;
+        }
+
+        stop() {
+            this.close();
+            this.state = false;
         }
 
         open() {
-            var stream = $websocket(this.url);
-            this.stream = stream;
+            if (this.state) {
+                var stream = $websocket(this.url);
+                this.stream = stream;
 
-            stream.onOpen(event => {
-                this.connected = true;
+                stream.onOpen(event => {
+                    this.connected = true;
 
-                stream.onMessage(event => {
-                    var data = JSON.parse(event.data);
-                    this.emit('message', data);
+                    stream.onMessage(event => {
+                        var data = JSON.parse(event.data);
+                        this.emit('message', data);
+                    });
                 });
-            });
 
-            stream.onClose(event => {
-                this.connected = false;
+                stream.onClose(event => {
+                    this.connected = false;
 
-                $timeout(() => {
-                    this.open();
-                }, this.timeoutReopen);
-            });
+                    $timeout(() => {
+                        this.open();
+                    }, this.timeoutReopen);
+                });
+            }
         }
 
         close() {

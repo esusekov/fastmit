@@ -5,12 +5,12 @@ module.exports = /*@ngInject*/ function(websocketService, urlsApi) {
     var socket = new websocketService(urlsApi.websocketInteraction);
 
     return {
-        close() {
-            socket.close();
+        start() {
+            socket.start();
         },
 
-        open() {
-            socket.open();
+        stop() {
+            socket.stop();
         },
 
         send(data) {

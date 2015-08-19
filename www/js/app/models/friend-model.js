@@ -10,6 +10,7 @@ module.exports = /*@ngInject*/ function() {
             this.__isFriend = source.isFriend || true;
             this.__hasUnread = source.hasUnread || false;
             this.__photoUrl = source.photoUrl;
+            this.__publicKey = source.publicKey;
         }
 
         get chatUrl() {
@@ -38,6 +39,7 @@ module.exports = /*@ngInject*/ function() {
             this.__isFriend = source.isFriend || this.__isFriend;
             this.__hasUnread = source.hasUnread || this.__hasUnread;
             this.__photoUrl = source.photoUrl || this.__photoUrl;
+            this.__publicKey = source.publicKey || this.__publicKey;
         }
     }
 

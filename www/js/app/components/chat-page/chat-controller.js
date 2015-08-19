@@ -7,6 +7,7 @@ module.exports = /*@ngInject*/ function($scope,
 
     var friendId = $stateParams.id;
     var friend = friendsService.getFriendById(friendId);
+    var publicKey = friend.publicKey;
     var messages = messagesBoxService.getMessages(friendId);
 
     $scope.friend = friend;
@@ -51,7 +52,7 @@ module.exports = /*@ngInject*/ function($scope,
     }
 
     function sendMessage(message) {
-        chatService.sendMessage(friendId, message);
+        chatService.sendMessage(friendId, publicKey, message);
     }
 
     $scope.sendText = function() {
