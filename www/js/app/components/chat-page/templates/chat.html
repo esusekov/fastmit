@@ -1,7 +1,6 @@
 <ion-view view-title="{{ friend.username }}">
     <ion-nav-bar class="bar-positive" align-title="center">
-        <ion-nav-back-button class="button-clear" ng-click="goBack()">
-            <i class="icon ion-arrow-left-c"></i>
+        <ion-nav-back-button class="button button-icon button-clear ion-android-arrow-back" ng-click="goBack()">
         </ion-nav-back-button>
     </ion-nav-bar>
     <ion-content>
@@ -21,7 +20,6 @@
                 placeholder="Type your message"
                 on-return="sendText()"
                 ng-model="text"
-                autofocus
             />
         </label>
         <a class="button button-icon icon ion-android-send" ng-click="sendText()"></a>

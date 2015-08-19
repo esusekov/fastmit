@@ -11,6 +11,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var ngannotate = require('gulp-ng-annotate');
 var jshint = require('gulp-jshint');
 var babel = require("gulp-babel");
+var del    = require('del');
 
 var paths = {
     sass: ['./www/scss/**/*.scss'],
@@ -56,6 +57,15 @@ gulp.task('watch', function() {
 gulp.task('compile', [ 'sass', 'browserify' ]);
 
 gulp.task('default', [ 'compile', 'watch' ]);
+
+gulp.task('clean-xdk', function(done) {
+    del([ './xdk/**/*.*' ], done);
+});
+
+gulp.task('xdk', ['clean-xdk'], function() {
+    return gulp.src([ paths.root + '/**/*.*' ])
+        .pipe(gulp.dest('./xdk/'));
+});
 
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()

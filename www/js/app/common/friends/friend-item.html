@@ -5,11 +5,12 @@
     </div>
     <h2>{{friend.username}}</h2>
     <p ng-bind="friend.isOnline ? 'Онлайн' : 'Оффлайн'"></p>
-
-    <ion-option-button class="button-positive button-outline icon ion-information-circled"
-                       ng-click="share(item)">
-    </ion-option-button>
-    <ion-option-button class="button-assertive button-outline icon ion-trash-b"
-                       ng-click="deleteFriend()">
-    </ion-option-button>
+    <div ng-if="!noOptions">
+        <ion-option-button class="button-positive button-outline icon ion-information-circled"
+                           ng-click="share(item)">
+        </ion-option-button>
+        <ion-option-button class="button-assertive button-outline icon ion-trash-b"
+                           ng-click="deleteFriend()">
+        </ion-option-button>
+    </div>
 </div>

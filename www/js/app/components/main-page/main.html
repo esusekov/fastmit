@@ -1,38 +1,23 @@
 <ion-view view-title="Fastmit" drag-content="false">
     <ion-nav-buttons side="secondary">
-        <a href="#/app/settings" class="button button-icon button-clear ion-gear-a"></a>
+        <a href="#/app/settings" class="button button-icon button-clear ion-android-settings"></a>
     </ion-nav-buttons>
-    <ion-content>
-        <ion-list delegate-handle="friends"
-                  can-swipe="true">
-            <ion-item
-                      class="item-avatar friend"
-                      collection-repeat="friend in topFriends.friends"
-                      ng-href="{{friend.chatUrl}}">
-                <friend-item></friend-item>
-            </ion-item>
-        </ion-list>
+    <ion-content scroll="false">
+        <div class="page-content">
+            <div class="list">
+                <a class="item item-avatar friend"
+                   ng-repeat="friend in topFriends.friends"
+                   ng-href="{{friend.chatUrl}}">
+                    <friend-item friend="friend" no-options="true"></friend-item>
+                </a>
+            </div>
+        </div>
         <span ng-if="topFriends.friends.length === 0">У вас 0 друзей.<br><b>Зачем так жить?</b></span>
     </ion-content>
 
     <a class="action-button" href="#" ng-click="openCamera()">
-        <button class="button icon ion-camera btn-normal button-balanced waves-effect waves-light btn"></button>
+        <button class="button icon ion-android-camera btn-normal button-balanced waves-effect waves-light btn"></button>
     </a>
 
     <image-editor close="editModeOff(success)" ng-if="editMode"></image-editor>
-    <!--<div class="editor" ng-controller="EditorController" ng-if="editMode">-->
-        <!--<div class="editor-content" ng-class="{drawing: drawing}">-->
-            <!--<canvas id="c" class="canvas" width="300" height="300"></canvas>-->
-
-            <!--<button class="clear-button" ng-click="clear()">Clear</button>-->
-
-            <!--<button class="draw-mode" ng-click="changeDrawMode()" ng-class="{active: canvas.isDrawingMode}">Draw Mode</button>-->
-
-            <!--<color-picker choose-color="chooseColor(color)" choose-width="chooseWidth(width)"></color-picker>-->
-
-            <!--<button class="text-button" ng-click="addText()">Text</button>-->
-
-            <!--<button class="ok-button" ng-click="saveImage()">Ok</button>-->
-        <!--</div>-->
-    <!--</div>-->
 </ion-view>

@@ -5,6 +5,10 @@ module.exports = /*@ngInject*/ function(popupService, friendsService, $ionicList
         restrict: 'E',
         replace: true,
         templateUrl: 'js/app/common/friends/friend-item.html',
+        scope: {
+            friend: '=',
+            noOptions: '='
+        },
         link: function(scope, element) {
 
             scope.deleteFriend = function() {
