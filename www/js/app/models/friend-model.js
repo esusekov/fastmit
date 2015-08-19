@@ -33,6 +33,10 @@ module.exports = /*@ngInject*/ function() {
             return this.__isOnline;
         }
 
+        get publicKey() {
+            return this.__publicKey;
+        }
+
         update(source) {
             this.__username = source.username || this.__username;
             this.__isOnline = source.isOnline || this.__isOnline;
