@@ -6,6 +6,8 @@ module.exports = /*@ngInject*/ function($localForage, globalConstants) {
     var MESSAGES_BOX_KEY = globalConstants.MESSAGES_BOX_KEY;
     var PHOTOS_BOX_KEY = globalConstants.PHOTOS_BOX_KEY;
     var RSA_KEYS_ENCRYPTION_KEY = globalConstants.RSA_KEYS_ENCRYPTION_KEY;
+    var CURRENT_USERNAME_KEY = globalConstants.CURRENT_USERNAME_KEY;
+
 
     function setItem(key, data) {
         return $localForage.setItem(key, data);
@@ -70,10 +72,23 @@ module.exports = /*@ngInject*/ function($localForage, globalConstants) {
             return remove(key + RSA_KEYS_ENCRYPTION_KEY);
         },
 
+        setCurrentUsername(data) {
+            return setItem(CURRENT_USERNAME_KEY, data);
+        },
+
+        getCurrentUsername() {
+            return getItem(CURRENT_USERNAME_KEY);
+        },
+
+        clearCurrentUsername() {
+            return remove(CURRENT_USERNAME_KEY);
+        },
+
         clearAll() {
             this.clearAuthToken();
             this.clearMessagesBox();
             this.clearPhotosBox();
+            this.clearCurrentUsername();
         }
     };
 };
