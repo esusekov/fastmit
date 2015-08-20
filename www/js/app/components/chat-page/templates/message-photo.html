@@ -1,0 +1,29 @@
+<div class="message-photo">
+    <div ng-if="!message.isMy" class="state-loading">
+        <i
+            ng-if="stateLoading.isLoaded"
+            class="timeout">
+            {{ timeout.value }}
+        </i>
+        <i
+            ng-if="stateLoading.isLoading || stateLoading.isNone"
+            class="icon ion-load-d">
+        </i>
+        <i
+            ng-if="stateLoading.isNotLoaded"
+            class="icon ion-android-refresh">
+        </i>
+    </div>
+    <div class="info">
+        <div class="time">
+            {{ message.time | date: 'h:mm a' }}
+        </div>
+        <state-transfer
+                ng-if="message.isMy"
+                state="message.stateTransfer">
+        </state-transfer>
+    </div>
+</div>
+
+
+

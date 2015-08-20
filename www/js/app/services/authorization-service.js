@@ -6,11 +6,19 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
 
     return {
         checkAuth() {
-            return storageService.getAuthToken().then(data => {
-                console.log('AUTH SERVICE DATA', data);
-                if (data != null) {
-                    isAuth = true;
-                    httpService.setToken(data);
+            return $q.all([
+                storageService.getAuthToken(),
+                storageService.getCurrentUsername()
+            ]).then(values => {
+                var token = values[0];
+                var username = values[1];
+
+                console.log('AUTH SERVICE DATA', values);
+                if (token != null && username != null) {
+                    return encryptionService.checkKey(username).then(() => {
+                        isAuth = true;
+                        httpService.setToken(token);
+                    });
                 } else {
                     return $q.reject();
                 }
@@ -31,6 +39,7 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
                 var token = result.data.token;
                 httpService.setToken(token);
                 storageService.setAuthToken(token);
+                storageService.setCurrentUsername(username);
             }).then(() => {
                 encryptionService.setPrivateKey(username, privateKey);
             }).then(() => {
@@ -50,6 +59,7 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
                 var token = result.data.token;
                 httpService.setToken(token);
                 storageService.setAuthToken(token);
+                storageService.setCurrentUsername(username);
             }).then(() => {
                chatService.start();
             });

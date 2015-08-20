@@ -1,38 +1,134 @@
-$color-my-message: #FF0000;
-$color-not-my-message: #36A9E1;
+$color-my-message: #AED581;
+$color-not-my-message: #E0E0E0;
 
 @mixin border-left-message($color) {
-    border-left: 3px solid $color;
+  border-left: 3px solid $color;
 }
 
 .chat {
-    > .messages {
-        > .card-custom {
-            margin: 10px 5px;
+  > .messages {
+    .message {
+      margin: 10px 0;
+      padding: 0 15px;
+      display: flex;
 
-            .message-wrapper {
-                > .my-message {
-                    @include border-left-message($color-my-message);
-                }
-
-                > .not-my-message {
-                    @include border-left-message($color-not-my-message);
-                }
-            }
-
-            .time {
-                font-size: 12px;
-                opacity: 0.6;
-            }
-
-            .text {
-                overflow: hidden;
-                white-space: normal;
-            }
-
-            .state-transfer {
-                float: right;
-            }
+      > .message-photo, .message-text {
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
         }
+
+        > .info {
+          display: flex;
+
+          > .time {
+            font-style: italic;
+            font-size: 10px;
+            opacity: 0.6;
+          }
+        }
+      }
+
+      > .message-text {
+        max-width: 85%;
+        padding: 7px 9px 0 9px;
+        position: relative;
+
+        > .text {
+          overflow: hidden;
+          white-space: normal;
+          font-size: 14px;
+          opacity: 0.9;
+        }
+      }
+
+      > .message-photo {
+        width: 160px;
+        height: 200px;
+        position: relative;
+
+        > .info {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 160px;
+          padding: 0px 9px;
+        }
+      }
+
+      &.my-message {
+        justify-content: flex-end;
+
+        > .message-photo, .message-text {
+          border-radius: 5px 5px 0 5px;
+
+          &:after {
+            right: -14px;
+            border: 8px solid transparent;
+            border-bottom: 8px solid $color-my-message;
+            border-left: 8px solid $color-my-message;
+          }
+
+          > .info {
+            justify-content: space-between;
+
+            > .state-transfer {
+              width: 10px;
+              margin-left: 5px;
+            }
+          }
+        }
+
+        > .message-text {
+          background-color: $color-my-message;
+        }
+
+        > .message-photo {
+          background-color: $color-my-message;
+        }
+      }
+
+      &.not-my-message {
+        justify-content: flex-start;
+
+        > .message-photo, .message-text {
+          border-radius: 5px 5px 5px 0;
+
+          &:after {
+            left: -14px;
+            border: 8px solid transparent;
+            border-right: 8px solid $color-not-my-message;
+            border-bottom: 8px solid $color-not-my-message;
+          }
+
+          > .info {
+            justify-content: flex-end;
+          }
+        }
+
+        > .message-text {
+          background-color: $color-not-my-message;
+        }
+
+        > .message-photo {
+          background-color: $color-not-my-message;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          > .state-loading {
+            > i {
+              font-size: 40px;
+            }
+
+            > .timeout {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
     }
+  }
 }
