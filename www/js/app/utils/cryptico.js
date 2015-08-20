@@ -1,7 +1,5 @@
 "use strict";
 
-var cryptico = require('cryptico');
-
-module.exports = /*@ngInject*/ function() {
-    return cryptico;
+module.exports = /*@ngInject*/ function($window) {
+    return $window.cryptico;
 };
