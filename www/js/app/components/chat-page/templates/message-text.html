@@ -1,0 +1,20 @@
+<div class="message-text">
+    <div class="text">
+        {{ message.text }}
+    </div>
+    <div class="info">
+        <div class="time">
+            {{ message.time | date: 'h:mm a' }}
+        </div>
+        <state-transfer
+                ng-if="message.isMy"
+                state="message.stateTransfer">
+        </state-transfer>
+    </div>
+</div>
+
+
+
+
+
+
