@@ -95,8 +95,8 @@ angular.module('chat-page', [])
     .controller('ChatController', require('./components/chat-page/chat-controller'))
     .directive('message', require('./components/chat-page/directives/message'))
     .directive('stateTransfer', require('./components/chat-page/directives/state-transfer'))
-    .directive('text', require('./components/chat-page/directives/text'))
-    .directive('photo', require('./components/chat-page/directives/photo'));
+    .directive('messageText', require('./components/chat-page/directives/message-text'))
+    .directive('messagePhoto', require('./components/chat-page/directives/message-photo'));
 
 angular.module('utils', [])
     .factory('EventEmitter', require('./utils/event-emitter'))
