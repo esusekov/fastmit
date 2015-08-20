@@ -5,6 +5,7 @@ module.exports = /*@ngInject*/ function($localForage, globalConstants) {
     var AUTH_TOKEN_KEY = globalConstants.AUTH_TOKEN_KEY;
     var MESSAGES_BOX_KEY = globalConstants.MESSAGES_BOX_KEY;
     var PHOTOS_BOX_KEY = globalConstants.PHOTOS_BOX_KEY;
+    var RSA_KEYS_ENCRYPTION_KEY = globalConstants.RSA_KEYS_ENCRYPTION_KEY;
 
     function setItem(key, data) {
         return $localForage.setItem(key, data);
@@ -55,6 +56,18 @@ module.exports = /*@ngInject*/ function($localForage, globalConstants) {
 
         clearPhotosBox() {
             return remove(PHOTOS_BOX_KEY);
+        },
+
+        setKeyEncryption(key, data) {
+            return setItem(key + RSA_KEYS_ENCRYPTION_KEY, data);
+        },
+
+        getKeyEncryption(key) {
+            return getItem(key + RSA_KEYS_ENCRYPTION_KEY);
+        },
+
+        clearKeyEncryption(key) {
+            return remove(key + RSA_KEYS_ENCRYPTION_KEY);
         },
 
         clearAll() {

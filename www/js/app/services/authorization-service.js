@@ -1,7 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(httpService,
-    $q, chatService, storageService) {
+module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageService, encryptionService) {
 
     var isAuth = false;
 
@@ -21,6 +20,11 @@ module.exports = /*@ngInject*/ function(httpService,
         },
 
         register(data) {
+            var username =  data.username;
+            var privateKey = encryptionService.createPrivateKey();
+
+            data.publicKey = encryptionService.createPublicKey(privateKey);
+
             return httpService.register(data).then(result => {
                 console.log(result);
                 isAuth = true;
@@ -28,12 +32,20 @@ module.exports = /*@ngInject*/ function(httpService,
                 httpService.setToken(token);
                 storageService.setAuthToken(token);
             }).then(() => {
+                encryptionService.setPrivateKey(username, privateKey);
+            }).then(() => {
                 chatService.start();
             });
         },
 
         login(data) {
-            return httpService.login(data).then(result => {
+            var username = data.username;
+
+            return encryptionService.checkKey(username).catch(() => {
+                return $q.reject('access-denied');
+            }).then(() => {
+                return httpService.login(data);
+            }).then(result => {
                 isAuth = true;
                 var token = result.data.token;
                 httpService.setToken(token);
@@ -48,7 +60,7 @@ module.exports = /*@ngInject*/ function(httpService,
                 console.log('Logout');
 
                 isAuth = false;
-                chatService.finish();
+                chatService.stop();
                 storageService.clearAll();
             });
         },

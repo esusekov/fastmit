@@ -11,6 +11,7 @@ module.exports = /*@ngInject*/ function() {
             this.__hasUnread = source.hasUnread || false;
             this.__photoUrl = source.photoUrl;
             this.__color = source.color;
+            this.__publicKey = source.publicKey;
         }
 
         get chatUrl() {
@@ -37,6 +38,10 @@ module.exports = /*@ngInject*/ function() {
             return this.__color;
         }
 
+        get publicKey() {
+            return this.__publicKey;
+        }
+
         update(source) {
             this.__username = source.username || this.__username;
             this.__isOnline = source.isOnline || this.__isOnline;
@@ -44,6 +49,7 @@ module.exports = /*@ngInject*/ function() {
             this.__hasUnread = source.hasUnread || this.__hasUnread;
             this.__photoUrl = source.photoUrl || this.__photoUrl;
             this.__color = source.color || this.__color;
+            this.__publicKey = source.publicKey || this.__publicKey;
         }
     }
 

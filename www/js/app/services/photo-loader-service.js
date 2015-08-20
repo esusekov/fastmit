@@ -106,7 +106,7 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
             });
         },
 
-        finish() {
+        stop() {
             photosBoxService.off('load-photo', handlerLoadPhoto);
             photosBoxService.off('save-in-storage', handlerSaveInStorage);
             photosBoxService.off('clear-storage', handlerClearStorage);
@@ -116,10 +116,6 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
         },
 
         setPhotoInQueueLoader(message) {
-            if (!message.isTypePhoto) {
-                return;
-            }
-
             var messageId = message.messageId;
 
             if (photosBoxService.hasPhotoById(messageId)) {

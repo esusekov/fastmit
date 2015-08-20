@@ -45,6 +45,7 @@ angular.module('services', [])
     .service('urlsApi', require('./services/urls-api-service'))
     .service('popupService', require('./services/popup-service'))
     .factory('httpService', require('./services/http-service'))
+    .service('storageService', require('./services/storage-service'))
     .factory('websocketService', require('./services/websocket-service'))
     .factory('websocketInteractionService', require('./services/websocket-interaction-service'))
     .factory('messagesBoxService', require('./services/messages-box-service'))
@@ -57,7 +58,7 @@ angular.module('services', [])
     .service('authorizationService', require('./services/authorization-service'))
     .factory('friendsService', require('./services/friends-service'))
     .factory('cameraService', require('./services/camera-service'))
-    .service('storageService', require('./services/storage-service'));
+    .factory('encryptionService', require('./services/encryption-service'));
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
@@ -107,7 +108,8 @@ angular.module('utils', [])
     .factory('EventEmitter', require('./utils/event-emitter'))
     .factory('eventer', require('./utils/eventer'))
     .factory('generateRandomId', require('./utils/generate-random-id'))
-    .factory('$fabric', require('./utils/fabric'));
+    .factory('$fabric', require('./utils/fabric'))
+    .factory('$cryptico', require('./utils/cryptico'));
 
 angular.module('app', [
         'ionic',

@@ -2,7 +2,7 @@
 
 module.exports = /*@ngInject*/ function (websocketInteractionService,
     messageFactoryService, messagesBoxService, eventer,
-    storageService, photoLoaderService) {
+    storageService, photoLoaderService, encryptionService) {
 
     function send(friendId, message) {
         console.log('Send', message);
@@ -23,14 +23,33 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
     }
 
     function setPhotoInQueueLoader(message) {
-        photoLoaderService.setPhotoInQueueLoader(message);
+        if (message.isTypePhoto) {
+            photoLoaderService.setPhotoInQueueLoader(message);
+        }
+    }
+
+    function encryptMessage(publicKey, message) {
+        if (message.isTypeText) {
+            message.text = encryptionService.encryptText(publicKey, message.text);
+        } else if (message.isTypePhoto) {
+
+        }
+    }
+
+    function decryptMessage(message) {
+        if (message.isTypeText) {
+            message.text = encryptionService.decryptText(message.text);
+        }
     }
 
     function setArrayMessagesInBox(arrayMessages) {
         arrayMessages.forEach(info => {
             var messages = info.messages.map(message => {
                 var messageIn = messageFactoryService.createIn(message);
+
+                decryptMessage(messageIn);
                 setPhotoInQueueLoader(messageIn);
+
                 return messageIn;
             });
             messagesBoxService.setMessages(info.friendId, messages);
@@ -38,9 +57,12 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
     }
 
     function setMessageInBox(data) {
-        var message = messageFactoryService.createIn(data.message);
-        setPhotoInQueueLoader(message);
-        messagesBoxService.setMessage(data.friendId, message);
+        var messageIn = messageFactoryService.createIn(data.message);
+
+        decryptMessage(messageIn);
+        setPhotoInQueueLoader(messageIn);
+
+        messagesBoxService.setMessage(data.friendId, messageIn);
     }
 
     function handlerMessage(event) {
@@ -87,7 +109,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
                     setArrayMessagesInBox(messagesStorage);
                 }
             }).then(() => {
-                websocketInteractionService.open();
+                websocketInteractionService.start();
                 websocketInteractionService.on(handlerMessage);
 
                 messagesBoxService.on('save-in-storage', handlerSaveInStorage);
@@ -96,9 +118,9 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
             });
         },
 
-        finish() {
+        stop() {
             console.log('Stop');
-            websocketInteractionService.close();
+            websocketInteractionService.stop();
             messagesBoxService.off('save-in-storage', handlerSaveInStorage);
             messagesBoxService.off('clear-storage', handlerClearStorage);
             eventer.off('remove-message', handlerRemoveMessage);
@@ -107,8 +129,14 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
             photoLoaderService.finish();
         },
 
-        sendMessage(friendId, data) {
+        sendMessage(friendId, publicKey, data) {
             var message = messageFactoryService.createOut(data);
+            console.log('SEND MEssage - 1', data);
+            encryptMessage(publicKey, message);
+
+            console.log('SEND MEssage', data);
+
+
             messagesBoxService.setMessage(friendId, message);
             send(friendId, message);
         },
