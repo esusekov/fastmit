@@ -10,7 +10,7 @@ module.exports = /*@ngInject*/ function($cryptico, $q, storageService) {
 
         window.crypto.getRandomValues(array);
 
-        return array.map(elem => {
+        return new Array(array).map(elem => {
             return String.fromCharCode(elem % 95 + 32);
         }).join('');
     }
