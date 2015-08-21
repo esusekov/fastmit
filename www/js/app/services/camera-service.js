@@ -15,7 +15,7 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
         makePhoto(options) {
 
             var defaultOptions = {
-                //quality: 50,
+                quality: 20,
                 destinationType: Camera.DestinationType.DATA_URL,
                 //sourceType: Camera.PictureSourceType.CAMERA,
                 //allowEdit: true,
