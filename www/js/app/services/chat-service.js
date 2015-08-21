@@ -29,7 +29,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
 
     function encryptMessage(publicKey, message) {
         if (message.isTypeText) {
-            message.text = encryptionService.encryptText(publicKey, message.text);
+            message.encodedText = encryptionService.encryptText(publicKey, message.text);
         } else if (message.isTypePhoto) {
             var passPhrase = encryptionService.generatePassPhrase();
             message.photoData = encryptionService.encryptPhoto(passPhrase, message.photoData);
@@ -39,7 +39,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
 
     function decryptMessage(message) {
         if (message.isTypeText) {
-            message.text = encryptionService.decryptText(message.text);
+            message.text = encryptionService.decryptText(message.encodedText);
         }
     }
 
@@ -140,6 +140,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
         sendMessage(friendId, publicKey, data) {
             var message = messageFactoryService.createOut(data);
             console.log('SEND MEssage - 1', data);
+
             encryptMessage(publicKey, message);
 
             console.log('SEND MEssage', data);

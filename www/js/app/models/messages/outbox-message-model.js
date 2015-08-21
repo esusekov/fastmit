@@ -14,6 +14,7 @@ module.exports = /*@ngInject*/ function(MessageModel, StateTransferModel) {
                 this.encodedPassPhrase = null;
             } else if (this.isTypeText) {
                 this.text = opts.text;
+                this.encodedText = null;
             }
         }
 
@@ -25,7 +26,7 @@ module.exports = /*@ngInject*/ function(MessageModel, StateTransferModel) {
                 message.timeout = this.timeout;
                 message.encodedPassPhrase = this.encodedPassPhrase;
             } else if (this.isTypeText) {
-                message.text = this.text;
+                message.encodedText = this.encodedText;
             }
 
             return message;

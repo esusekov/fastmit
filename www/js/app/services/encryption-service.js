@@ -46,11 +46,11 @@ module.exports = /*@ngInject*/ function($cryptico, $gibberish, $q, storageServic
         },
 
         encryptText(publicKey, text) {
-            return $cryptico.encrypt(text, publicKey);
+            return $cryptico.encrypt(text, publicKey).cipher;
         },
 
         decryptText(text) {
-            $cryptico.decrypt(text, _privateKey);
+            return $cryptico.decrypt(text, _privateKey).plaintext;
         },
 
         encryptPhoto(passPhrase, photoData) {

@@ -7,6 +7,7 @@ module.exports = /*@ngInject*/ function($scope, $ionicHistory, $location, LoginM
     $scope.signIn = function() {
         $scope.model.signIn().then(() => {
             $ionicHistory.clearCache();
+            $scope.model.clear();
             $location.path('/app/main');
         }).catch(() => {
             popupService.alert('Something wrong!');

@@ -17,7 +17,8 @@ module.exports = /*@ngInject*/ function(MessageModel, TimeoutPhotoModel, eventer
                     eventer.emit('remove-photo', messageId);
                 });
             } else if (this.isTypeText) {
-                this.text = opts.text;
+                this.encodedText = opts.encodedText;
+                this.text = null;
             }
         }
 
