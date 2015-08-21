@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
-    PhotoUploadModel, photosBoxService, storageService, eventer) {
+    PhotoUploadModel, photosBoxService, storageService, eventer, encryptionService) {
 
     var queuePhotos = new QueuePhotosLoaderModel();
     var flagStartLoading = false;
@@ -16,7 +16,10 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
             stateLoading.loading();
 
             httpService.getPhotoByUrl(photoUpload.photoUrl).then(response => {
-                photoUpload.photoData = response.data.data;
+                var photoData = response.data.data;
+                var encodedPassPhrase = photoUpload.encodedPassPhrase;
+                photoUpload.photoData = encryptionService.decryptPhoto(encodedPassPhrase, photoData);
+
                 stateLoading.loaded();
             }).catch((e) => {
                 console.log('Error', e);

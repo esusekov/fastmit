@@ -6,6 +6,7 @@ module.exports = /*@ngInject*/ function(StateLoadingModel) {
         constructor(opts) {
             this.messageId = opts.messageId;
             this.photoUrl = opts.photoUrl;
+            this.encodedPassPhrase = opts.encodedPassPhrase;
             this.stateLoading = new StateLoadingModel();
 
             var photoData = opts.photoData;
@@ -24,6 +25,7 @@ module.exports = /*@ngInject*/ function(StateLoadingModel) {
                 messageId: this.messageId,
                 photoUrl: this.photoUrl,
                 photoData: this.photoData,
+                encodedPassPhrase: this.encodedPassPhrase,
                 stateLoading: this.stateLoading.value
             };
         }

@@ -1,23 +1,24 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($cryptico, $q, storageService) {
+module.exports = /*@ngInject*/ function($cryptico, $gibberish, $q, storageService) {
 
     var BITS = 1024;
     var _privateKey = null;
 
-    function generatePassPhrase() {
-        var array = new Uint8Array(100);
-
-        window.crypto.getRandomValues(array);
-
-        return array.map(elem => {
-            return String.fromCharCode(elem % 95 + 32);
-        }).join('');
-    }
-
     return {
+        generatePassPhrase() {
+            var uintArray = new Uint8Array(100);
+            window.crypto.getRandomValues(uintArray);
+            var array = new Array();
+            array.push.apply(array, uintArray);
+
+            return array.map(function(elem) {
+                return String.fromCharCode(elem % 95 + 32);
+            }).join('');
+        },
+
         createPrivateKey() {
-            var passPhrase = generatePassPhrase();
+            var passPhrase = this.generatePassPhrase();
             return $cryptico.generateRSAKey(passPhrase, BITS);
         },
 
@@ -28,6 +29,7 @@ module.exports = /*@ngInject*/ function($cryptico, $q, storageService) {
         },
 
         createPublicKey(privateKey) {
+            console.log('PrivateKey', privateKey);
             return $cryptico.publicKeyString(privateKey);
         },
 
@@ -49,6 +51,16 @@ module.exports = /*@ngInject*/ function($cryptico, $q, storageService) {
 
         decryptText(text) {
             $cryptico.decrypt(text, _privateKey);
+        },
+
+        encryptPhoto(passPhrase, photoData) {
+            return $gibberish.enc(photoData, passPhrase);
+        },
+
+        decryptPhoto(encodedPassPhrase, photoData) {
+            var passPhrase = this.decryptText(encodedPassPhrase);
+
+            return $gibberish.dec(photoData, passPhrase);
         }
     };
 };

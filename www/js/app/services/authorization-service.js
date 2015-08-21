@@ -33,6 +33,8 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
 
             data.publicKey = encryptionService.createPublicKey(privateKey);
 
+            console.log('DATA', data);
+
             return httpService.register(data).then(result => {
                 console.log(result);
                 isAuth = true;

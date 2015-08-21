@@ -11,6 +11,7 @@ module.exports = /*@ngInject*/ function(MessageModel, StateTransferModel) {
             if (this.isTypePhoto) {
                 this.timeout = opts.timeout;
                 this.photoData = opts.photoData;
+                this.encodedPassPhrase = null;
             } else if (this.isTypeText) {
                 this.text = opts.text;
             }
@@ -22,6 +23,7 @@ module.exports = /*@ngInject*/ function(MessageModel, StateTransferModel) {
             if (this.isTypePhoto) {
                 message.photoData = this.photoData;
                 message.timeout = this.timeout;
+                message.encodedPassPhrase = this.encodedPassPhrase;
             } else if (this.isTypeText) {
                 message.text = this.text;
             }

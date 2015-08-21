@@ -9,7 +9,9 @@ module.exports = /*@ngInject*/ function($scope, $location, RegistrationModel, po
     $scope.register = function() {
         $scope.model.register().then(() => {
             $location.path('/app/main');
-        }).catch(() => {
+        }).catch((e) => {
+            console.log('Registration error', e);
+
             popupService.alert('Something wrong!');
         });
     };

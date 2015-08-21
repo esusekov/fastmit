@@ -20,9 +20,9 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
             return photosStorage;
         },
 
-        setPhoto(messageId, photo) {
+        setPhoto(messageId, photoUpload) {
             if (!this.hasPhotoById(messageId)) {
-                photosBox[messageId] = photo;
+                photosBox[messageId] = photoUpload;
 
                 this.emit('save-in-storage');
             }
@@ -56,10 +56,10 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
             var notLoadedPhotos = [];
 
             this.forEachPhotos(messageId => {
-                var photo = photosBox[messageId];
+                var photoUpload = photosBox[messageId];
 
-                if (!photo.stateLoading.isLoaded) {
-                    notLoadedPhotos.push(photo);
+                if (!photoUpload.stateLoading.isLoaded) {
+                    notLoadedPhotos.push(photoUpload);
                 }
             });
 
