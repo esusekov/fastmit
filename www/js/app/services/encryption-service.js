@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($cryptico, $gibberish, $q, storageService) {
+module.exports = /*@ngInject*/ function($cryptico, $gibberish, $q, storageService, utf8) {
 
     var BITS = 1024;
     var _privateKey = null;
@@ -17,14 +17,13 @@ module.exports = /*@ngInject*/ function($cryptico, $gibberish, $q, storageServic
             }).join('');
         },
 
-        createPrivateKey() {
-            var passPhrase = this.generatePassPhrase();
+        createPrivateKey(passPhrase) {
             return $cryptico.generateRSAKey(passPhrase, BITS);
         },
 
-        setPrivateKey(username, key) {
-            return storageService.setKeyEncryption(username, key).then(() => {
-                _privateKey = key;
+        setPrivateKey(username, privateKey, passPhrase) {
+            return storageService.setKeyEncryption(username, passPhrase).then(() => {
+                _privateKey = privateKey;
             });
         },
 
@@ -34,11 +33,11 @@ module.exports = /*@ngInject*/ function($cryptico, $gibberish, $q, storageServic
         },
 
         checkKey(username) {
-            return storageService.getKeyEncryption(username).then(key => {
-                console.log(key);
+            return storageService.getKeyEncryption(username).then(passPhrase => {
+                console.log(passPhrase);
 
-                if (key != null) {
-                    _privateKey = key;
+                if (passPhrase != null) {
+                    _privateKey = this.createPrivateKey(passPhrase);
                 } else {
                     return $q.reject();
                 }
@@ -46,11 +45,11 @@ module.exports = /*@ngInject*/ function($cryptico, $gibberish, $q, storageServic
         },
 
         encryptText(publicKey, text) {
-            return $cryptico.encrypt(text, publicKey).cipher;
+            return $cryptico.encrypt(utf8.encode(text), publicKey).cipher;
         },
 
         decryptText(text) {
-            return $cryptico.decrypt(text, _privateKey).plaintext;
+            return utf8.decode($cryptico.decrypt(text, _privateKey).plaintext);
         },
 
         encryptPhoto(passPhrase, photoData) {

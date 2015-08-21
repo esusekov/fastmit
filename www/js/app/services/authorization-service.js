@@ -29,8 +29,8 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
 
         register(data) {
             var username =  data.username;
-            var privateKey = encryptionService.createPrivateKey();
-
+            var passPhrase = encryptionService.generatePassPhrase();
+            var privateKey = encryptionService.createPrivateKey(passPhrase);
             data.publicKey = encryptionService.createPublicKey(privateKey);
 
             console.log('DATA', data);
@@ -43,7 +43,7 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
                 storageService.setAuthToken(token);
                 storageService.setCurrentUsername(username);
             }).then(() => {
-                encryptionService.setPrivateKey(username, privateKey);
+                encryptionService.setPrivateKey(username, privateKey, passPhrase);
             }).then(() => {
                 chatService.start();
             });

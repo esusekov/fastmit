@@ -110,7 +110,8 @@ angular.module('utils', [])
     .factory('generateRandomId', require('./utils/generate-random-id'))
     .factory('$fabric', require('./utils/fabric'))
     .factory('$cryptico', require('./utils/cryptico'))
-    .factory('$gibberish', require('./utils/gibberish'));
+    .factory('$gibberish', require('./utils/gibberish'))
+    .factory('utf8', require('./utils/utf8'));
 
 angular.module('app', [
         'ionic',
