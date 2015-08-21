@@ -9,6 +9,7 @@ module.exports = /*@ngInject*/ function(httpService, $q) {
             this.__isOnline = source.isOnline || false;
             this.__isFriend = source.isFriend || false;
             this.__photoUrl = source.photoUrl;
+            this.__color = source.color;
         }
 
         get username() {
@@ -29,6 +30,10 @@ module.exports = /*@ngInject*/ function(httpService, $q) {
 
         get isFriend() {
             return this.__isFriend;
+        }
+
+        get color() {
+            return this.__color;
         }
     }
 

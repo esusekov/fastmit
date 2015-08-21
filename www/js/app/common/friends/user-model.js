@@ -6,6 +6,7 @@ module.exports = /*@ngInject*/ function() {
         this.__id = source.id;
         this.__username = source.username;
         this.__photoUrl = source.photoUrl;
+        this.__color = source.color;
     }
 
     User.prototype = {
@@ -19,6 +20,10 @@ module.exports = /*@ngInject*/ function() {
 
         get photoUrl() {
             return this.__photoUrl;
+        },
+
+        get color() {
+            return this.__color;
         },
 
         checkId: function(id) {

@@ -1,6 +1,6 @@
 <div>
     <img ng-if="friend.photoUrl" class="item-image" ng-src="{{friend.photoUrl}}">
-    <div ng-if="!friend.photoUrl" class="item-image avatar-placeholder">
+    <div ng-if="!friend.photoUrl" class="item-image avatar-placeholder" ng-style="{background: friend.color}">
         <span ng-bind="friend.username.charAt(0)"></span>
     </div>
     <h2>{{friend.username}}</h2>
