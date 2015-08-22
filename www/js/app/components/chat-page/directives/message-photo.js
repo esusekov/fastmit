@@ -59,7 +59,7 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal, photos
                     } else if (stateLoading.isLoading) {
 
                     } else {
-                        eventer.emit('load-photo', scope.messageId);
+                        eventer.emit('load-photo', messageId);
                     }
                 }
 
