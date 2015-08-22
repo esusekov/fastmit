@@ -78,7 +78,9 @@ module.exports = /*@ngInject*/ function( /*FriendModel,*/ FriendsModel, Potentia
         },
 
         removeDataListener() {
-            $interval.cancel(dataInterval);
+            if (dataInterval) {
+                $interval.cancel(dataInterval);
+            }
         },
 
         setMessage(data) {

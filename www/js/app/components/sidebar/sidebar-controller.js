@@ -6,7 +6,7 @@ module.exports = /*@ngInject*/ function($scope, $translate, authorizationService
         authorizationService.logout().then(() => {
             console.log('in logout then');
             friendsService.reset();
-            $ionicHistory.clearCache();
+            friendsService.removeDataListener();
             $location.path('/login');
         });
     };

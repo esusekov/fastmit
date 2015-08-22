@@ -6,11 +6,11 @@ module.exports = /*@ngInject*/ function($scope, $ionicHistory, $location, LoginM
 
     $scope.signIn = function() {
         $scope.model.signIn().then(() => {
-            $ionicHistory.clearCache();
+            console.log('HISTORY', $ionicHistory.viewHistory());
             $scope.model.clear();
             $location.path('/app/main');
         }).catch(() => {
-            popupService.alert('Something wrong!');
+            popupService.alert('Неправильно введен логин или пароль');
         });
     };
 
@@ -23,5 +23,10 @@ module.exports = /*@ngInject*/ function($scope, $ionicHistory, $location, LoginM
         $scope.model.clear();
         $location.path('/forgot');
     };
+
+    $scope.$on("$ionicView.enter", function(){
+        $ionicHistory.clearHistory();
+        $ionicHistory.clearCache();
+    });
 
 };
