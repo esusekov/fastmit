@@ -5,6 +5,28 @@ $color-not-my-message: #E0E0E0;
   border-left: 3px solid $color;
 }
 
+.custom-footer-bar {
+  height: auto !important;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.textarea {
+  color: #000;
+  font-size: 16px;
+  resize: none;
+  max-height: 88px;
+  margin-bottom: 4px;
+  margin-right: 8px;
+  margin-left: 8px;
+  padding: 5px;
+  align-items: center;
+  border-radius: 4px;
+  background: #eee;
+  box-sizing: border-box;
+}
+
 .chat {
   > .messages {
     .message {

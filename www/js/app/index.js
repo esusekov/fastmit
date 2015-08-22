@@ -58,7 +58,8 @@ angular.module('services', [])
     .service('authorizationService', require('./services/authorization-service'))
     .factory('friendsService', require('./services/friends-service'))
     .factory('cameraService', require('./services/camera-service'))
-    .factory('encryptionService', require('./services/encryption-service'));
+    .factory('encryptionService', require('./services/encryption-service'))
+    .factory('encryptionMessageService', require('./services/encryption-message-service'));
 
 angular.module('sidebar', [])
     .controller('SidebarController', require('./components/sidebar/sidebar-controller'));
@@ -99,6 +100,7 @@ angular.module('editor-page', [])
 
 angular.module('chat-page', [])
     .controller('ChatController', require('./components/chat-page/chat-controller'))
+    .directive('textarea', require('./components/chat-page/directives/textarea'))
     .directive('message', require('./components/chat-page/directives/message'))
     .directive('stateTransfer', require('./components/chat-page/directives/state-transfer'))
     .directive('messageText', require('./components/chat-page/directives/message-text'))

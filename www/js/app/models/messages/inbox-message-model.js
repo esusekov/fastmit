@@ -19,7 +19,7 @@ module.exports = /*@ngInject*/ function(MessageModel, TimeoutPhotoModel, eventer
                 });
             } else if (this.isTypeText) {
                 this.encodedText = opts.encodedText;
-                this.text = null;
+                this.text = opts.text || null;
             }
         }
 

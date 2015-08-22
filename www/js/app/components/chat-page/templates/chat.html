@@ -12,16 +12,16 @@
             </div>
         </div>
     </ion-content>
-    <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+    <ion-footer-bar keyboard-attach class="bar-stable item-input-inset custom-footer-bar">
         <a class="button button-icon icon ion-android-camera" ng-click="makePhoto()"></a>
-        <label class="item-input-wrapper">
-            <input
-                type="text"
-                placeholder="Type your message"
-                on-return="sendText()"
-                ng-model="text"
-            />
-        </label>
+
+        <textarea
+            class="textarea"
+            placeholder="Type your message"
+            on-return="sendText()"
+            ng-model="text"
+        ></textarea>
+
         <a class="button button-icon icon ion-android-send" ng-click="sendText()"></a>
     </ion-footer-bar>
 
