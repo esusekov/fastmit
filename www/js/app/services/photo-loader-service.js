@@ -102,7 +102,6 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
             }).then(() => {
                 startLoading();
 
-                photosBoxService.on('load-photo', handlerLoadPhoto);
                 photosBoxService.on('save-in-storage', handlerSaveInStorage);
                 photosBoxService.on('clear-storage', handlerClearStorage);
                 eventer.on('load-photo', handlerLoadPhoto);
@@ -111,7 +110,6 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
         },
 
         stop() {
-            photosBoxService.off('load-photo', handlerLoadPhoto);
             photosBoxService.off('save-in-storage', handlerSaveInStorage);
             photosBoxService.off('clear-storage', handlerClearStorage);
             eventer.off('load-photo', handlerLoadPhoto);

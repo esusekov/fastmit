@@ -128,12 +128,12 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
 
         stop() {
             console.log('Stop');
-            websocketInteractionService.stop();
             messagesBoxService.off('save-in-storage', handlerSaveInStorage);
             messagesBoxService.off('clear-storage', handlerClearStorage);
             eventer.off('remove-message', handlerRemoveMessage);
             messagesBoxService.clearBox();
 
+            websocketInteractionService.stop();
             photoLoaderService.stop();
         },
 
