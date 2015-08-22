@@ -34,7 +34,7 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal, photos
 
                 $ionicModal.fromTemplateUrl('js/app/components/chat-page/templates/image.html', {
                     scope: scope,
-                    animation: 'fade-in'
+                    animation: 'none'
                 }).then(modal => {
                     scope.modal = modal;
                 });

@@ -49,6 +49,7 @@ module.exports = /*@ngInject*/ function($cryptico, $gibberish, $q, storageServic
         },
 
         decryptText(text) {
+            console.log('DECRYPT TEXT', text);
             return utf8.decode($cryptico.decrypt(text, _privateKey).plaintext);
         },
 

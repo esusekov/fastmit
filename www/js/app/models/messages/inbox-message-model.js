@@ -10,6 +10,7 @@ module.exports = /*@ngInject*/ function(MessageModel, TimeoutPhotoModel, eventer
             if (this.isTypePhoto) {
                 this.timeout = new TimeoutPhotoModel(opts);
                 this.photoUrl = opts.photoUrl;
+                this.encodedPassPhrase = opts.encodedPassPhrase;
 
                 this.timeout.on('timeout-finish', () => {
                     var messageId = this.messageId;
@@ -28,6 +29,7 @@ module.exports = /*@ngInject*/ function(MessageModel, TimeoutPhotoModel, eventer
             if (this.isTypePhoto) {
                 message.photoUrl = this.photoUrl;
                 message.timeout = this.timeout.timeout;
+                message.encodedPassPhrase = this.encodedPassPhrase;
             } else if (this.isTypeText) {
                 message.text = this.text;
             }

@@ -16,6 +16,7 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
             stateLoading.loading();
 
             httpService.getPhotoByUrl(photoUpload.photoUrl).then(response => {
+                console.log('GET PHOTO BY URL', response, photoUpload);
                 var photoData = response.data.data;
                 var encodedPassPhrase = photoUpload.encodedPassPhrase;
                 photoUpload.photoData = encryptionService.decryptPhoto(encodedPassPhrase, photoData);
@@ -124,7 +125,7 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
             if (photosBoxService.hasPhotoById(messageId)) {
                 return;
             }
-
+            console.log('SET PHOTO IN QUEUE LOADER', message);
             var photoUpload = new PhotoUploadModel(message);
 
             photosBoxService.setPhoto(messageId, photoUpload);

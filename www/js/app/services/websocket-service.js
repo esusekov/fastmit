@@ -28,15 +28,18 @@ module.exports = /*@ngInject*/ function($websocket,
                 this.stream = stream;
 
                 stream.onOpen(event => {
+                    console.log('OPEN EVENT', event);
                     this.connected = true;
 
                     stream.onMessage(event => {
+                        console.log('MESSAGE EVENT', event);
                         var data = JSON.parse(event.data);
                         this.emit('message', data);
                     });
                 });
 
                 stream.onClose(event => {
+                    console.log('CLOSE EVENT', event);
                     this.connected = false;
 
                     $timeout(() => {
