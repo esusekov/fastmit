@@ -11,10 +11,11 @@ module.exports = /*@ngInject*/ function(MessageModel, StateTransferModel) {
             if (this.isTypePhoto) {
                 this.timeout = opts.timeout;
                 this.photoData = opts.photoData;
-                this.encodedPassPhrase = null;
+                this.encodedPhotoData = opts.encodedPhotoData;
+                this.encodedPassPhrase = opts.encodedPassPhrase;
             } else if (this.isTypeText) {
                 this.text = opts.text;
-                this.encodedText = null;
+                this.encodedText = opts.encodedText;
             }
         }
 
@@ -22,8 +23,8 @@ module.exports = /*@ngInject*/ function(MessageModel, StateTransferModel) {
             var message = this.getBaseFormat();
 
             if (this.isTypePhoto) {
-                message.photoData = this.photoData;
                 message.timeout = this.timeout;
+                message.encodedPhotoData = this.encodedPhotoData;
                 message.encodedPassPhrase = this.encodedPassPhrase;
             } else if (this.isTypeText) {
                 message.encodedText = this.encodedText;
