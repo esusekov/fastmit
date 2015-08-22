@@ -13,7 +13,7 @@
                           can-swipe="true">
                     <ion-item
                             class="item-avatar friend"
-                            collection-repeat="friend in friends.friends"
+                            ng-repeat="friend in friends.friends"
                             ng-href="{{friend.chatUrl}}"
                             ui-sref-active>
                         <friend-item friend="friend"></friend-item>
@@ -29,7 +29,7 @@
                           can-swipe="true">
                     <ion-item
                             class="item-avatar friend"
-                            collection-repeat="friend in onlineFriends.friends"
+                            ng-repeat="friend in onlineFriends.friends"
                             ng-href="{{friend.chatUrl}}"
                             ui-sref-active>
                         <friend-item friend="friend"></friend-item>
