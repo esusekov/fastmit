@@ -33,7 +33,7 @@ module.exports = /*@ngInject*/ function( /*FriendModel,*/ FriendsModel, Potentia
             return friends;
         },
 
-        getOnlineFriends() {
+        get onlineFriends() {
             return friends.friends.filter(friend => friend.isOnline);
         },
 
