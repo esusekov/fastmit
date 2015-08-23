@@ -116,7 +116,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
                     var stateTransfer = message.stateTransfer;
 
                     return(
-                        stateTransfer.isTransferred ||
+                        stateTransfer.isTransfer ||
                         stateTransfer.isNotTransferred
                     );
                 } else {

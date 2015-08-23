@@ -40,7 +40,8 @@ angular.module('constants', [])
     .service('globalConstants', require('./constants/global-constants'))
     .service('statesTransferConstants', require('./constants/states-transfer-constants'))
     .service('typesMessagesConstants', require('./constants/types-messages-constants'))
-    .service('statesLoadingConstants', require('./constants/states-loading-constants'));
+    .service('statesLoadingConstants', require('./constants/states-loading-constants'))
+    .service('validationScheme', require('./constants/validation-scheme'));
 
 angular.module('services', [])
     .service('urlsApi', require('./services/urls-api-service'))
@@ -51,6 +52,7 @@ angular.module('services', [])
     .factory('websocketInteractionService', require('./services/websocket-interaction-service'))
     .factory('messagesBoxService', require('./services/messages-box-service'))
     .factory('messageFactoryService', require('./services/message-factory-service'))
+    .factory('validationMessageService', require('./services/validation-message-serivice'))
     .factory('chatService', require('./services/chat-service'))
 
     .factory('photosBoxService', require('./services/photos-box-service'))
@@ -114,7 +116,8 @@ angular.module('utils', [])
     .factory('$fabric', require('./utils/fabric'))
     .factory('$cryptico', require('./utils/cryptico'))
     .factory('$gibberish', require('./utils/gibberish'))
-    .factory('utf8', require('./utils/utf8'));
+    .factory('utf8', require('./utils/utf8'))
+    .factory('tv4', require('./utils/tv4'));
 
 angular.module('app', [
         'ionic',
