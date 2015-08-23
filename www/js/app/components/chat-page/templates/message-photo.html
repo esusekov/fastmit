@@ -1,4 +1,9 @@
 <div class="message-photo">
+    <div class="image-wrapper">
+        <img ng-if="message.isMy" class="image" ng-src="{{ message.photoData }}">
+        <img ng-if="!message.isMy" class="image" ng-src="{{ photo.photoData }}">
+    </div>
+
     <div ng-if="!message.isMy" class="state-loading">
         <i
             ng-if="stateLoading.isLoaded"
@@ -11,7 +16,7 @@
         </i>
         <i
             ng-if="stateLoading.isNotLoaded"
-            class="icon ion-android-refresh">
+            class="icon ion-android-close">
         </i>
     </div>
 
@@ -25,6 +30,4 @@
         </state-transfer>
     </div>
 </div>
-
-
 

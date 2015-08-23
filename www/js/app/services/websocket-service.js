@@ -58,20 +58,11 @@ module.exports = /*@ngInject*/ function($websocket,
         }
 
         send(message) {
-            return $q((resolve, reject) => {
-                $timeout(() => {
-                    if (this.connected) {
-                        this.stream.send(JSON.stringify(message));
-                        resolve();
-                    } else {
-                        reject('not connected');
-                    }
-                }, 5 * 1000);
-            });
-            //if (this.connected) {
-            //    return this.stream.send(JSON.stringify(message));
-            //}
-            //return $q.reject('not connected');
+            if (this.connected) {
+                return this.stream.send(JSON.stringify(message));
+            }
+
+            return $q.reject('not connected');
         }
 
         isOpen() {

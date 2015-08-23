@@ -32,7 +32,8 @@ angular.module('models', [])
     .factory('FriendsModel', require('./models/friends-model'))
     .factory('PotentialFriendsModel', require('./models/potential-friends-model'))
     .factory('StateTransferModel', require('./models/state-transfer-model'))
-    .factory('StateLoadingModel', require('./models/state-loading-model'));
+    .factory('StateLoadingModel', require('./models/state-loading-model'))
+    .factory('TimeoutTouchModel', require('./models/timeout-touch-model'));
 
 angular.module('constants', [])
     .service('readyStateConstants', require('./constants/ready-state-constants'))
