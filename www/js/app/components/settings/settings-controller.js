@@ -1,27 +1,76 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, settingsService, httpService) {
+module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, storageService, httpService, cameraService) {
 
-    $scope.settings = settingsService;
+    $scope.imagePopupConfig = {
+        getPhoto(from) {
+            switch (from) {
+                case 'camera':
+                    cameraService.makePhoto({
+                        allowEdit: true
+                    }).then(() => {
+                        return httpService.changeAvatar(cameraService.image);
+                    }).then(() => {
+                        $scope.currentUser.photoUrl = cameraService.image;
+                        storageService.getCurrentUserinfo($scope.currentUser);
+                    });
+                    break;
+                case 'gallery':
+                    cameraService.makePhoto({
+                        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                        allowEdit: true
+                    }).then(() => {
+                        return httpService.changeAvatar(cameraService.image);
+                    }).then(() => {
+                        $scope.currentUser.photoUrl = cameraService.image;
+                        storageService.getCurrentUserinfo($scope.currentUser);
+                    });
+                    break;
+            }
+            $scope.imagePopup.close();
+        }
+    };
 
-    httpService.getUserInfo().then((response) => {
-        $scope.currentUser = response.data.info;
+    $scope.languagePopupConfig = {
+        setLanguage(lang) {
+            settingsService.changeLanguage(lang);
+            $scope.languagePopup.close();
+        }
+    };
+
+    storageService.getCurrentUserinfo().then((info) => {
+        $scope.currentUser = info;
     });
 
-    $scope.changeNotification = function() {
-        $scope.settings.changeNotification();
+    $scope.changeAvatar = function() {
+        $scope.imagePopup = $ionicPopup.show({
+            templateUrl: 'js/app/components/popups/image-popup.html',
+            title: '',
+            cssClass: 'image-popup',
+            scope: $scope
+        });
     };
 
     $scope.changeLanguage = function(lang) {
-        $scope.settings.changeLanguage(lang);
+        $scope.languagePopup = $ionicPopup.show({
+            templateUrl: 'js/app/components/popups/language-popup.html',
+            title: '',
+            cssClass: 'language-popup',
+            scope: $scope
+        });
     };
 
-    $scope.isRus = function() {
-        return $scope.settings.language === 'ru';
+    $scope.languageName = function() {
+        return settingsService.fullLanguageName;
     };
 
-    $scope.isEng = function() {
-        return $scope.settings.language === 'en';
+    $scope.notificationsEnabled = function() {
+        return settingsService.notification;
     };
+
+    $scope.changeNotification = function() {
+        settingsService.changeNotification();
+    };
+
 
 };

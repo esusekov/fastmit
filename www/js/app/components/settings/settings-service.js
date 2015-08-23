@@ -4,6 +4,11 @@ module.exports = /*@ngInject*/ function($localForage, $translate) {
 
     var SETTINGS_KEY = 'SETTINGS_KEY';
 
+    var languagesMap = {
+        en: 'English',
+        ru: 'Русский'
+    };
+
     var Settings = function() {
         this.__language = null;
         this.__notification = null;
@@ -27,6 +32,10 @@ module.exports = /*@ngInject*/ function($localForage, $translate) {
             this.__language = value;
             this.saveInStorage();
             $translate.use(this.__language);
+        },
+
+        get fullLanguageName() {
+            return languagesMap[this.__language];
         },
 
         get notification() {

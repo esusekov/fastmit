@@ -7,7 +7,7 @@
         <div class="list">
             <div class="item item-avatar friend current-user">
                 <friend-item friend="currentUser" no-options="true"></friend-item>
-                <a class="action-button" href="#" ng-click="openCamera()">
+                <a class="action-button" href="#" ng-click="changeAvatar()">
                     <button class="button icon ion-android-camera btn-normal btn-floating button-stable waves-effect waves-light btn"></button>
                 </a>
             </div>
@@ -25,20 +25,18 @@
             <a class="item" href="#/app/change_password">
                 Изменить пароль
             </a>
-            <div class="item">
-                Изменить язык
+            <div class="item" ng-click="changeLanguage()">
+                Язык
+                <span class="item-note" ng-bind="languageName()"></span>
             </div>
-            <div class="item item-button-right" ng-click="changeNotification()">
+            <div class="item" ng-click="changeNotification()">
                 Нотификации
                 <div class="switch">
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" ng-checked="notificationsEnabled()">
                         <span class="lever"></span>
                     </label>
                 </div>
-                <!--<label class="checkbox">-->
-                    <!--<input type="checkbox" ng-checked="settings.notification">-->
-                <!--</label>-->
             </div>
         </div>
 

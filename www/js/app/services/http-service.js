@@ -38,6 +38,21 @@ module.exports = /*@ngInject*/ function($http, urlsApi, $q) {
             return $http.post(urlsApi.getUserInfo, {token: userToken});
         },
 
+        changeAvatar(avatar) {
+            return $http.post(urlsApi.changeAvatar, {
+                token: userToken,
+                avatar: avatar
+            });
+        },
+
+        changePassword(oldPassword, newPassword) {
+            return $http.post(urlsApi.changePassword, {
+                token: userToken,
+                oldPassword: oldPassword,
+                newPassword: newPassword
+            });
+        },
+
         friendsList(data) {
             data = data || { };
             data.token = userToken;

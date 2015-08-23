@@ -1,0 +1,19 @@
+.image-popup, .language-popup {
+  .popup {
+    border-radius: 3px;
+
+    .popup-head {
+      display: none;
+    }
+
+    .popup-body {
+      padding: 0;
+      border-radius: 3px;
+      overflow: hidden;
+
+      .item {
+        border: 0;
+      }
+    }
+  }
+}

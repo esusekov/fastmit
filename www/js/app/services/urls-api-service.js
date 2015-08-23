@@ -11,6 +11,8 @@ module.exports = /*@ngInject*/ function() {
         registration: main_url + 'registration',
         forgot: main_url + 'forgot-password',
         getUserInfo: main_url + 'user/info',
+        changeAvatar: main_url + 'user/change-avatar',
+        changePassword: main_url + 'user/change-password',
         friendsList: main_url + 'friends',
         potentialFriendsList: main_url + 'potential-friends',
         addFriend: main_url + 'friends/add',

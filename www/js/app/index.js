@@ -83,7 +83,7 @@ angular.module('settings', [])
 
 angular.module('change-password', [])
     .controller('ChangePasswordController', require('./components/change-password/change-password-controller'))
-    .service('changePasswordModel', require('./components/change-password/change-password-model'));
+    .factory('ChangePasswordModel', require('./components/change-password/change-password-model'));
 
 angular.module('main-page', [])
     .controller('MainController', require('./components/main-page/main-controller'));

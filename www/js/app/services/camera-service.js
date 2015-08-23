@@ -13,21 +13,18 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
         },
 
         makePhoto(options) {
+            options = options || { };
 
             var defaultOptions = {
-                quality: 20,
+                quality: 40,
                 destinationType: Camera.DestinationType.DATA_URL,
-                //sourceType: Camera.PictureSourceType.CAMERA,
-                //allowEdit: true,
+                sourceType: options.sourceType !== undefined ? options.sourceType : Camera.PictureSourceType.CAMERA,
+                allowEdit: options.allowEdit || false,
                 encodingType: Camera.EncodingType.JPEG,
                 correctOrientation: true
-                //targetWidth: 100,
-                //targetHeight: 100,
-                //popoverOptions: CameraPopoverOptions,
-                //saveToPhotoAlbum: false
             };
 
-            return $cordovaCamera.getPicture(options || defaultOptions).then((data) => {
+            return $cordovaCamera.getPicture(defaultOptions).then((data) => {
                 console.log(data);
                 return data;
             }, (err) => {

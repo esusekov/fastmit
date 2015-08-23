@@ -18,7 +18,11 @@ module.exports = /*@ngInject*/ function($translateProvider) {
         SIGN_IN: 'Sign in',
         USERNAME: 'Username',
         PASSWORD: 'Password',
-        EMAIL: 'Email'
+        EMAIL: 'Email',
+        CHANGE_PASSWORD: 'Change password',
+        ENTER_OLD_PASSWORD: 'Enter old password',
+        ENTER_NEW_PASSWORD: 'Enter new password',
+        REENTER_NEW_PASSWORD: 'Reenter new password'
     });
 
     $translateProvider.translations('ru', {
@@ -38,7 +42,11 @@ module.exports = /*@ngInject*/ function($translateProvider) {
         SIGN_IN: 'Войти',
         USERNAME: 'Логин',
         PASSWORD: 'Пароль',
-        EMAIL: 'Адрес электронной почты'
+        EMAIL: 'Адрес электронной почты',
+        CHANGE_PASSWORD: 'Изменить пароль',
+        ENTER_OLD_PASSWORD: 'Введите старый пароль',
+        ENTER_NEW_PASSWORD: 'Введите новый пароль',
+        REENTER_NEW_PASSWORD: 'Повторно введите новый пароль'
     });
 
     $translateProvider.preferredLanguage('ru');
