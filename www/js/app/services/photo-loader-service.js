@@ -12,6 +12,9 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
         if (queuePhotos.isNotEmpty()) {
             var photoUpload = queuePhotos.shift();
 
+            console.log('PHOTO UPLOAD', photoUpload);
+            
+            
             var stateLoading = photoUpload.stateLoading;
             stateLoading.loading();
 
@@ -24,12 +27,12 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
                 stateLoading.loaded();
             }).catch((e) => {
                 console.log('Error', e);
-                
+
                 stateLoading.notLoaded();
                 //queuePhotos.push(photoUpload);
             }).then(() => {
-                var photosStorage = photosBoxService.getBox();
-                handlerSaveInStorage(photosStorage);
+                handlerSaveInStorage();
+                console.log('loadeing agen');
 
                 loadPhotos();
             });
@@ -47,8 +50,10 @@ module.exports = /*@ngInject*/ function(httpService, QueuePhotosLoaderModel,
 
     function handlerLoadPhoto(messageId) {
         console.log('LOad Photo', messageId);
-        
-        queuePhotos.pickUp(messageId);
+
+        var photoUpload = photosBoxService.getPhoto(messageId);
+        queuePhotos.unshift(photoUpload);
+
         startLoading();
     }
 

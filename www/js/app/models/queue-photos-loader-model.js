@@ -27,6 +27,10 @@ module.exports = /*@ngInject*/ function() {
             return this.queue.shift();
         }
 
+        unshift(message) {
+            this.queue.unshift(message);
+        }
+
         push(message) {
             this.queue.push(message);
         }

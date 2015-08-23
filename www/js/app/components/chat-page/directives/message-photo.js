@@ -1,6 +1,8 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal, photosBoxService, eventer, popupService) {
+module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal,
+    photosBoxService, eventer, popupService, TimeoutTouchModel) {
+
     return {
         restrict: 'E',
         replace: true,
@@ -32,6 +34,8 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal, photos
                 scope.timeout = message.timeout;
                 var stateLoading = scope.stateLoading;
 
+                var timeoutTouch = new TimeoutTouchModel();
+
                 $ionicModal.fromTemplateUrl('js/app/components/chat-page/templates/image.html', {
                     scope: scope,
                     animation: 'none'
@@ -54,16 +58,27 @@ module.exports = /*@ngInject*/ function($document, $timeout, $ionicModal, photos
                 function mousedown() {
                     if (stateLoading.isLoaded) {
                         $document.on('touchend', mouseup);
-                        scope.timeout.start();
-                        showPhoto();
+
+                        timeoutTouch.start(() => {
+                            scope.timeout.start();
+                            showPhoto();
+                        });
                     } else if (stateLoading.isLoading) {
 
-                    } else {
-                        eventer.emit('load-photo', messageId);
+                    } else if (stateLoading.isNotLoaded) {
+                        popupService.confirm('Попробывать загрузить фотографию еще раз?')
+                            .then(() => {
+                                eventer.emit('load-photo', messageId);
+                            })
+                            .catch(() => {
+                                scope.$emit('remove-message', messageId);
+                                photosBoxService.removePhotoById(messageId);
+                            });
                     }
                 }
 
                 function mouseup() {
+                    timeoutTouch.stop();
                     $document.off('touchend', mouseup);
                     hidePhoto();
                 }

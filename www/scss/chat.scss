@@ -45,9 +45,8 @@ $color-not-my-message: #E0E0E0;
           display: flex;
 
           > .time {
-            font-style: italic;
             font-size: 10px;
-            opacity: 0.6;
+//            font-style: italic;
           }
         }
       }
@@ -63,19 +62,54 @@ $color-not-my-message: #E0E0E0;
           font-size: 14px;
           opacity: 0.9;
         }
+
+        > .info {
+          > .time {
+            opacity: 0.6;
+          }
+        }
       }
 
       > .message-photo {
-        width: 160px;
-        height: 200px;
         position: relative;
+        border-radius: 5px;
+        width: 200px;
+        height: 240px;
+        padding: 4px;
+
+        > .image-wrapper {
+          border-radius: 5px;
+          overflow: hidden;
+          -webkit-filter: blur(15px);
+          background: radial-gradient(ellipse at center, rgba(0,0,0,0.12)
+                                                      0%,rgba(0,0,0,0.14)
+                                                      6%,rgba(0,0,0,0.29)
+                                                      61%,rgba(0,0,0,0.34)
+                                                      77%,rgba(0,0,0,0.23) 100%);
+          > .image {
+            width: 100%;
+            height: 100%;
+            display: none;
+
+            &.image[src] {
+              display: block;
+            }
+          }
+        }
 
         > .info {
           position: absolute;
-          bottom: 0;
+          bottom: 2px;
           left: 0;
-          width: 160px;
+          width: 200px;
           padding: 0px 9px;
+          color: #fff;
+
+          > .state-transfer {
+            > .icon {
+              color: #fff;
+            }
+          }
         }
       }
 
@@ -83,7 +117,6 @@ $color-not-my-message: #E0E0E0;
         justify-content: flex-end;
 
         > .message-photo, .message-text {
-          border-radius: 5px 5px 0 5px;
           box-shadow: -1px 1px 10px rgba(0,0,0,0.5);
 
           &:after {
@@ -104,10 +137,12 @@ $color-not-my-message: #E0E0E0;
         }
 
         > .message-text {
+          border-radius: 5px 5px 0 5px;
           background-color: $color-my-message;
         }
 
         > .message-photo {
+          //border: 4px solid $color-my-message;
           background-color: $color-my-message;
         }
       }
@@ -116,11 +151,10 @@ $color-not-my-message: #E0E0E0;
         justify-content: flex-start;
 
         > .message-photo, .message-text {
-          border-radius: 5px 5px 5px 0;
           box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
 
           &:after {
-            left: -14px;
+            left: -15px;
             border: 8px solid transparent;
             border-right: 8px solid $color-not-my-message;
             border-bottom: 8px solid $color-not-my-message;
@@ -132,23 +166,27 @@ $color-not-my-message: #E0E0E0;
         }
 
         > .message-text {
+          border-radius: 5px 5px 5px 0;
           background-color: $color-not-my-message;
         }
 
         > .message-photo {
           background-color: $color-not-my-message;
-
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          position: relative;
 
           > .state-loading {
+            width: 45px;
+            height: 45px;
+            position: absolute;
+            top: 100px;
+            left: 77px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             > i {
               font-size: 40px;
-            }
-
-            > .timeout {
-              opacity: 0.5;
+              color: #fff;
             }
           }
         }
