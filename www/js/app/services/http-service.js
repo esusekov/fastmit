@@ -34,6 +34,10 @@ module.exports = /*@ngInject*/ function($http, urlsApi, $q) {
             return $http.post(urlsApi.forgot, data);
         },
 
+        getUserInfo() {
+            return $http.post(urlsApi.getUserInfo, {token: userToken});
+        },
+
         friendsList(data) {
             data = data || { };
             data.token = userToken;

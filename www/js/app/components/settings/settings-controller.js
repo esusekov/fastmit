@@ -1,8 +1,12 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, settingsService) {
+module.exports = /*@ngInject*/ function($scope, settingsService, httpService) {
 
     $scope.settings = settingsService;
+
+    httpService.getUserInfo().then((response) => {
+        $scope.currentUser = response.data.info;
+    });
 
     $scope.changeNotification = function() {
         $scope.settings.changeNotification();

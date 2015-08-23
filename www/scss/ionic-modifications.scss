@@ -29,3 +29,24 @@
 .loading-container .loading {
   background-color: transparent;
 }
+
+.item {
+  > .switch {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    label input[type=checkbox]:checked + .lever {
+      background-color: $positive;
+
+      &:after {
+        background-color: $positive;
+      }
+    }
+  }
+}
