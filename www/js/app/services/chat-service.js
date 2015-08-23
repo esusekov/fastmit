@@ -2,7 +2,7 @@
 
 module.exports = /*@ngInject*/ function (websocketInteractionService,
     messageFactoryService, messagesBoxService, eventer,
-    storageService, photoLoaderService, encryptionMessageService) {
+    storageService, photoLoaderService, encryptionMessageService, validationMessageService) {
 
     function send(friendId, message) {
         console.log('Send', message);
@@ -47,24 +47,28 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
         messagesBoxService.setMessage(data.friendId, messageIn);
     }
 
-    function handlerOnMessage(event) {
-        console.log('SOCKET EVENT', event);
-        var type = event.type;
-        var body = event.body;
+    function handlerOnMessage(data) {
+        console.log('SOCKET EVENT', data);
+        var type = data.type;
+        var body = data.body;
 
         switch (type) {
             case 'message':
-                setMessageInBox(body);
+                if (validationMessageService.validateMessage(data)) {
+                    setMessageInBox(body);
+                }
                 break;
 
             case 'messages':
-                setArrayMessagesInBox(body, messageData => {
-                    encryptionMessageService.dec(messageData);
-                    var messageIn = messageFactoryService.createIn(messageData);
-                    setPhotoInQueueLoader(messageIn);
+                if (validationMessageService.validateMessages(data)) {
+                    setArrayMessagesInBox(body, messageData => {
+                        encryptionMessageService.dec(messageData);
+                        var messageIn = messageFactoryService.createIn(messageData);
+                        setPhotoInQueueLoader(messageIn);
 
-                    return messageIn;
-                });
+                        return messageIn;
+                    });
+                }
                 break;
         }
     }
