@@ -120,7 +120,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
                         stateTransfer.isNotTransferred
                     );
                 } else {
-                    return message.isTypePhoto
+                    return message.isTypePhoto;
                 }
             });
 

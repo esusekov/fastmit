@@ -1,6 +1,7 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageService, encryptionService) {
+module.exports = /*@ngInject*/ function(httpService, $q, chatService,
+    storageService, encryptionService, pushNotificationService) {
 
     var isAuth = false;
 
@@ -33,9 +34,21 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
             var privateKey = encryptionService.createPrivateKey(passPhrase);
             data.publicKey = encryptionService.createPublicKey(privateKey);
 
-            console.log('DATA', data);
+            return pushNotificationService.register().then(deviceToken => {
+                console.log('DEVICE____TOKEN', deviceToken);
 
-            return httpService.register(data).then(result => {
+               return deviceToken;
+            }).catch((e) => {
+                console.log('DEVICE_TOKEN__ERROR', e);
+                return null;
+            }).then(deviceToken => {
+                if (deviceToken != null) {
+                    data.deviceToken = deviceToken;
+                }
+
+                return httpService.register(data);
+
+            }).then(result => {
                 console.log(result);
                 isAuth = true;
                 var token = result.data.token;
@@ -74,6 +87,8 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
                 isAuth = false;
                 chatService.stop();
                 storageService.clearAll();
+            }).then(() => {
+                return pushNotificationService.unregister();
             });
         },
 

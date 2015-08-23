@@ -58,6 +58,7 @@ angular.module('services', [])
     .factory('photosBoxService', require('./services/photos-box-service'))
     .factory('photoLoaderService', require('./services/photo-loader-service'))
 
+    .factory('pushNotificationService', require('./services/push-notification-service'))
     .service('authorizationService', require('./services/authorization-service'))
     .factory('friendsService', require('./services/friends-service'))
     .factory('cameraService', require('./services/camera-service'))
