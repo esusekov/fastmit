@@ -5,6 +5,10 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
 
     return  {
         get image() {
+            return 'data:image/jpeg;base64,' + imageData;
+        },
+
+        get rawImage() {
             return imageData;
         },
 
@@ -20,7 +24,7 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
                 destinationType: Camera.DestinationType.DATA_URL,
                 sourceType: options.sourceType !== undefined ? options.sourceType : Camera.PictureSourceType.CAMERA,
                 allowEdit: options.allowEdit || false,
-                encodingType: Camera.EncodingType.JPEG,
+                encodingType: Camera.EncodingType.PNG,
                 correctOrientation: true
             };
 
@@ -32,8 +36,8 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
                 $q.reject(err);
             }).then(data => {
                 if (data != null) {
-                    imageData = 'data:image/jpeg;base64,' + data;
-                    return imageData;
+                    imageData = data;
+                    return 'data:image/jpeg;base64,' + imageData;
                 }
             });
         }

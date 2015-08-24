@@ -74,7 +74,7 @@ module.exports = /*@ngInject*/ function($scope,
         $scope.editMode = false;
 
         if (success) {
-            var message = generatePhotoMessage(cameraService.image);
+            var message = generatePhotoMessage(cameraService.rawImage);
             sendMessage(message);
         }
     };
