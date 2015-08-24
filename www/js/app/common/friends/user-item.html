@@ -1,6 +1,6 @@
 <div ng-class="{'item-button-right': !user.isFollowee()}">
-    <img ng-if="user.photoUrl" class="item-image" ng-src="{{user.photoUrl}}">
-    <div ng-if="!user.photoUrl" class="item-image avatar-placeholder" ng-style="{background: user.color}">
+    <img ng-if="user.previewUrl" class="item-image" ng-src="{{user.previewUrl}}">
+    <div ng-if="!user.previewUrl" class="item-image avatar-placeholder" ng-style="{background: user.color}">
         <span ng-bind="user.username.charAt(0)"></span>
     </div>
     <h2>{{user.username}}</h2>

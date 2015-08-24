@@ -10,6 +10,7 @@ module.exports = /*@ngInject*/ function(messagesBoxService) {
             this.__isFriend = source.isFriend || true;
             this.__hasUnread = source.hasUnread || false;
             this.__photoUrl = source.photoUrl;
+            this.__previewUrl = source.previewUrl;
             this.__color = source.color;
             this.__publicKey = source.publicKey;
         }
@@ -28,6 +29,10 @@ module.exports = /*@ngInject*/ function(messagesBoxService) {
 
         get photoUrl() {
             return this.__photoUrl;
+        }
+
+        get previewUrl() {
+            return this.__previewUrl;
         }
 
         get isOnline() {
@@ -52,6 +57,7 @@ module.exports = /*@ngInject*/ function(messagesBoxService) {
             this.__isFriend = source.isFriend || this.__isFriend;
             this.__hasUnread = source.hasUnread || this.__hasUnread;
             this.__photoUrl = source.photoUrl || this.__photoUrl;
+            this.__previewUrl = source.previewUrl || this.__previewUrl;
             this.__color = source.color || this.__color;
             this.__publicKey = source.publicKey || this.__publicKey;
         }

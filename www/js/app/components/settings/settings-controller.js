@@ -9,10 +9,12 @@ module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, st
                     cameraService.makePhoto({
                         allowEdit: true
                     }).then(() => {
-                        return httpService.changeAvatar(cameraService.image);
+                        return httpService.changeAvatar(cameraService.rawImage);
                     }).then(() => {
-                        $scope.currentUser.photoUrl = cameraService.image;
-                        storageService.getCurrentUserinfo($scope.currentUser);
+                        return httpService.getUserInfo();
+                    }).then((response) => {
+                        $scope.currentUser = response.data.info;
+                        return storageService.setCurrentUserinfo(response.data.info);
                     });
                     break;
                 case 'gallery':
@@ -20,10 +22,12 @@ module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, st
                         sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
                         allowEdit: true
                     }).then(() => {
-                        return httpService.changeAvatar(cameraService.image);
+                        return httpService.changeAvatar(cameraService.rawImage);
                     }).then(() => {
-                        $scope.currentUser.photoUrl = cameraService.image;
-                        storageService.getCurrentUserinfo($scope.currentUser);
+                        return httpService.getUserInfo();
+                    }).then((response) => {
+                        $scope.currentUser = response.data.info;
+                        return storageService.setCurrentUserinfo(response.data.info);
                     });
                     break;
             }

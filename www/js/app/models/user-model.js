@@ -9,6 +9,7 @@ module.exports = /*@ngInject*/ function(httpService, $q) {
             this.__isOnline = source.isOnline || false;
             this.__isFriend = source.isFriend || false;
             this.__photoUrl = source.photoUrl;
+            this.__previewUrl = source.photoUrl;
             this.__color = source.color;
         }
 
@@ -22,6 +23,10 @@ module.exports = /*@ngInject*/ function(httpService, $q) {
 
         get photoUrl() {
             return this.__photoUrl;
+        }
+
+        get previewUrl() {
+            return this.__previewUrl;
         }
 
         get isOnline() {
