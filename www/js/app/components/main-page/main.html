@@ -9,6 +9,9 @@
                    ng-repeat="friend in topFriends.friends"
                    ng-href="{{friend.chatUrl}}">
                     <friend-item friend="friend" no-options="true"></friend-item>
+                    <div class="message-counter">
+                        <span ng-bind="friend.messagesCount" ng-if="friend.messagesCount > 0"></span>
+                    </div>
                 </a>
             </div>
         </div>

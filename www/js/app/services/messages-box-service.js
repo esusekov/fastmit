@@ -31,6 +31,14 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
             }
         },
 
+        getCountInboxMessages(friendId) {
+            var messages = this.getMessages(friendId);
+
+            return messages.filter(message => {
+                return !message.isMy;
+            }).length;
+        },
+
         getBoxFormatStorage() {
             var messagesStorage = [];
 

@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function() {
+module.exports = /*@ngInject*/ function(messagesBoxService) {
 
     class FriendModel {
         constructor(source) {
@@ -40,6 +40,10 @@ module.exports = /*@ngInject*/ function() {
 
         get publicKey() {
             return this.__publicKey;
+        }
+
+        get messagesCount() {
+            return messagesBoxService.getCountInboxMessages(this.__id);
         }
 
         update(source) {
