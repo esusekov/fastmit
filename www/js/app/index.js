@@ -199,5 +199,20 @@ angular.module('app', [
         }).catch(() => {
             $location.path('/login');
         }).finally($rootScope.authCheck.resolve);
+    })
+
+    //button back change
+    .run(function($ionicPlatform, $location, $ionicPopup) {
+        $ionicPlatform.onHardwareBackButton(() => {
+            var path = $location.path();
+
+            if (path === '/login' || path === '/app/main') {
+                try {
+                    ionic.Platform.exitApp();
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        });
     });
 
