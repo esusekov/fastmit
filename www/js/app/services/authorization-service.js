@@ -34,21 +34,24 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService,
             var privateKey = encryptionService.createPrivateKey(passPhrase);
             data.publicKey = encryptionService.createPublicKey(privateKey);
 
-            return pushNotificationService.register().then(deviceToken => {
-                console.log('DEVICE____TOKEN', deviceToken);
+            //return pushNotificationService.register().then(deviceToken => {
+            //    console.log('DEVICE____TOKEN', deviceToken);
+            //
+            //    return deviceToken;
+            //}).catch((e) => {
+            //    console.log('DEVICE_TOKEN__ERROR', e);
+            //    return null;
+            //}).then(deviceToken => {
+            //    if (deviceToken != null) {
+            //        data.deviceToken = deviceToken;
+            //    }
+            //
+            //    return httpService.register(data);
+            //
+            //})
 
-               return deviceToken;
-            }).catch((e) => {
-                console.log('DEVICE_TOKEN__ERROR', e);
-                return null;
-            }).then(deviceToken => {
-                if (deviceToken != null) {
-                    data.deviceToken = deviceToken;
-                }
 
-                return httpService.register(data);
-
-            }).then(result => {
+            return httpService.register(data).then(result => {
                 console.log(result);
                 isAuth = true;
                 var token = result.data.token;
@@ -88,7 +91,7 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService,
                 chatService.stop();
                 storageService.clearAll();
             }).then(() => {
-                return pushNotificationService.unregister();
+                //return pushNotificationService.unregister();
             });
         },
 
