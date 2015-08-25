@@ -1,6 +1,7 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageService, encryptionService) {
+module.exports = /*@ngInject*/ function(httpService, $q, chatService,
+    storageService, encryptionService, pushNotificationService) {
 
     var isAuth = false;
 
@@ -32,8 +33,6 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
             var passPhrase = encryptionService.generatePassPhrase();
             var privateKey = encryptionService.createPrivateKey(passPhrase);
             data.publicKey = encryptionService.createPublicKey(privateKey);
-
-            console.log('DATA', data);
 
             return httpService.register(data).then(result => {
                 console.log(result);
@@ -68,13 +67,17 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService, storageSer
         },
 
         logout() {
-            return httpService.logout().then(() => {
-                console.log('Logout');
+            isAuth = false;
+            chatService.stop();
+            storageService.clearAll();
 
-                isAuth = false;
-                chatService.stop();
-                storageService.clearAll();
+            httpService.logout().then(result => {
+                console.log('LOGOUT', result);
             });
+
+            //pushNotificationService.unregister().then(result => {
+            //    console.log('UNREGISTER PUSH', result);
+            //});
         },
 
         forgotPassword(data) {

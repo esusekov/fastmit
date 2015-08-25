@@ -21,26 +21,30 @@ module.exports = /*@ngInject*/ function(validationScheme, tv4, typesMessagesCons
 
     return {
         validateMessage(data) {
-            if (validate(data, validationScheme.MESSAGE)) {
-                var message = data.body.message;
-                return validateMessageByType(message);
-            }
+            try {
+                if (validate(data, validationScheme.MESSAGE)) {
+                    var message = data.body.message;
+                    return validateMessageByType(message);
+                }
+            } catch (e) {}
 
             return false;
         },
 
         validateMessages(data) {
-            if (validate(data, validationScheme.MESSAGES)) {
-                var friends = data.body;
+            try {
+                if (validate(data, validationScheme.MESSAGES)) {
+                    var friends = data.body;
 
-                return friends.every(friend => {
-                    var messages = friend.messages;
+                    return friends.every(friend => {
+                        var messages = friend.messages;
 
-                    return messages.every(message => {
-                        return validateMessageByType(message);
+                        return messages.every(message => {
+                            return validateMessageByType(message);
+                        });
                     });
-                });
-            }
+                }
+            } catch (e) {}
 
             return false;
         }

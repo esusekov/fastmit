@@ -18,7 +18,6 @@
     "gulp-browserify": "^0.5.1",
     "gulp-jshint": "^1.9.2",
     "gulp-ng-annotate": "^0.5.2",
-    "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.5.0",
     "gulp-util": "^2.2.14",
     "shelljs": "^0.3.0"
@@ -32,8 +31,10 @@
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
     "cordova-plugin-console",
-    "org.apache.cordova.camera",
-    "org.apache.cordova.splashscreen"
+    {
+      "locator": "https://github.com/phonegap-build/PushPlugin.git",
+      "id": "com.cordova.plugins.pushNotification"
+    }
   ],
   "cordovaPlatforms": [
     {

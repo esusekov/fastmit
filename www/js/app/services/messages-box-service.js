@@ -56,6 +56,25 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
             return messagesStorage;
         },
 
+        getCountInboxMessages(friendId) {
+            var messages = this.getMessages(friendId);
+
+            return messages.filter(message => {
+                return !message.isMy;
+            }).length;
+        },
+
+        getCountOutboxMessagesNotTransferred(friendId) {
+            var messages = this.getMessages(friendId);
+
+            return messages.filter(message => {
+                return (
+                    message.isMy &&
+                    message.stateTransfer.isNotTransferred
+                );
+            }).length;
+        },
+
         setMessage(friendId, message) {
             this.checkMessages(friendId);
             messagesBox[friendId].push(message);
@@ -128,7 +147,7 @@ module.exports = /*@ngInject*/ function(EventEmitter) {
                         stateTransfer.isNotTransferred
                     );
                 } else {
-                    return message.isTypePhoto
+                    return message.isTypePhoto;
                 }
             });
 
