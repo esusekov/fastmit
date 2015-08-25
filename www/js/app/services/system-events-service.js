@@ -2,14 +2,29 @@
 
 module.exports = /*@ngInject*/ function($document) {
 
+    function add(type, callack) {
+        $document.addEventListener(type, callback, false);
+    }
+
+    function remove(type, callback) {
+        $document.removeEventListener(type, callback, false);
+    }
+
     return {
         onPause(callback) {
-            $document.addEventListener('pause', callback, false);
+            add('pause', callback);
         },
 
         offPause(callback) {
-            $document.removeEventListener('pause', callback, false);
-        }
+            remove('pause', callback);
+        },
 
+        onPesume(callback) {
+            add('resume', callback);
+        },
+
+        offResume(callback) {
+            remove('resume', callback);
+        }
     };
 };
