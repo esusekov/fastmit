@@ -1,6 +1,7 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, popupService, httpService, ChangePasswordModel) {
+module.exports = /*@ngInject*/ function($scope, popupService,
+    httpService, ChangePasswordModel, statusResponseService) {
 
     $scope.model = new ChangePasswordModel();
 
@@ -19,13 +20,12 @@ module.exports = /*@ngInject*/ function($scope, popupService, httpService, Chang
 
         httpService.changePassword($scope.model.oldPassword, $scope.model.newPassword1)
             .then(() => {
-                popupService.alert('Пароль успешно изменен');
+                popupService.alert('Пароль успешно изменен!');
                 $scope.reset();
             })
-            .catch((e) => {
-                console.log('Changepass error', e);
-
-                popupService.alert(e.data.response);
+            .catch(error => {
+                var text = statusResponseService.getTextForStatus(error);
+                popupService.alert(text);
                 $scope.reset();
             });
     };

@@ -75,6 +75,4 @@ module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, st
     $scope.changeNotification = function() {
         settingsService.changeNotification();
     };
-
-
 };

@@ -31,7 +31,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi, $q) {
         },
 
         forgotPassword(data) {
-            return $http.post(urlsApi.forgot, data);
+            return $http.get(urlsApi.forgot, data);
         },
 
         getUserInfo() {

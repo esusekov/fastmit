@@ -44,6 +44,7 @@ angular.module('constants', [])
     .service('validationScheme', require('./constants/validation-scheme'));
 
 angular.module('services', [])
+    .service('statusResponseService', require('./services/status-response-service'))
     .service('urlsApi', require('./services/urls-api-service'))
     .service('popupService', require('./services/popup-service'))
     .factory('httpService', require('./services/http-service'))
