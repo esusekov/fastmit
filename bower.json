@@ -4,7 +4,7 @@
   "private": "true",
   "devDependencies": {
     "ionic": "~1.0.1",
-    "ngCordova": "~0.1.12-alpha",
+    "ngCordova": "~0.1.20-alpha",
     "angular-translate": "~2.6.1",
     "angular-localforage": "~1.2.2",
     "angular-websocket": "~1.0.9",
