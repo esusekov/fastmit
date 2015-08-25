@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, storageService, httpService, cameraService) {
+module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, storageService, httpService, cameraService, websocketService) {
 
     $scope.imagePopupConfig = {
         getPhoto(from) {
@@ -44,6 +44,7 @@ module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, st
 
     storageService.getCurrentUserinfo().then((info) => {
         $scope.currentUser = info;
+        $scope.currentUser.isOnline = websocketService.isOpen();
     });
 
     $scope.changeAvatar = function() {
