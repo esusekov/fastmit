@@ -54,6 +54,7 @@ angular.module('services', [])
     .factory('messagesBoxService', require('./services/messages-box-service'))
     .factory('messageFactoryService', require('./services/message-factory-service'))
     .factory('validationMessageService', require('./services/validation-message-serivice'))
+    .factory('systemEventsService', require('./services/system-events-service'))
     .factory('chatService', require('./services/chat-service'))
 
     .factory('photosBoxService', require('./services/photos-box-service'))
