@@ -24,7 +24,7 @@ module.exports = /*@ngInject*/ function($cordovaCamera, $q) {
                 destinationType: Camera.DestinationType.DATA_URL,
                 sourceType: options.sourceType !== undefined ? options.sourceType : Camera.PictureSourceType.CAMERA,
                 allowEdit: options.allowEdit || false,
-                encodingType: Camera.EncodingType.PNG,
+                encodingType: Camera.EncodingType.JPEG,
                 correctOrientation: true
             };
 

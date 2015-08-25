@@ -157,21 +157,14 @@ angular.module('app', [
         noBackdrop: true
     })
 
-    .run(function($ionicPlatform, $ionicSideMenuDelegate, $cordovaPush, popupService) {
+    .run(function($ionicPlatform, $ionicSideMenuDelegate, pushNotificationService) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
 
             console.log('REGISTER');
 
-            $cordovaPush.register({
-                senderID: 20738506412
-            }).then(function(result) {
-                popupService.alert(result);
-            }, function(err) {
-                popupService.alert(err);
-            });
-
+            pushNotificationService.register();
 
             if(window.cordova && window.cordova.plugins.Keyboard) {
                 window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
