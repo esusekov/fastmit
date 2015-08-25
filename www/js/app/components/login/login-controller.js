@@ -1,16 +1,22 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $ionicHistory, $location, LoginModel, popupService) {
+module.exports = /*@ngInject*/ function($scope, $ionicHistory,
+    $location, LoginModel, popupService, $ionicLoading, statusResponseService) {
 
     $scope.model = new LoginModel();
 
     $scope.signIn = function() {
+        $ionicLoading.show();
+
         $scope.model.signIn().then(() => {
             console.log('HISTORY', $ionicHistory.viewHistory());
             $scope.model.clear();
             $location.path('/app/main');
-        }).catch(() => {
-            popupService.alert('Неправильно введен логин или пароль');
+        }).catch(error => {
+            var text = statusResponseService.getTextForStatus(error);
+            popupService.alert(text);
+        }).finally(() => {
+            $ionicLoading.hide();
         });
     };
 

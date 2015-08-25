@@ -102,7 +102,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
                         return messageFactoryService.createIn(messageData);
                     });
                 }
-            }).then(() => {
+            }).finally(() => {
                 websocketInteractionService.start();
                 websocketInteractionService.on(handlerOnMessage);
 

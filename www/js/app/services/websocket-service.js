@@ -13,13 +13,13 @@ module.exports = /*@ngInject*/ function($websocket,
         }
 
         start() {
-            this.open();
             this.state = true;
+            this.open();
         }
 
         stop() {
-            this.close();
             this.state = false;
+            this.close();
         }
 
         open() {
