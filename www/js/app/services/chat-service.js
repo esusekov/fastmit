@@ -2,7 +2,8 @@
 
 module.exports = /*@ngInject*/ function (websocketInteractionService,
     messageFactoryService, messagesBoxService, eventer,
-    storageService, photoLoaderService, encryptionMessageService, validationMessageService) {
+    storageService, photoLoaderService, encryptionMessageService,
+    validationMessageService, localNotificationService) {
 
     function send(friendId, message) {
         console.log('Send', message);
@@ -56,6 +57,11 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
             case 'message':
                 if (validationMessageService.validateMessage(data)) {
                     setMessageInBox(body);
+                    try {
+                        localNotificationService.notifyNewMessage(body.friendId);
+                    } catch (e) {
+                        console.log('ERORRRR NOTIFY MESSAGE', e);
+                    }
                 }
                 break;
 

@@ -78,10 +78,6 @@ module.exports = /*@ngInject*/ function(httpService, $q, chatService,
             //pushNotificationService.unregister().then(result => {
             //    console.log('UNREGISTER PUSH', result);
             //});
-        },
-
-        forgotPassword(data) {
-            return httpService.forgotPassword(data);
         }
     };
 };

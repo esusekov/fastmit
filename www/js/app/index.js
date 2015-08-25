@@ -54,6 +54,8 @@ angular.module('services', [])
     .factory('messagesBoxService', require('./services/messages-box-service'))
     .factory('messageFactoryService', require('./services/message-factory-service'))
     .factory('validationMessageService', require('./services/validation-message-serivice'))
+    .factory('systemEventsService', require('./services/system-events-service'))
+    .factory('localNotificationService', require('./services/local-notification-service'))
     .factory('chatService', require('./services/chat-service'))
 
     .factory('photosBoxService', require('./services/photos-box-service'))
@@ -75,6 +77,10 @@ angular.module('login', [])
 
 angular.module('forgot', [])
     .controller('ForgotController', require('./components/forgot/forgot-controller'));
+
+angular.module('recovery', [])
+    .controller('RecoveryController', require('./components/recovery/recovery-controller'))
+    .factory('RecoveryModel', require('./components/recovery/recovery-model'));
 
 angular.module('registration', [])
     .controller('RegistrationController', require('./components/registration/registration-controller'))
@@ -137,6 +143,7 @@ angular.module('app', [
         'sidebar',
         'login',
         'registration',
+        'recovery',
         'forgot',
         'settings',
         'friends',

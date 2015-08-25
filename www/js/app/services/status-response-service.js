@@ -11,8 +11,11 @@ module.exports = /*@ngInject*/ function() {
         ACCESS_DENIED: 'Ошибка: несанкционированный доступ!',
         WRONG_LOGIN_PASSWORD: 'Неправильно введен логин или пароль!',
 
-        ERROR: 'Произошла ошибка, попробуйте повторить еще раз!',
-        WRONG_OLD_PASSWORD: 'Неправильно введен старый пароль!'
+        WRONG_OLD_PASSWORD: 'Неправильно введен старый пароль!',
+
+        WRONG_TEMPORARY_PASSWORD: 'Неправильно введен временный пароль!',
+
+        ERROR: 'Произошла ошибка, попробуйте повторить еще раз!'
     };
 
     function checkStatusInternet(data) {
@@ -39,6 +42,12 @@ module.exports = /*@ngInject*/ function() {
 
                         case 'Wrong old password':
                             return statusesResponses.WRONG_OLD_PASSWORD;
+
+                        case 'Wrong tmp password or expired':
+                            return statusesResponses.WRONG_TEMPORARY_PASSWORD;
+
+                        default:
+                            return statusesResponses.ERROR;
                     }
                 }
 
