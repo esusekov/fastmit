@@ -21,6 +21,12 @@ module.exports = /*@ngInject*/ function($stateProvider, $urlRouterProvider) {
             controller: 'ForgotController'
         })
 
+        .state('recovery', {
+            url: '/recovery',
+            templateUrl: 'js/app/components/recovery/recovery.html',
+            controller: 'RecoveryController'
+        })
+
         .state('app', {
             url: '/app',
             abstract: true,

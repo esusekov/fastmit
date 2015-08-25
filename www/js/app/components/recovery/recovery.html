@@ -1,0 +1,39 @@
+<ion-view view-title="{{ 'RECOVERY_PASSWORD' | translate }}">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-back-button class="button-clear button-icon ion-android-arrow-back">
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content scroll="false">
+        <form name="passwordForm" class="login row row-center">
+            <div class="list list-inset col col-80 col-offset-10">
+
+                <div class="input-field">
+                    <input id="email" type="email" ng-model="model.email" name="email" required ng-pattern="emailPattern">
+                    <label for="email">{{ 'EMAIL' | translate }}</label>
+                </div>
+
+                <div class="input-field">
+                    <input id="tmpPassword" type="password" name="tmpPassword" ng-model="model.tmpPassword" required ng-minlength="8">
+                    <label for="tmpPassword" ng-class="{active: isNotEmpty(model.tmpPassword)}">{{ 'ENTER_TEMPORARY_PASSWORD' | translate }}</label>
+                </div>
+
+                <div class="input-field">
+                    <input id="newPassword1" type="password" name="newPassword1" ng-model="model.newPassword1" required ng-minlength="8">
+                    <label for="newPassword1" ng-class="{active: isNotEmpty(model.newPassword1)}">{{ 'ENTER_NEW_PASSWORD' | translate }}</label>
+                </div>
+                <div class="input-field">
+                    <input id="newPassword2" type="password" name="newPassword2" ng-model="model.newPassword2" required ng-minlength="8">
+                    <label for="newPassword2" ng-class="{active: isNotEmpty(model.newPassword2)}">{{ 'REENTER_NEW_PASSWORD' | translate }}</label>
+                </div>
+
+                <div class="padding">
+                    <button class="button button-block button-positive waves-effect waves-light btn" ng-click="recoverPassword()"
+                            ng-disabled="passwordForm.$invalid">
+                        {{ 'CHANGE_PASSWORD' | translate }}
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </ion-content>
+</ion-view>

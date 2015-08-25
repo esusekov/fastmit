@@ -22,7 +22,9 @@ module.exports = /*@ngInject*/ function($translateProvider) {
         CHANGE_PASSWORD: 'Change password',
         ENTER_OLD_PASSWORD: 'Enter old password',
         ENTER_NEW_PASSWORD: 'Enter new password',
-        REENTER_NEW_PASSWORD: 'Reenter new password'
+        REENTER_NEW_PASSWORD: 'Reenter new password',
+        RECOVERY_PASSWORD: 'Recovery password',
+        TEMPORARY_PASSWORD: 'Enter temporary password'
     });
 
     $translateProvider.translations('ru', {
@@ -46,7 +48,9 @@ module.exports = /*@ngInject*/ function($translateProvider) {
         CHANGE_PASSWORD: 'Изменить пароль',
         ENTER_OLD_PASSWORD: 'Введите старый пароль',
         ENTER_NEW_PASSWORD: 'Введите новый пароль',
-        REENTER_NEW_PASSWORD: 'Повторно введите новый пароль'
+        REENTER_NEW_PASSWORD: 'Повторно введите новый пароль',
+        RECOVERY_PASSWORD: 'Востановление пароля',
+        ENTER_TEMPORARY_PASSWORD: 'Введите временный пароль'
     });
 
     $translateProvider.preferredLanguage('ru');

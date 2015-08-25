@@ -76,6 +76,10 @@ angular.module('login', [])
 angular.module('forgot', [])
     .controller('ForgotController', require('./components/forgot/forgot-controller'));
 
+angular.module('recovery', [])
+    .controller('RecoveryController', require('./components/recovery/recovery-controller'))
+    .factory('RecoveryModel', require('./components/recovery/recovery-model'));
+
 angular.module('registration', [])
     .controller('RegistrationController', require('./components/registration/registration-controller'))
     .factory('RegistrationModel', require('./components/registration/registration-model'));
@@ -137,6 +141,7 @@ angular.module('app', [
         'sidebar',
         'login',
         'registration',
+        'recovery',
         'forgot',
         'settings',
         'friends',

@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function($scope, popupService,
-    httpService, ChangePasswordModel, statusResponseService) {
+    httpService, ChangePasswordModel, statusResponseService, $ionicLoading) {
 
     $scope.model = new ChangePasswordModel();
 
@@ -18,6 +18,8 @@ module.exports = /*@ngInject*/ function($scope, popupService,
             return;
         }
 
+        $ionicLoading.show();
+
         httpService.changePassword($scope.model.oldPassword, $scope.model.newPassword1)
             .then(() => {
                 popupService.alert('Пароль успешно изменен!');
@@ -27,11 +29,12 @@ module.exports = /*@ngInject*/ function($scope, popupService,
                 var text = statusResponseService.getTextForStatus(error);
                 popupService.alert(text);
                 $scope.reset();
+            }).finally(() => {
+                $ionicLoading.hide();
             });
     };
 
     $scope.isNotEmpty = function(value) {
         return value != null && value !== '';
     };
-
 };

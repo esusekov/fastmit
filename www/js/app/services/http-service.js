@@ -6,7 +6,7 @@ module.exports = /*@ngInject*/ function($http, urlsApi, $q) {
 
     return {
         isToken() {
-            return token !== null;
+            return userToken !== null;
         },
 
         setToken(token) {
@@ -31,7 +31,13 @@ module.exports = /*@ngInject*/ function($http, urlsApi, $q) {
         },
 
         forgotPassword(data) {
-            return $http.get(urlsApi.forgot, data);
+            return $http.get(urlsApi.forgot, {
+                params: data
+            });
+        },
+
+        recoverPassword(data) {
+            return $http.post(urlsApi.recoverPassword, data);
         },
 
         getUserInfo() {
