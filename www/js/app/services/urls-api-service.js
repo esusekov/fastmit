@@ -20,6 +20,7 @@ module.exports = /*@ngInject*/ function() {
         search: main_url + 'friends/search',
         photoByUrl: main_url + 'chat/get-photo',
         recoverPassword: main_url + 'recover-password',
+        setDeviceToken: main_url + 'set-device-token',
         websocketInteraction: 'ws://95.85.8.141:8888/some-secret-api/websocket'
     }
 };

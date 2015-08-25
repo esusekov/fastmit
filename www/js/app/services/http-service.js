@@ -101,6 +101,13 @@ module.exports = /*@ngInject*/ function($http, urlsApi, $q) {
                 token: userToken,
                 photoUrl: url
             });
+        },
+
+        setDeviceToken(deviceToken) {
+            return $http.post(urlsApi.setDeviceToken, {
+                token: userToken,
+                deviceToken: deviceToken
+            });
         }
     };
 };

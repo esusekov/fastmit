@@ -34,7 +34,8 @@
     {
       "locator": "https://github.com/phonegap-build/PushPlugin.git",
       "id": "com.cordova.plugins.pushNotification"
-    }
+    },
+    "org.apache.cordova.dialogs"
   ],
   "cordovaPlatforms": [
     {
