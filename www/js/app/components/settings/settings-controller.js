@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, storageService, httpService, cameraService) {
+module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, storageService, httpService, cameraService, websocketInteractionService) {
 
     $scope.imagePopupConfig = {
         getPhoto(from) {
@@ -82,5 +82,9 @@ module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, st
 
     $scope.changeVibration = function() {
         settingsService.changeVibration();
-    }
+    };
+
+    $scope.$on("$ionicView.enter", function(){
+        $scope.currentUser.isOnline = websocketInteractionService.isOpened();
+    });
 };
