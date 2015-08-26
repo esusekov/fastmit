@@ -12,7 +12,7 @@ module.exports = /*@ngInject*/ function($cordovaGlobalization) {
 
     return {
         language: 'ru',
-        notification: true
+        notification: true,
+        vibration: true
     };
-
 };

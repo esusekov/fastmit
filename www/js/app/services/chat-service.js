@@ -58,6 +58,7 @@ module.exports = /*@ngInject*/ function (websocketInteractionService,
                 if (validationMessageService.validateMessage(data)) {
                     setMessageInBox(body);
                     try {
+                        localNotificationService.vibrate();
                         localNotificationService.notifyNewMessage(body.friendId);
                     } catch (e) {
                         console.log('ERORRRR NOTIFY MESSAGE', e);

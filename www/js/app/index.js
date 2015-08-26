@@ -50,12 +50,16 @@ angular.module('services', [])
     .factory('httpService', require('./services/http-service'))
     .service('storageService', require('./services/storage-service'))
     .factory('websocketService', require('./services/websocket-service'))
+
+    .service('settingsService', require('./services/settings-service'))
+    .factory('systemEventsService', require('./services/system-events-service'))
+    .factory('friendsService', require('./services/friends-service'))
+    .factory('localNotificationService', require('./services/local-notification-service'))
+
     .factory('websocketInteractionService', require('./services/websocket-interaction-service'))
     .factory('messagesBoxService', require('./services/messages-box-service'))
     .factory('messageFactoryService', require('./services/message-factory-service'))
     .factory('validationMessageService', require('./services/validation-message-serivice'))
-    .factory('systemEventsService', require('./services/system-events-service'))
-    .factory('localNotificationService', require('./services/local-notification-service'))
     .factory('chatService', require('./services/chat-service'))
 
     .factory('photosBoxService', require('./services/photos-box-service'))
@@ -63,7 +67,6 @@ angular.module('services', [])
 
     .factory('pushNotificationService', require('./services/push-notification-service'))
     .service('authorizationService', require('./services/authorization-service'))
-    .factory('friendsService', require('./services/friends-service'))
     .factory('cameraService', require('./services/camera-service'))
     .factory('encryptionService', require('./services/encryption-service'))
     .factory('encryptionMessageService', require('./services/encryption-message-service'));
@@ -87,9 +90,8 @@ angular.module('registration', [])
     .factory('RegistrationModel', require('./components/registration/registration-model'));
 
 angular.module('settings', [])
-    .controller('SettingsController', require('./components/settings/settings-controller'))
-    .service('settingsDescription', require('./components/settings/settings-description'))
-    .service('settingsService', require('./components/settings/settings-service'));
+    .controller('SettingsController', require('./components/settings/settings-controller'));
+    //.service('settingsDescription', require('./components/settings/settings-description'))
 
 angular.module('change-password', [])
     .controller('ChangePasswordController', require('./components/change-password/change-password-controller'))
@@ -171,8 +173,11 @@ angular.module('app', [
             // for form inputs)
 
             console.log('REGISTER');
+            try {
+                pushNotificationService.register();
+            } catch (e) {
 
-            pushNotificationService.register();
+            }
 
             if(window.cordova && window.cordova.plugins.Keyboard) {
                 window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -190,7 +195,7 @@ angular.module('app', [
         });
     })
 
-    .run(function($ionicPlatform, settingsService, settingsDescription) {
+    .run(function($ionicPlatform, settingsService) {
         $ionicPlatform.ready(function() {
 
             //settingsDescription.then(description => {
@@ -199,9 +204,8 @@ angular.module('app', [
             //        $translate.use(settings.language);
             //    });
             //});
-            console.log(settingsDescription);
-            settingsService.init(settingsDescription);
 
+            settingsService.init();
         });
     })
 

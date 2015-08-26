@@ -1,8 +1,8 @@
 "use strict";
 
 module.exports = /*@ngInject*/ function($rootScope,
-    $ionicPlatform, $cordovaLocalNotification, systemEventsService,
-    $location, friendsService, settingsService) {
+    $ionicPlatform, $cordovaLocalNotification, $cordovaVibration,
+    systemEventsService, $location, friendsService, settingsService) {
 
     var stateNotification = false;
 
@@ -66,6 +66,14 @@ module.exports = /*@ngInject*/ function($rootScope,
                     type: 'friend'
                 }
             });
+        },
+
+        vibrate() {
+            var DURATION_VIBRATION = 100; //ms
+
+            if (settingsService.vibration) {
+                $cordovaVibration.vibrate(DURATION_VIBRATION);
+            }
         }
     };
 };

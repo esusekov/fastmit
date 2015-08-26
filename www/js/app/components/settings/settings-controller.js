@@ -75,4 +75,12 @@ module.exports = /*@ngInject*/ function($scope, $ionicPopup, settingsService, st
     $scope.changeNotification = function() {
         settingsService.changeNotification();
     };
+
+    $scope.vibrationEnabled = function() {
+        return settingsService.vibration;
+    };
+
+    $scope.changeVibration = function() {
+        settingsService.changeVibration();
+    }
 };

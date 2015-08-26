@@ -1,13 +1,13 @@
 "use strict";
 
-module.exports = /*@ngInject*/ function($document) {
+module.exports = /*@ngInject*/ function() {
 
-    function add(type, callack) {
-        $document.addEventListener(type, callback, false);
+    function add(type, callback) {
+        document.addEventListener(type, callback, false);
     }
 
     function remove(type, callback) {
-        $document.removeEventListener(type, callback, false);
+        document.removeEventListener(type, callback, false);
     }
 
     return {
@@ -19,7 +19,7 @@ module.exports = /*@ngInject*/ function($document) {
             remove('pause', callback);
         },
 
-        onPesume(callback) {
+        onResume(callback) {
             add('resume', callback);
         },
 
